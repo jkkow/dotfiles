@@ -27,7 +27,7 @@ config.background = {
     {
         -- background image
         source = {
-            File = "C:\\Users\\jkkow\\.config\\wezterm\\bg-monterey.png", -- The file located in the same directory
+            File = wezterm.config_dir .. '/bg-monterey.png', -- The file located in the same directory
         },
         opacity = 0.9,                                                    -- Adjust the transparency (0.0 to 1.0)
         vertical_align = "Middle",                                        -- Options: "Top", "Middle", "Bottom"
