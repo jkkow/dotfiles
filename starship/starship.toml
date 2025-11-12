@@ -1,0 +1,77 @@
+palette = "tokyo_night"
+
+format = """
+$os \
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$python\
+$cmd_duration\
+$line_break\
+$character"""
+
+[palettes.tokyo_night]
+bg = "#1a1b26"
+fg = "#c0caf5"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#a9b1d6"
+black = "#15161e"
+comment = "#565f89"
+orange = "#ff9e64"
+purple = "#9d7cd8"
+
+[os]
+disabled = false
+style = 'purple'
+
+[os.symbols]
+Windows = " "
+Ubuntu = "󰕈 "
+Arch = "󰣇 "
+Debian = "󰣚 "
+
+[directory]
+style = 'bold blue'
+format = '[$path ]($style)'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = false
+
+[git_branch]
+style = 'green'
+symbol = ' '
+format = '[on](white) [$symbol$branch ]($style)'
+
+[git_status]
+style = 'orange'
+format = '([$all_status$ahead_behind]($style) )'
+
+[fill]
+symbol = " "
+
+[python]
+style = 'cyan'
+symbol = ' '
+format = '[${symbol}${pyenv_prefix}(${version} )]($style)[(\($virtualenv\))](yellow)'
+pyenv_version_name = true
+pyenv_prefix = ''
+version_format = 'v${raw}'
+disabled = false
+
+[cmd_duration]
+style = 'comment'
+min_time = 500
+format = '[$duration]($style)'
+disabled = false
+show_notifications = true
+
+[character]
+success_symbol = '[>>](bold green)'
+error_symbol = '[>>](bold red)'
+vimcmd_symbol = '[><](bold yellow)'
