@@ -118,5 +118,6 @@ fi
 
 eval "$(starship init bash)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
-export PATH="$HOME/.local/bin:$PATH"
+
 eval "$(zoxide init bash)"
+export PATH="$HOME/.local/bin:$PATH"
