@@ -1,11 +1,9 @@
 # Displaying files and directories
 ## Powershell command
-function lld { Get-ChildItem -Directory} # list directories only
-function llf { Get-ChildItem -File} # list files only
-function lla { Get-ChildItem -Attributes Hidden, !Hidden} # list hidden and non-hidden files
-
-## eza command
-function tree { & eza -h --icons=auto --tree --level=$args}
+function ll { lsd -l}
+function la { lsd -a }
+function lla { lsd -la }
+function tree { & lsd --tree --=$args}
 
 # copying current folder name
 function cpwd { (pwd).path | Set-Clipboard }
@@ -29,7 +27,7 @@ Set-Alias -Name vi -Value nvim
 
 # fzf commands
 # using fzf find process ID and copy to clip board
-# change [5] for ID column number accordingly 
+# change [5] for ID column number accordingly
 function fzf_process { Get-Process | fzf | ForEach-Object { ($_ -split '\s+')[5].Trim() } | Set-Clipboard }
 # Create stop process function
 # Gets process ID and stop the process
