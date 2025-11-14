@@ -122,7 +122,8 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 eval "$(zoxide init bash)"
 export PATH="$HOME/.local/bin:$PATH"
 set -o vi
-. "$HOME/.cargo/env"
+
+source "$HOME/.cargo/env"
 
 # Set up fzf key bindings and fuzzy completion
 # Enable fzf key bindings and auto-completion
