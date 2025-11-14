@@ -108,6 +108,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Replace ls with eza
+alias ls='eza --icons --sort=Name'
+alias ll='eza --icons --header --sort=Name -l'
+alias la='eza --icons --header --sort=Name -la'
+alias lt='eza --tree --icons --sort=type'
+
 eval "$(starship init bash)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
