@@ -122,3 +122,26 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 eval "$(zoxide init bash)"
 export PATH="$HOME/.local/bin:$PATH"
 set -o vi
+. "$HOME/.cargo/env"
+
+# Set up fzf key bindings and fuzzy completion
+# Enable fzf key bindings and auto-completion
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+alias bat='/usr/bin/batcat'
+alias fd='fdfind'
+
+# Use fd (if installed) for faster file listing in fzf
+# fallback to find if fd is not available
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git 2> /dev/null || find . -type f'
+
+# Preview files with bat and directories with eza in Ctrl-T
+export FZF_CTRL_T_OPTS="--preview '[[ -d {} ]] && eza --tree --color=always {} | head -200 || bat --style=numbers --color=always --line-range :500 {}'"
+
+# Preview directories with eza in Alt-C
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --level=2 {} | head -200'"
+
+# Optional: use bat for fzf file previews in general
+export FZF_PREVIEW_COMMAND='bat --style=numbers --color=always --line-range :500 {}'
+
+# Optional: set fzf layout and colors
+export FZF_DEFAULT_OPTS='--height 50% --layout=default --border --color=hl:#dd4bf'
