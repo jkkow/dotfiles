@@ -91,6 +91,13 @@ fi
 alias ll='lsd -l'
 alias la='lsd -a'
 alias lla='lsd -la'
+lt() {
+    if [[ -n "$1"]]; then
+        lsd --tree --depth "$1"
+    else
+        lsd --tree
+    fi
+}
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -121,3 +128,4 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 eval "$(zoxide init bash)"
 export PATH="$HOME/.local/bin:$PATH"
+set -o vi
