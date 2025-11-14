@@ -128,8 +128,6 @@ source "$HOME/.cargo/env"
 # Set up fzf key bindings and fuzzy completion
 # Enable fzf key bindings and auto-completion
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-alias bat='/usr/bin/batcat'
-alias fd='fdfind'
 
 # Use fd (if installed) for faster file listing in fzf
 # fallback to find if fd is not available
@@ -145,4 +143,4 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always --level=2 {} | head 
 export FZF_PREVIEW_COMMAND='bat --style=numbers --color=always --line-range :500 {}'
 
 # Optional: set fzf layout and colors
-export FZF_DEFAULT_OPTS='--height 50% --layout=default --border --color=hl:#dd4bf'
+export FZF_DEFAULT_OPTS='--height 50% --layout=default --border --color=dark'
