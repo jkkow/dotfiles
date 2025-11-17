@@ -1,9 +1,19 @@
 # Displaying files and directories
 ## Powershell command
-function ll { lsd -l}
-function la { lsd -a }
-function lla { lsd -la }
-function tree { & lsd --tree --=$args}
+function ls {eza --icons --sort=Name}
+function ll { eza --icons --header --sort=Name -l }
+function la { eza --icons --header --sort=Name -la }
+function lt {
+    param (
+        [string]$Level
+    )
+
+    if ($Level -match '^\d+$') {
+        & eza --tree --icons --sort=type --level=$Level
+    } else {
+        & eza --tree --icons --sort=type
+    }
+}
 
 # copying current folder name
 function cpwd { (pwd).path | Set-Clipboard }
@@ -96,5 +106,20 @@ function fzf_stopp {
     catch {
         # Handle errors
         Write-Host "Failed to terminate processes: $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
+# fzf + ripgrep 
+function ripf {
+    $selection = rg --column --line-number --no-heading --color=always --smart-case "" | fzf --ansi
+
+    if ($selection) {
+        $parts = $selection -split ':'
+        $file = $parts[0]
+        $line = $parts[1]
+        if ($file -and $line) {
+            # Replace 'nvim' with your preferred editor (e.g., 'code', 'notepad', 'vim')
+            nvim "+$line" "$file"
+        }
     }
 }
