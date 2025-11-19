@@ -1,8 +1,8 @@
 # Displaying files and directories
 ## Powershell command
-function ls {eza --icons --sort=Name}
-function ll { eza --icons --header --sort=Name -l }
-function la { eza --icons --header --sort=Name -la }
+function ls { eza --icons --sort=type }
+function ll { eza --icons --header --sort=type -l }
+function la { eza --icons --header --sort=type -la }
 function lt {
     param (
         [string]$Level
