@@ -36,7 +36,7 @@ config.background = {
     {
         -- Add an overlay color to the background image
         source = {
-            Color = "#170738",
+            Color = "#0c2043",
         },
         width = "100%",
         height = "100%",
