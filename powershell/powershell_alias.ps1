@@ -1,5 +1,6 @@
 # Displaying files and directories
 ## Powershell command
+if (Test-Path Alias:ls) { Remove-Item Alias:ls }
 function ls { eza --icons --sort=type }
 function ll { eza --icons --header --sort=type -l }
 function la { eza --icons --header --sort=type -la }
