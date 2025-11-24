@@ -29,7 +29,7 @@ Use the following command
 setx GLAZEWM_CONFIG_PATH C:\Users\jkkow\.config\glazewm\config.yaml
 ```
 
-This `setx` command set a environment variable permanently so that you don't need to set the path whenever you remoot or start a new session.
+This `setx` command set a environment variable permanently so that you don't need to set the path whenever you remoot or re-start a new session.
 you should locate config file (`config.yaml`) for GlazeWM here.
 
 ## Set symboliclink 
@@ -39,5 +39,4 @@ Remote Github repo
 ```
 git@github.com:jkkow/dotfiles.git
 ```
-Find configuration for the Glazewm is in the 'glazewm' folder.
-Use that as a symboliclink source.
+Use `config.yaml` file in the glzaewm folder for the symboliclink source.
