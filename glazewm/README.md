@@ -21,13 +21,23 @@ When GlazeWM installed and _run for the first time_, `.glzr\glazewm` folder is c
 
 `C:\Users\user_name\.glzr\`
 
+Change the config path to the my custom config folder.
+
+Use the following command
+
+```
+setx GLAZEWM_CONFIG_PATH C:\Users\jkkow\.config\glazewm\config.yaml
+```
+
+This `setx` command set a environment variable permanently so that you don't need to set the path whenever you remoot or start a new session.
 you should locate config file (`config.yaml`) for GlazeWM here.
-For this, you're going to use personal git folder. `https://github.com/jkkow/glazewm`
 
-## Git clone
+## Set symboliclink 
 
-First remove the `\glazewm` folder in comand line, and then clone config files from this git repo.
+Remote Github repo
 
 ```
-git clone git@github.com:jkkow/glazewm.git
+git@github.com:jkkow/dotfiles.git
 ```
+Find configuration for the Glazewm is in the 'glazewm' folder.
+Use that as a symboliclink source.
