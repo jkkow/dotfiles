@@ -61,7 +61,7 @@ window_effects:
     # ** Exclusive to Windows 11 due to API limitations.
     border:
       enabled: true
-      color: "#9850f4"
+      color: "#166962"
 
     # Remove the title bar from the window's frame. Note that this can
     # cause rendering issues for some applications.
@@ -73,7 +73,7 @@ window_effects:
     corner_style:
       enabled: true
       # Allowed values: 'square', 'rounded', 'small_rounded'.
-      style: "small_rounded"
+      style: "rounded"
 
     # Change the transparency of the window.
     transparency:
