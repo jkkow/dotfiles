@@ -15,7 +15,10 @@ config.font = wezterm.font_with_fallback({
 })
 config.window_background_opacity = 0.95
 config.window_decorations = "RESIZE"
-config.window_close_confirmation = "AlwaysPrompt"
+
+-- Options: "AlwaysPrompt", "NeverPrompt", "PromptOnQuit"
+config.window_close_confirmation = "NeverPrompt"
+
 config.scrollback_lines = 3000
 config.default_workspace = "home"
 config.initial_cols = 120
