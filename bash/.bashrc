@@ -144,3 +144,4 @@ export FZF_PREVIEW_COMMAND='bat --style=numbers --color=always --line-range :500
 
 # Optional: set fzf layout and colors
 export FZF_DEFAULT_OPTS='--height 50% --layout=default --border --color=dark'
+. "$HOME/.cargo/env"
