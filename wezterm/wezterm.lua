@@ -13,25 +13,27 @@ config.font = wezterm.font_with_fallback({
     { family = "JetBrainsMono Nerd Font",    scale = 1.03, weight = "Bold" },
     { family = "D2CodingLigature Nerd Font", scale = 1.0,  weight = "Bold" },
 })
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.95
 config.window_decorations = "RESIZE"
 config.window_close_confirmation = "AlwaysPrompt"
 config.scrollback_lines = 3000
 config.default_workspace = "home"
 config.initial_cols = 120
 config.initial_rows = 30
-config.default_cursor_style = "BlinkingBar"
-config.enable_tab_bar = false
+config.default_cursor_style = "BlinkingUnderline"
+config.enable_tab_bar = true
+
 
 config.background = {
     {
         -- background image
         source = {
-            File = wezterm.config_dir .. '/images/bg-monterey.png', -- The file located in the same directory
+            File = wezterm.config_dir .. '/images/dark-desert.jpg', -- The file located in the same directory
         },
-        opacity = 0.9,                                                    -- Adjust the transparency (0.0 to 1.0)
-        vertical_align = "Middle",                                        -- Options: "Top", "Middle", "Bottom"
-        horizontal_align = "Center",                                      -- Options: "Left", "Center", "Right"
+        opacity = 1.0,                                              -- Adjust the transparency (0.0 to 1.0)
+        vertical_align = "Middle",                                  -- Options: "Top", "Middle", "Bottom"
+        horizontal_align = "Center",                                -- Options: "Left", "Center", "Right"
+        hsb = { brightness = 0.1 },
     },
     {
         -- Add an overlay color to the background image
