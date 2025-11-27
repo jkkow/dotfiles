@@ -38,6 +38,7 @@ general:
   # - 'true': Show all windows (regardless of workspace).
   # - 'false': Only show windows from the currently shown workspaces.
   show_all_in_taskbar: true
+  move_step_size: 1
 
 gaps:
   # Whether to scale the gaps with the DPI of the monitor.
@@ -48,7 +49,7 @@ gaps:
 
   # Gap between windows and the screen edge.
   outer_gap:
-    top: '35px'
+    top: '40px'
     right: '2px'
     bottom: '2px'
     left: '2px'
@@ -60,7 +61,7 @@ window_effects:
     # ** Exclusive to Windows 11 due to API limitations.
     border:
       enabled: true
-      color: '#f2ce97'
+      color: '#9850f4'
 
     # Remove the title bar from the window's frame. Note that this can
     # cause rendering issues for some applications.
@@ -149,22 +150,23 @@ window_rules:
       - window_process: { equals: 'PowerToys' }
         window_title: { regex: '.*? - Peek' }
 
-      # Ignore Lively Wallpaper windows
-      - window_process: { equals: 'Lively' }
-        window_class: { regex: 'HwndWrapper' }
 
+  - commands: ['set-floating']
+    match:
+      - window_process: { equals: 'Fusion360' }
+        window_title:   { equals: 'PARAMETERS' }
 
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
   - name: 'resize'
     keybindings:
-      - commands: ['resize --width -1%']
+      - commands: ['resize --width -2%']
         bindings: ['h', 'left']
-      - commands: ['resize --width +1%']
+      - commands: ['resize --width +2%']
         bindings: ['l', 'right']
-      - commands: ['resize --height +1%']
+      - commands: ['resize --height +2%']
         bindings: ['k', 'up']
-      - commands: ['resize --height -1%']
+      - commands: ['resize --height -2%']
         bindings: ['j', 'down']
       # Press enter/escape to return to default keybindings.
       - commands: ['wm-disable-binding-mode --name resize']
@@ -192,13 +194,13 @@ keybindings:
     bindings: ['alt+shift+j', 'alt+shift+down']
 
   # Resize focused window by a percentage or pixel amount.
-  - commands: ['resize --width -1%']
+  - commands: ['resize --width -2%']
     bindings: ['alt+y']
-  - commands: ['resize --width +1%']
+  - commands: ['resize --width +2%']
     bindings: ['alt+o']
-  - commands: ['resize --height +1%']
+  - commands: ['resize --height +2%']
     bindings: ['alt+i']
-  - commands: ['resize --height -1%']
+  - commands: ['resize --height -2%']
     bindings: ['alt+u']
 
   # As an alternative to the resize keybindings above, resize mode enables
@@ -215,7 +217,7 @@ keybindings:
   # Change tiling direction. This determines where new tiling windows will
   # be inserted.
   - commands: ['toggle-tiling-direction']
-    bindings: ['alt+shift+.']
+    bindings: ['alt+shift+/']
 
   # Change focus from tiling windows -> floating -> fullscreen.
   - commands: ['wm-cycle-focus']
