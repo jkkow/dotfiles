@@ -1,0 +1,39 @@
+# =========================
+# Preview configuration
+# =========================
+[preview]
+# Allow larger images (default is ~5 MB)
+max_size   = 20_000_000   # 20 MB
+max_width  = 8000         # max pixel width
+max_height = 8000         # max pixel height
+
+# =========================
+# Opener configuration
+# =========================
+[opener.text]
+run  = "bat --style=plain --color=always %*"
+desc = "Preview text files with syntax highlighting"
+
+[opener.image]
+run  = "viu -w 80 -h 40 %*"
+desc = "Image preview with viu"
+
+[opener.pdf]
+run  = "pdftoppm -png %* | chafa"
+desc = "Preview PDFs as images"
+
+[opener.video]
+run  = "ffmpegthumbnailer -i %* -o - | chafa"
+desc = "Preview video thumbnails"
+
+# =========================
+# General tweaks
+# =========================
+[manager]
+show_hidden = true        # show dotfiles by default
+sort_by     = "name"      # sort files by name
+reverse     = false       # normal order
+case_sensitive = false    # case-insensitive sorting
+
+[log]
+level = "warn"            # reduce noise in logs
