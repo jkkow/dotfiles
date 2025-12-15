@@ -15,7 +15,7 @@ function z {
 # Redefine the 'cd' command (hooks the original Set-Location)
 # This part is crucial for automatically adding directories to the database.
 function cd {
-    Set-Location @args | Out-Null 
+    Set-Location @args | Out-Null
     & zoxide add .
 }
 
