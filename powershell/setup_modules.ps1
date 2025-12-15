@@ -1,6 +1,3 @@
-$env:_ZO_ECHO = '1'
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
-
 Import-Module PSReadLine
 # enable Vim on the shell and as editor
 $OnViModeChange = [scriptblock]{
