@@ -86,22 +86,22 @@ config.keys = {
 	},
 	{
 		key = "h",
-		mods = "CTRL",
+		mods = "LEADER",
 		action = act.ActivatePaneDirection("Left"),
 	},
 	{
 		key = "l",
-		mods = "CTRL",
+		mods = "LEADER",
 		action = act.ActivatePaneDirection("Right"),
 	},
 	{
 		key = "j",
-		mods = "CTRL",
+		mods = "LEADER",
 		action = act.ActivatePaneDirection("Down"),
 	},
 	{
 		key = "k",
-		mods = "CTRL",
+		mods = "LEADER",
 		action = act.ActivatePaneDirection("Up"),
 	},
 	{
