@@ -1,3 +1,5 @@
 [flavor]
-dark = "catppuccin-mocha"
-light = "catppuccin-mocha"
+# dark = "catppuccin-mocha"
+# light = "catppuccin-mocha"
+dark = "nord"
+light = "nord"
