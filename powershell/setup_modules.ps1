@@ -1,4 +1,15 @@
-# Zoxide Initialization and CD Command Hook
+# set yazi wrapper y 
+function y {
+	$tmp = (New-TemporaryFile).FullName
+	yazi.exe $args --cwd-file="$tmp"
+	$cwd = Get-Content -Path $tmp -Encoding UTF8
+	if ($cwd -ne $PWD.Path -and (Test-Path -LiteralPath $cwd -PathType Container)) {
+		Set-Location -LiteralPath (Resolve-Path -LiteralPath $cwd).Path
+	}
+	Remove-Item -Path $tmp
+}
+
+######### Zoxide Initialization and CD Command Hook ##################
 # This code block explicitly defines z and cd functions
 # to ensure auto-indexing works in PowerShell.
 
@@ -31,6 +42,7 @@ $OnViModeChange = [scriptblock]{
       Write-Host -NoNewLine "`e[5 q"
   }
 }
+#################################################################
 
 Set-PsReadLineOption -EditMode Vi
 Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler $OnViModeChange
