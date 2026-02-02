@@ -64,6 +64,17 @@ config.launch_menu = {
 	{ label = "WSL: Ubuntu", args = { "wsl.exe", "--distribution", "Ubuntu" } },
 }
 
+config.ssh_domains = {
+	{
+		name = "ksp_desktop",
+		remote_address = "192.168.1.75",
+		username = "jkkow",
+
+		-- [수정됨] .config 폴더 안의 배치 파일을 가리키도록 변경
+		remote_wezterm_path = "C:\\Users\\jkkow\\.config\\wezterm\\wezterm_proxy.bat",
+	},
+}
+
 -- keys
 config.leader = { key = ";", mods = "CTRL", timeout_millisecond = 1000 }
 config.keys = {
