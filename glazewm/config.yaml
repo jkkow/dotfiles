@@ -158,6 +158,10 @@ window_rules:
     match:
       - window_process: { equals: "Fusion360" }
         window_title: { equals: "PARAMETERS" }
+        #
+# Bitwarden 확장 프로그램 (브라우저 팝업) Floating 설정
+      # 프로세스는 브라우저지만, 창 제목에 'Bitwarden'이 포함된 경우를 찾습니다.
+      - window_title: { regex: ".*Bitwarden.*" }
 
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
