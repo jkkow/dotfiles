@@ -2,11 +2,17 @@ palette = "tokyo_night"
 
 format = """
 $os \
+$username\
+$hostname\
+$line_break\
 $directory\
+$python\
+$nodejs\
+$rust\
+$golang\
 $git_branch\
 $git_status\
 $fill\
-$python\
 $cmd_duration\
 $line_break\
 $character"""
@@ -36,24 +42,25 @@ Ubuntu = "󰕈 "
 Arch = "󰣇 "
 Debian = "󰣚 "
 
+[username]
+style_user = "bold blue"   # 일반 사용자 스타일
+style_root = "bold red"    # 관리자(root) 스타일
+format = "[$user]($style)" # 표시 형식
+show_always = true
+disabled = false
+
+[hostname]
+ssh_only = false
+format = '[@$hostname ]($style)'
+style = 'comment'                # 사용 중인 tokyo_night 팔레트의 magenta 색상 활용
+disabled = false
+
 [directory]
 style = 'bold blue'
-format = '[$path ]($style)'
+format = '    [$path ]($style)'
 truncation_length = 3
 truncation_symbol = '…/'
 truncate_to_repo = false
-
-[git_branch]
-style = 'green'
-symbol = ' '
-format = '[on](white) [$symbol$branch ]($style)'
-
-[git_status]
-style = 'orange'
-format = '([$all_status$ahead_behind]($style) )'
-
-[fill]
-symbol = " "
 
 [python]
 style = 'cyan'
@@ -63,6 +70,36 @@ pyenv_version_name = true
 pyenv_prefix = ''
 version_format = 'v${raw}'
 disabled = false
+
+[nodejs]
+symbol = "󰎙 "
+style = "green"
+format = "[[ $symbol($version) ]($style)]"
+disabled = false
+
+[rust]
+symbol = " "
+style = "orange"
+format = "[[ $symbol($version) ]($style)]"
+disabled = false
+
+[golang]
+symbol = "󰟓  "
+style = "cyan"
+format = "[[ $symbol($version) ]($style)]"
+disabled = false
+
+[git_branch]
+style = 'green'
+symbol = ' '
+format = ' [$symbol$branch ]($style)'
+
+[git_status]
+style = 'orange'
+format = '([$all_status$ahead_behind]($style) )'
+
+[fill]
+symbol = " "
 
 [cmd_duration]
 style = 'comment'
