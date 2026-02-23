@@ -57,7 +57,7 @@ disabled = false
 
 [directory]
 style = 'bold blue'
-format = '    [$path ]($style)'
+format = '[$path ]($style)'
 truncation_length = 3
 truncation_symbol = '…/'
 truncate_to_repo = false
