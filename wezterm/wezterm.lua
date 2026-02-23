@@ -64,15 +64,6 @@ config.launch_menu = {
 	{ label = "WSL: Ubuntu", args = { "wsl.exe", "--distribution", "Ubuntu" } },
 }
 
-config.ssh_domains = {
-	{
-		name = "ksp_desktop",
-		remote_address = "192.168.1.75",
-		username = "jkkow",
-		remote_wezterm_path = "C:\\Users\\jkkow\\scoop\\apps\\wezterm\\current\\wezterm.exe",
-	},
-}
-
 -- keys
 config.leader = { key = ";", mods = "CTRL", timeout_millisecond = 1000 }
 config.keys = {
