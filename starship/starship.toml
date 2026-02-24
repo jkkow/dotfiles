@@ -74,19 +74,19 @@ disabled = false
 [nodejs]
 symbol = "󰎙 "
 style = "green"
-format = "[[ $symbol($version) ]($style)]"
+format = '[$symbol($version )]($style)'
 disabled = false
 
 [rust]
 symbol = " "
 style = "orange"
-format = "[[ $symbol($version) ]($style)]"
+format = '[$symbol($version )]($style)'
 disabled = false
 
 [golang]
-symbol = "󰟓  "
+symbol = " "
 style = "cyan"
-format = "[[ $symbol($version) ]($style)]"
+format = '[$symbol($version )]($style)'
 disabled = false
 
 [git_branch]
