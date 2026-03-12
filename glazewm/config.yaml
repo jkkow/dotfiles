@@ -25,7 +25,7 @@ general:
     # Trigger for cursor jump:
     # - 'monitor_focus': Jump when focus changes between monitors.
     # - 'window_focus': Jump when focus changes between windows.
-    trigger: "window_focus"
+    trigger: "monitor_focus"
 
   # How windows should be hidden when switching workspaces.
   # - 'cloak': Recommended. Hides windows with no animation.
@@ -37,7 +37,7 @@ general:
   # effect if `hide_method: 'hide'`.
   # - 'true': Show all windows (regardless of workspace).
   # - 'false': Only show windows from the currently shown workspaces.
-  show_all_in_taskbar: true
+  show_all_in_taskbar: false
   move_step_size: 1
 
 gaps:
@@ -45,14 +45,14 @@ gaps:
   scale_with_dpi: true
 
   # Gap between adjacent windows.
-  inner_gap: "3px"
+  inner_gap: "5px"
 
   # Gap between windows and the screen edge.
   outer_gap:
-    top: "40px"
-    right: "2px"
-    bottom: "2px"
-    left: "2px"
+    top: "45px"
+    right: "5px"
+    bottom: "5px"
+    left: "5px"
 
 window_effects:
   # Visual effects to apply to the focused window.
@@ -94,12 +94,12 @@ window_effects:
       style: "square"
     transparency:
       enabled: true
-      opacity: "98%"
+      opacity: "88%"
 
 window_behavior:
   # New windows are created in this state whenever possible.
   # Allowed values: 'tiling', 'floating'.
-  initial_state: 'tiling'
+  initial_state: 'floating'
 
   # Sets the default options for when a new window is created. This also
   # changes the defaults for when the state change commands, like
