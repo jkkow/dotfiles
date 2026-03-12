@@ -93,8 +93,8 @@ window_effects:
       enabled: false
       style: "square"
     transparency:
-      enabled: true
-      opacity: "88%"
+      enabled: false
+      opacity: "0%"
 
 window_behavior:
   # New windows are created in this state whenever possible.
