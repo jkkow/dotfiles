@@ -151,9 +151,9 @@ window_rules:
         window_title: { regex: ".*? - Peek" }
 
       # Python 프로세스에서 실행된 'Figure'로 시작하는 창 매칭
-      - window_process: { regex: "python(|3|w)" }
-        window_class: { regex: "TkTopLevel|Qt5QWindowIcon" }
-
+      # - window_process: { regex: "python(|3|w)" }
+      #   window_class: { regex: "TkTopLevel|Qt5QWindowIcon" }
+      
   - commands: ["set-floating"]
     match:
       - window_process: { equals: "Fusion360" }
