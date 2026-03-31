@@ -74,10 +74,10 @@ alias egrep='egrep --color=auto'
 
 # Modern CLI tool replacements (eza)
 # Using functions to properly accept and pass additional arguments ("$@")
-ls() { eza --icons --sort=Name "$@"; }
-ll() { eza --icons --header --sort=Name -l "$@"; }
-la() { eza --icons --header --sort=Name -la "$@"; }
-lt() { eza --tree --icons --sort=type "$@"; }
+function ls { eza --icons --sort=Name "$@"; }
+function ll { eza --icons --header --sort=Name -l "$@"; }
+function la { eza --icons --header --sort=Name -la "$@"; }
+function lt { eza --tree --icons --sort=type "$@"; }
 
 # -----------------------------------------------------------------------------
 # 7. Modern CLI Tools Configuration (fzf, zoxide, starship)
