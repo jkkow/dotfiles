@@ -4,14 +4,6 @@
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# 0. ble.sh (Bash Line Editor) - MUST be at the very top
-# -----------------------------------------------------------------------------
-# Provides Zsh/Fish-like syntax highlighting and auto-suggestions
-if [[ $- == *i* ]] && [[ -f ~/.local/share/blesh/ble.sh ]]; then
-  source ~/.local/share/blesh/ble.sh
-fi
-
-# -----------------------------------------------------------------------------
 # 1. Non-Interactive Check
 # -----------------------------------------------------------------------------
 # If not running interactively, don't do anything
