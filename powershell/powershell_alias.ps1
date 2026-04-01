@@ -1,18 +1,16 @@
 # Displaying files and directories
 ## Powershell command
 if (Test-Path Alias:ls) { Remove-Item Alias:ls }
-function ls { eza --icons --sort=type }
-function ll { eza --icons --header --sort=type -l }
-function la { eza --icons --header --sort=type -la }
+function ls { eza --icons --sort=type @args }
+function ll { eza --icons --header --sort=type -l @args }
+function la { eza --icons --header --sort=type -la @args }
 function lt {
-    param (
-        [string]$Level
-    )
-
-    if ($Level -match '^\d+$') {
-        & eza --tree --icons --sort=type --level=$Level
+    if ($args.Count -gt 0 -and $args[0] -match '^\d+$') {
+        $level = $args[0]
+        [string[]]$rest = if ($args.Count -gt 1) { $args[1..($args.Count - 1)] } else { @() }
+        & eza --tree --icons --sort=type --level=$level @rest
     } else {
-        & eza --tree --icons --sort=type
+        & eza --tree --icons --sort=type @args
     }
 }
 
