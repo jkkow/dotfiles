@@ -56,7 +56,7 @@ config.inactive_pane_hsb = {
 
 -- Tabs
 config.use_fancy_tab_bar = true
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 
 -- Launch menu
 config.launch_menu = {
