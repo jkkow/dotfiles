@@ -1,0 +1,19 @@
+
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[mgr]
+ratio = [2, 3, 3]
+sort_by = "natural"
+linemode = "size"
+show_hidden = false
+show_symlink = true
+sort_dir_first = true
+
+[preview]
+wrap = "yes"
+tab_size = 2
+max_width = 800
+max_height = 600
+cache_dir = ""
+image_filter = "catmull-rom"
+image_quality = 75

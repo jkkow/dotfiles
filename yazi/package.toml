@@ -1,0 +1,12 @@
+[plugin]
+deps = []
+
+[[flavor.deps]]
+use = "AdithyanA2005/nord"
+rev = "3a791e9"
+hash = "34f6d3974ebca066f4fe962715e0d78c"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-mocha"
+rev = "3edeb49"
+hash = "2970b92f06b9a1c60a0be8ec61759aea"

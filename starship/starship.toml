@@ -1,0 +1,114 @@
+palette = "tokyo_night"
+
+format = """
+$os \
+$username\
+$hostname\
+$line_break\
+$directory\
+$python\
+$nodejs\
+$rust\
+$golang\
+$git_branch\
+$git_status\
+$fill\
+$cmd_duration\
+$line_break\
+$character"""
+
+[palettes.tokyo_night]
+bg = "#1a1b26"
+fg = "#c0caf5"
+red = "#f7768e"
+green = "#9ece6a"
+yellow = "#e0af68"
+blue = "#7aa2f7"
+magenta = "#bb9af7"
+cyan = "#7dcfff"
+white = "#a9b1d6"
+black = "#15161e"
+comment = "#565f89"
+orange = "#ff9e64"
+purple = "#9d7cd8"
+
+[os]
+disabled = false
+style = 'purple'
+
+[os.symbols]
+Windows = " "
+Ubuntu = "󰕈 "
+Arch = "󰣇 "
+Debian = "󰣚 "
+
+[username]
+style_user = "bold blue"   # 일반 사용자 스타일
+style_root = "bold red"    # 관리자(root) 스타일
+format = "[$user]($style)" # 표시 형식
+show_always = true
+disabled = false
+
+[hostname]
+ssh_only = false
+format = '[@$hostname ]($style)'
+style = 'comment'                # 사용 중인 tokyo_night 팔레트의 magenta 색상 활용
+disabled = false
+
+[directory]
+style = 'bold blue'
+format = '[$path ]($style)'
+truncation_length = 3
+truncation_symbol = '…/'
+truncate_to_repo = false
+
+[python]
+style = 'cyan'
+symbol = ' '
+format = '[${symbol}${pyenv_prefix}(${version} )]($style)[(\($virtualenv\))](yellow)'
+pyenv_version_name = true
+pyenv_prefix = ''
+version_format = 'v${raw}'
+disabled = false
+
+[nodejs]
+symbol = "󰎙 "
+style = "green"
+format = '[$symbol($version )]($style)'
+disabled = false
+
+[rust]
+symbol = " "
+style = "orange"
+format = '[$symbol($version )]($style)'
+disabled = false
+
+[golang]
+symbol = " "
+style = "cyan"
+format = '[$symbol($version )]($style)'
+disabled = false
+
+[git_branch]
+style = 'green'
+symbol = ' '
+format = ' [$symbol$branch ]($style)'
+
+[git_status]
+style = 'orange'
+format = '([$all_status$ahead_behind]($style) )'
+
+[fill]
+symbol = " "
+
+[cmd_duration]
+style = 'comment'
+min_time = 500
+format = '[$duration]($style)'
+disabled = false
+show_notifications = true
+
+[character]
+success_symbol = '[>>](bold green)'
+error_symbol = '[>>](bold red)'
+vimcmd_symbol = '[><](bold yellow)'
