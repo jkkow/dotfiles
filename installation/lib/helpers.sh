@@ -197,6 +197,76 @@ warn_if_below_min_version() {
     return 0
 }
 
+# Return required version for a tool or n/a if not configured
+# Usage: get_required_version_or_na "tool"
+get_required_version_or_na() {
+    local tool="$1"
+    local required
+
+    if required="$(get_min_required_version "$tool")"; then
+        echo "$required"
+    else
+        echo "n/a"
+    fi
+}
+
+# Get installed semantic version for a command-like tool
+# Usage: get_installed_version "tool"
+# Returns: semver, not-installed, or unknown
+get_installed_version() {
+    local tool="$1"
+
+    if ! detect_tool_installed "$tool"; then
+        echo "not-installed"
+        return 0
+    fi
+
+    local output
+    output="$($tool --version 2>/dev/null || true)"
+    if [[ -z "$output" ]]; then
+        echo "unknown"
+        return 0
+    fi
+
+    local parsed
+    parsed="$(extract_semver "$output" || true)"
+    if [[ -n "$parsed" ]]; then
+        echo "$parsed"
+    else
+        echo "unknown"
+    fi
+}
+
+# Evaluate installed version against required version policy
+# Usage: evaluate_version_status "tool" "installed_version"
+# Returns: meets, below-required, not-configured, not-installed, unknown
+evaluate_version_status() {
+    local tool="$1"
+    local installed_version="$2"
+    local required_version
+
+    if [[ "$installed_version" == "not-installed" ]]; then
+        echo "not-installed"
+        return 0
+    fi
+
+    if ! required_version="$(get_min_required_version "$tool")"; then
+        echo "not-configured"
+        return 0
+    fi
+
+    if [[ "$installed_version" == "unknown" || -z "$installed_version" ]]; then
+        echo "unknown"
+        return 0
+    fi
+
+    if version_gte "$installed_version" "$required_version"; then
+        echo "meets"
+    else
+        echo "below-required"
+    fi
+}
+
 # Safely create a symlink, handling existing files
 # Usage: create_symlink_safely "/path/to/source" "/path/to/link"
 create_symlink_safely() {
@@ -325,6 +395,9 @@ export -f get_min_required_version
 export -f extract_semver
 export -f version_gte
 export -f warn_if_below_min_version
+export -f get_required_version_or_na
+export -f get_installed_version
+export -f evaluate_version_status
 export -f create_symlink_safely
 export -f verify_symlink
 export -f verify_symlink_readable

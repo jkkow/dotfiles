@@ -24,6 +24,12 @@ declare -a AVAILABLE_TOOLS=("eza" "bash" "starship" "wezterm" "yazi" "zed" "zoxi
 declare -a TOOLS_TO_INSTALL=()
 declare -a FAILED_TOOLS=()
 declare -a SUCCESSFUL_TOOLS=()
+declare -A TOOL_SCRIPT_EXIT=()
+declare -A TOOL_STATUS=()
+declare -A TOOL_REQUIRED_VERSION=()
+declare -A TOOL_INSTALLED_VERSION=()
+declare -A TOOL_VERSION_STATUS=()
+declare -A TOOL_NOTE=()
 
 # =============================================================================
 # Helper Functions
@@ -90,6 +96,117 @@ is_valid_tool() {
         fi
     done
     return 1
+}
+
+is_config_only_tool() {
+    local tool="$1"
+    case "$tool" in
+        bash)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+expects_binary_tool() {
+    local tool="$1"
+    if is_config_only_tool "$tool"; then
+        return 1
+    fi
+
+    return 0
+}
+
+collect_tool_result() {
+    local tool="$1"
+    local script_exit="$2"
+    local required_version installed_version version_status status note
+
+    TOOL_SCRIPT_EXIT["$tool"]="$script_exit"
+    required_version="$(get_required_version_or_na "$tool")"
+    installed_version="$(get_installed_version "$tool")"
+
+    if is_config_only_tool "$tool"; then
+        version_status="not-applicable"
+    else
+        version_status="$(evaluate_version_status "$tool" "$installed_version")"
+    fi
+
+    if [[ "$script_exit" -ne 0 ]]; then
+        status="failed"
+        note="installer exited with code $script_exit"
+    elif expects_binary_tool "$tool" && [[ "$installed_version" == "not-installed" ]]; then
+        status="incomplete"
+        note="script succeeded but binary not found"
+    elif is_config_only_tool "$tool"; then
+        status="configured"
+        note="configuration applied"
+    else
+        status="installed"
+        case "$version_status" in
+            meets)
+                note="version meets minimum"
+                ;;
+            below-required)
+                note="installed below minimum"
+                ;;
+            not-configured)
+                note="no minimum version configured"
+                ;;
+            unknown)
+                note="installed version could not be parsed"
+                ;;
+            *)
+                note="installation completed"
+                ;;
+        esac
+    fi
+
+    TOOL_REQUIRED_VERSION["$tool"]="$required_version"
+    TOOL_INSTALLED_VERSION["$tool"]="$installed_version"
+    TOOL_VERSION_STATUS["$tool"]="$version_status"
+    TOOL_STATUS["$tool"]="$status"
+    TOOL_NOTE["$tool"]="$note"
+}
+
+print_detailed_summary() {
+    local installed_count=0 configured_count=0 incomplete_count=0 failed_count=0
+    local tool status
+
+    log_header "Installation Summary"
+    printf "%-10s | %-10s | %-10s | %-13s | %-15s | %s\n" "tool" "status" "required" "installed" "version" "notes"
+    printf "%-10s-+-%-10s-+-%-10s-+-%-13s-+-%-15s-+-%s\n" "----------" "----------" "----------" "-------------" "---------------" "------------------------------"
+
+    for tool in "${TOOLS_TO_INSTALL[@]}"; do
+        status="${TOOL_STATUS[$tool]}"
+        printf "%-10s | %-10s | %-10s | %-13s | %-15s | %s\n" \
+            "$tool" \
+            "$status" \
+            "${TOOL_REQUIRED_VERSION[$tool]}" \
+            "${TOOL_INSTALLED_VERSION[$tool]}" \
+            "${TOOL_VERSION_STATUS[$tool]}" \
+            "${TOOL_NOTE[$tool]}"
+
+        case "$status" in
+            installed)
+                ((installed_count++))
+                ;;
+            configured)
+                ((configured_count++))
+                ;;
+            incomplete)
+                ((incomplete_count++))
+                ;;
+            failed)
+                ((failed_count++))
+                ;;
+        esac
+    done
+
+    log_separator
+    log_info "Totals -> installed: $installed_count, configured: $configured_count, incomplete: $incomplete_count, failed: $failed_count"
 }
 
 # Parse command-line arguments
@@ -162,25 +279,24 @@ main() {
     for tool in "${TOOLS_TO_INSTALL[@]}"; do
         echo
         if execute_tool_install "$tool"; then
+            collect_tool_result "$tool" 0
             SUCCESSFUL_TOOLS+=("$tool")
             log_success "$tool installation completed"
         else
+            local exit_code=$?
+            collect_tool_result "$tool" "$exit_code"
             FAILED_TOOLS+=("$tool")
             log_warning "$tool installation failed (continuing with other tools...)"
         fi
         echo
     done
-    
+
     # Print summary
     log_separator
-    log_header "Installation Summary"
-    
-    if [[ ${#SUCCESSFUL_TOOLS[@]} -gt 0 ]]; then
-        log_success "Successfully installed: ${SUCCESSFUL_TOOLS[*]}"
-    fi
-    
+    print_detailed_summary
+
     if [[ ${#FAILED_TOOLS[@]} -gt 0 ]]; then
-        log_error "Failed to install: ${FAILED_TOOLS[*]}"
+        log_error "Failed tools: ${FAILED_TOOLS[*]}"
         log_info "Review the errors above for details"
     fi
     
