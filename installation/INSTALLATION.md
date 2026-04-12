@@ -27,7 +27,7 @@ DOTFILES_DIR=/path/to/dotfiles bash /path/to/dotfiles/installation/eza-install.s
 
 ## What Is Implemented Today
 
-- Fully implemented: `installation/eza-install.sh`, `installation/bash-install.sh`
+- Fully implemented: `installation/eza-install.sh`, `installation/bash-install.sh`, `installation/zoxide-install.sh`
 - Stub/template scripts (currently log TODO and return success):
   - `installation/starship-install.sh`
   - `installation/wezterm-install.sh`

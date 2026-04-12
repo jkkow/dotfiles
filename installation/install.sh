@@ -20,7 +20,7 @@ fi
 source "$HELPERS_DIR/helpers.sh"
 
 # Available tools
-declare -a AVAILABLE_TOOLS=("eza" "bash" "starship" "wezterm" "yazi" "zed")
+declare -a AVAILABLE_TOOLS=("eza" "bash" "starship" "wezterm" "yazi" "zed" "zoxide")
 declare -a TOOLS_TO_INSTALL=()
 declare -a FAILED_TOOLS=()
 declare -a SUCCESSFUL_TOOLS=()
