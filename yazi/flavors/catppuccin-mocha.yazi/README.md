@@ -1,36 +1,24 @@
-<div align="center">
-  <img src="https://github.com/sxyazi/yazi/blob/main/assets/logo.png?raw=true" alt="Yazi logo" width="20%">
-</div>
+# Catppuccin Mocha Flavor for Yazi
 
-<h3 align="center">
-	Catppuccin Mocha Flavor for <a href="https://github.com/sxyazi/yazi">Yazi</a>
-</h3>
+Catppuccin Mocha color flavor package for [Yazi](https://github.com/sxyazi/yazi).
 
-## 👀 Preview
-
-<img src="preview.png" width="600" />
-
-## 🎨 Installation
+## Install
 
 ```sh
 ya pkg add yazi-rs/flavors:catppuccin-mocha
 ```
 
-## ⚙️ Usage
+## Use
 
-Set the content of your `theme.toml` to enable it as your _dark_ flavor:
+Set `theme.toml`:
 
 ```toml
 [flavor]
 dark = "catppuccin-mocha"
 ```
 
-Make sure your `theme.toml` doesn't contain anything other than `[flavor]`, unless you want to override certain styles of this flavor.
+Keep only `[flavor]` in `theme.toml` unless you intentionally override styles.
 
-See the [Yazi flavor documentation](https://yazi-rs.github.io/docs/flavors/overview) for more details.
+## License
 
-## 📜 License
-
-The flavor is MIT-licensed, and the included tmTheme is also MIT-licensed.
-
-Check the [LICENSE](LICENSE) and [LICENSE-tmtheme](LICENSE-tmtheme) file for more details.
+MIT. See `LICENSE` and `LICENSE-tmtheme`.

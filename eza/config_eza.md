@@ -1,143 +1,67 @@
 # Eza Configuration
 
-Eza is a modern replacement for `ls` with improved defaults and performance. This guide covers installation and configuration on Linux/Ubuntu systems using dotfiles and symbolic links.
+This repo manages `eza` theme configuration through a symlink.
 
-## Installation
+## Install eza
 
-### On Ubuntu/Debian (Recommended)
-
-Using the system package manager is the simplest approach:
+Ubuntu/Debian:
 
 ```bash
 sudo apt update
-sudo apt install eza
+sudo apt install -y eza
 ```
 
-If eza is not available in your package repositories, use the fallback method below.
-
-### Fallback: Using Rust (Cargo)
-
-If eza is not available through apt:
+Fallback with Cargo:
 
 ```bash
 cargo install eza
 ```
 
-The eza binary will be installed to `~/.cargo/bin/eza`, which should be in your PATH if you've sourced `~/.cargo/env`.
+If you use Cargo, make sure `~/.cargo/bin` is in `PATH`.
 
-## Configuration
+## Configure theme
 
-### Set Configuration Directory
-
-Eza looks for configuration files in `~/.config/eza/` by default. You can override this with the `$EZA_CONFIG_DIR` environment variable:
-
-```bash
-export EZA_CONFIG_DIR="$HOME/.config/eza"
-```
-
-### Create Configuration Directory
+Create the config directory:
 
 ```bash
 mkdir -p ~/.config/eza
 ```
 
-### Set Up Theme Using Symbolic Link
-
-Instead of copying the theme file, use a symbolic link to keep your configuration in sync with your dotfiles repository. This allows you to manage themes from a single location.
-
-**Create the symlink:**
+Link the default theme:
 
 ```bash
 ln -s ~/dotfiles/eza/themes/tokyonight.yml ~/.config/eza/theme.yml
 ```
 
-This command creates a symbolic link at `~/.config/eza/theme.yml` that points to the actual theme file in your dotfiles repository.
-
-**Verify the symlink:**
+Verify:
 
 ```bash
 ls -l ~/.config/eza/theme.yml
 ```
 
-You should see output like:
-```
-lrwxrwxrwx 1 user user 48 Apr 8 15:00 ~/.config/eza/theme.yml -> ~/dotfiles/eza/themes/tokyonight.yml
-```
+## Change theme
 
-### Available Themes
-
-The following themes are available in the `themes/` directory:
-
-- tokyonight.yml (default)
-- catppuccin.yml
-- dracula.yml
-- gruvbox-dark.yml
-- gruvbox-light.yml
-- rose-pine.yml
-- rose-pine-dawn.yml
-- rose-pine-moon.yml
-- solarized-dark.yml
-- one_dark.yml
-- frosty.yml
-- black.yml
-- white.yml
-- default.yml
-
-To use a different theme, update the symlink:
+Replace the symlink target:
 
 ```bash
-rm ~/.config/eza/theme.yml
+rm -f ~/.config/eza/theme.yml
 ln -s ~/dotfiles/eza/themes/catppuccin.yml ~/.config/eza/theme.yml
 ```
 
-## Automated Setup
+Available themes are in `eza/themes/`.
 
-For automated installation and symlink creation, use the included `installation/install.sh` script:
+## Automated setup
+
+Run the installer for this tool:
 
 ```bash
-cd ~/dotfiles
 bash installation/install.sh eza
 ```
 
-This script will:
-- Check for eza installation
-- Create the `~/.config/eza/` directory
-- Set up the tokyonight theme symlink automatically
-- Validate the symlink is working correctly
+This checks installation, creates `~/.config/eza/`, links the theme file, and verifies the link.
 
 ## Troubleshooting
 
-### Symlink Not Working
-
-If eza doesn't recognize your theme, verify:
-
-1. The symlink is correctly set up:
-   ```bash
-   ls -l ~/.config/eza/theme.yml
-   ```
-
-2. The target file exists:
-   ```bash
-   cat ~/.config/eza/theme.yml
-   ```
-
-3. Eza is reading the correct config directory:
-   ```bash
-   eza --config-dir
-   ```
-
-### Theme Not Applying
-
-If eza runs but the theme doesn't apply:
-
-1. Verify the theme file syntax is valid YAML
-2. Restart your shell to reload environment variables
-3. Check if there's an `EZA_CONFIG_DIR` environment variable overriding the default location
-
-### Eza Command Not Found
-
-After installation, you may need to:
-
-1. Restart your shell or run `source ~/.bashrc`
-2. Check that the installation succeeded: `which eza`
-3. If using cargo, ensure `~/.cargo/bin` is in your PATH
+- `eza` not found: run `which eza` and reload shell (`source ~/.bashrc`).
+- Theme not applied: verify the symlink path and target file.
+- Wrong config path: check `EZA_CONFIG_DIR` and unset it if needed.

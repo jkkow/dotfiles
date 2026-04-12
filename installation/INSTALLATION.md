@@ -1,78 +1,65 @@
 # Dotfiles Installation Guide
 
-## Quick Commands
+## Quick commands
 
 ```bash
-# Show valid tools and usage
+# Usage and available tools
 bash install.sh --help
 
-# Install selected tools (required; no default set)
+# Install selected tools
 bash install.sh eza bash
 
-# Install all currently listed tools
+# Install all listed tools
 bash install.sh --all
 ```
 
-`bash install.sh` with no args exits with an error.
+- `bash install.sh` with no args exits with an error.
+- Root `install.sh` is a shim to `installation/install.sh`.
 
-Root `install.sh` is a compatibility shim that forwards to `installation/install.sh`.
-
-Run a single tool directly:
+Run one tool directly:
 
 ```bash
 bash installation/eza-install.sh
-# or from outside repo root
+```
+
+Run from outside the repo:
+
+```bash
 DOTFILES_DIR=/path/to/dotfiles bash /path/to/dotfiles/installation/eza-install.sh
 ```
 
-## What Is Implemented Today
+## Installer model
 
-- Fully implemented: `installation/eza-install.sh`, `installation/bash-install.sh`, `installation/zoxide-install.sh`
-- Stub/template scripts (currently log TODO and return success):
-  - `installation/starship-install.sh`
-  - `installation/wezterm-install.sh`
-  - `installation/yazi-install.sh`
-  - `installation/zed-install.sh`
-
-Important: orchestrator success does not guarantee those stub tool configs were linked.
-
-## Execution Model
-
-- Root orchestrator: `installation/install.sh`
+- Orchestrator: `installation/install.sh`
 - Shared helpers: `installation/lib/helpers.sh`
-- Per-tool logic: `installation/<tool>-install.sh`
-- Orchestrator continues after per-tool failures and prints a success/failure summary.
+- Tool scripts: `installation/<tool>-install.sh`
+- The orchestrator continues after per-tool failures.
+- A summary table is printed at the end.
 
-## Minimum Required Versions
+## Versions
 
-- Central file: `installation/min-required-versions.txt`
-- Format: `tool=major.minor.patch` (blank lines and `#` comments are allowed)
-- Current policy: warning-only. If an installed tool is below minimum, installer logs a warning and continues.
-- Scripts currently checking minimums: `eza`, `zoxide`, `starship`, and `fzf` (checked from `bash-install.sh`).
+- Version file: `installation/min-required-versions.txt`
+- Format: `tool=major.minor.patch`
+- Policy: warning only (no hard stop on lower versions)
 
-## Symlink Semantics (from `installation/lib/helpers.sh`)
+## Symlink rules
 
-- `create_symlink_safely` only accepts file sources (`[[ -f ... ]]`).
-- Existing regular target file is moved to `<target>.bak`.
-- Existing incorrect symlink is removed and replaced.
-- Helpers then verify link target and readability.
+- `create_symlink_safely` only supports file sources (`[[ -f ... ]]`).
+- Existing regular files are moved to `<target>.bak`.
+- Wrong symlinks are replaced.
+- Link target and readability are verified after creation.
 
-This means directory-to-directory linking is not supported by `create_symlink_safely` as currently written.
+Directory-to-directory linking is not supported by `create_symlink_safely`.
 
-## Adding a New Tool (minimal pattern)
+## Add a new tool
 
-Starter template:
+1. Copy `installation/template-install.sh` to `installation/<tool>-install.sh`.
+2. Update the "Customize This Block" values.
+3. Source `installation/lib/helpers.sh` with `DOTFILES_DIR` fallback.
+4. Return non-zero on real failures and keep the script idempotent.
+5. Add the tool to `AVAILABLE_TOOLS` in `installation/install.sh`.
+6. Test both paths:
+   - `bash installation/<tool>-install.sh`
+   - `bash installation/install.sh <tool>`
 
-- Copy `installation/template-install.sh` to `installation/<tool>-install.sh`
-- Replace placeholder variables in the "Customize This Block" section
-- Keep/remove binary install functions depending on whether the tool is config-only
-
-1. Create `installation/mytool-install.sh` and source `installation/lib/helpers.sh` using `DOTFILES_DIR` fallback.
-2. Use helper functions for logs, symlink creation, and verification.
-3. Return non-zero on real failures; keep script idempotent.
-4. Add `mytool` to `AVAILABLE_TOOLS` in `installation/install.sh`.
-5. Test both paths:
-   - `bash installation/mytool-install.sh`
-   - `bash installation/install.sh mytool`
-
-Fast reference for helper APIs: `detect_tool_installed`, `create_symlink_safely`, `verify_symlink`, `verify_symlink_readable`, `backup_existing_file`.
+Helper API reference: `detect_tool_installed`, `create_symlink_safely`, `verify_symlink`, `verify_symlink_readable`, `backup_existing_file`.
