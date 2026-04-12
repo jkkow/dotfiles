@@ -10,7 +10,7 @@ set -e
 # Get the script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
-HELPERS_DIR="$DOTFILES_DIR/lib"
+HELPERS_DIR="$DOTFILES_DIR/installation/lib"
 
 # Source helper functions
 if [[ ! -f "$HELPERS_DIR/helpers.sh" ]]; then

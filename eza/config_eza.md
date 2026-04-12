@@ -92,11 +92,11 @@ ln -s ~/dotfiles/eza/themes/catppuccin.yml ~/.config/eza/theme.yml
 
 ## Automated Setup
 
-For automated installation and symlink creation, use the included `install.sh` script in the dotfiles root directory:
+For automated installation and symlink creation, use the included `installation/install.sh` script:
 
 ```bash
 cd ~/dotfiles
-bash install.sh
+bash installation/install.sh eza
 ```
 
 This script will:

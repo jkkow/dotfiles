@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
-# Wezterm Installation Script
-# Sets up wezterm terminal emulator configuration
+# Yazi Installation Script
+# Sets up yazi file manager configuration
 # Can be run independently or called by main install.sh
 # =============================================================================
 
@@ -10,7 +10,7 @@ set -e
 # Get the script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
-HELPERS_DIR="$DOTFILES_DIR/lib"
+HELPERS_DIR="$DOTFILES_DIR/installation/lib"
 
 # Source helper functions
 if [[ ! -f "$HELPERS_DIR/helpers.sh" ]]; then
@@ -20,34 +20,34 @@ fi
 source "$HELPERS_DIR/helpers.sh"
 
 # Configuration
-# TODO: Add wezterm configuration setup
+# TODO: Add yazi configuration setup
 CONFIG_DIR="$HOME/.config"
-WEZTERM_CONFIG_DIR="$CONFIG_DIR/wezterm"
-WEZTERM_CONFIG_SOURCE="$DOTFILES_DIR/wezterm/wezterm.lua"
-WEZTERM_CONFIG_LINK="$CONFIG_DIR/wezterm/wezterm.lua"
+YAZI_CONFIG_DIR="$CONFIG_DIR/yazi"
+YAZI_CONFIG_SOURCE="$DOTFILES_DIR/yazi"
+YAZI_CONFIG_LINK="$CONFIG_DIR/yazi"
 
 # =============================================================================
-# Wezterm Configuration Functions
+# Yazi Configuration Functions
 # =============================================================================
 
-setup_wezterm_config() {
-    log_info "Setting up wezterm configuration..."
+setup_yazi_config() {
+    log_info "Setting up yazi configuration..."
     
-    # TODO: Implement wezterm configuration setup
+    # TODO: Implement yazi configuration setup
     # This template provides the basic structure for future implementation
     
-    if [[ ! -f "$WEZTERM_CONFIG_SOURCE" ]]; then
-        log_warning "Wezterm config file not found: $WEZTERM_CONFIG_SOURCE"
-        log_info "Skipping wezterm configuration setup"
+    if [[ ! -d "$YAZI_CONFIG_SOURCE" ]]; then
+        log_warning "Yazi config directory not found: $YAZI_CONFIG_SOURCE"
+        log_info "Skipping yazi configuration setup"
         return 0
     fi
     
-    log_info "TODO: Implement wezterm symlink creation"
+    log_info "TODO: Implement yazi symlink creation"
     return 0
 }
 
-verify_wezterm_setup() {
-    log_info "Verifying wezterm setup..."
+verify_yazi_setup() {
+    log_info "Verifying yazi setup..."
     
     # TODO: Add verification logic when implementation is complete
     
@@ -59,25 +59,25 @@ verify_wezterm_setup() {
 # =============================================================================
 
 main() {
-    log_header "Wezterm Configuration"
+    log_header "Yazi Configuration"
     
-    log_info "Wezterm configuration script is a template for future implementation"
+    log_info "Yazi configuration script is a template for future implementation"
     log_separator
     
-    # Setup wezterm configuration
-    if ! setup_wezterm_config; then
-        log_warning "Wezterm configuration setup failed or skipped"
+    # Setup yazi configuration
+    if ! setup_yazi_config; then
+        log_warning "Yazi configuration setup failed or skipped"
         return 0  # Don't fail the main installation
     fi
     
     log_separator
     
     # Verify setup
-    if verify_wezterm_setup; then
-        log_success "Wezterm configuration setup completed!"
+    if verify_yazi_setup; then
+        log_success "Yazi configuration setup completed!"
         return 0
     else
-        log_warning "Wezterm configuration verification incomplete"
+        log_warning "Yazi configuration verification incomplete"
         return 0  # Don't fail the main installation
     fi
 }

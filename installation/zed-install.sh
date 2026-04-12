@@ -1,7 +1,7 @@
 #!/bin/bash
 # =============================================================================
-# Yazi Installation Script
-# Sets up yazi file manager configuration
+# Zed Installation Script
+# Sets up zed editor configuration
 # Can be run independently or called by main install.sh
 # =============================================================================
 
@@ -10,7 +10,7 @@ set -e
 # Get the script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
-HELPERS_DIR="$DOTFILES_DIR/lib"
+HELPERS_DIR="$DOTFILES_DIR/installation/lib"
 
 # Source helper functions
 if [[ ! -f "$HELPERS_DIR/helpers.sh" ]]; then
@@ -20,34 +20,34 @@ fi
 source "$HELPERS_DIR/helpers.sh"
 
 # Configuration
-# TODO: Add yazi configuration setup
+# TODO: Add zed configuration setup
 CONFIG_DIR="$HOME/.config"
-YAZI_CONFIG_DIR="$CONFIG_DIR/yazi"
-YAZI_CONFIG_SOURCE="$DOTFILES_DIR/yazi"
-YAZI_CONFIG_LINK="$CONFIG_DIR/yazi"
+ZED_CONFIG_DIR="$CONFIG_DIR/zed"
+ZED_CONFIG_SOURCE="$DOTFILES_DIR/zed"
+ZED_CONFIG_LINK="$CONFIG_DIR/zed"
 
 # =============================================================================
-# Yazi Configuration Functions
+# Zed Configuration Functions
 # =============================================================================
 
-setup_yazi_config() {
-    log_info "Setting up yazi configuration..."
+setup_zed_config() {
+    log_info "Setting up zed configuration..."
     
-    # TODO: Implement yazi configuration setup
+    # TODO: Implement zed configuration setup
     # This template provides the basic structure for future implementation
     
-    if [[ ! -d "$YAZI_CONFIG_SOURCE" ]]; then
-        log_warning "Yazi config directory not found: $YAZI_CONFIG_SOURCE"
-        log_info "Skipping yazi configuration setup"
+    if [[ ! -d "$ZED_CONFIG_SOURCE" ]]; then
+        log_warning "Zed config directory not found: $ZED_CONFIG_SOURCE"
+        log_info "Skipping zed configuration setup"
         return 0
     fi
     
-    log_info "TODO: Implement yazi symlink creation"
+    log_info "TODO: Implement zed symlink creation"
     return 0
 }
 
-verify_yazi_setup() {
-    log_info "Verifying yazi setup..."
+verify_zed_setup() {
+    log_info "Verifying zed setup..."
     
     # TODO: Add verification logic when implementation is complete
     
@@ -59,25 +59,25 @@ verify_yazi_setup() {
 # =============================================================================
 
 main() {
-    log_header "Yazi Configuration"
+    log_header "Zed Configuration"
     
-    log_info "Yazi configuration script is a template for future implementation"
+    log_info "Zed configuration script is a template for future implementation"
     log_separator
     
-    # Setup yazi configuration
-    if ! setup_yazi_config; then
-        log_warning "Yazi configuration setup failed or skipped"
+    # Setup zed configuration
+    if ! setup_zed_config; then
+        log_warning "Zed configuration setup failed or skipped"
         return 0  # Don't fail the main installation
     fi
     
     log_separator
     
     # Verify setup
-    if verify_yazi_setup; then
-        log_success "Yazi configuration setup completed!"
+    if verify_zed_setup; then
+        log_success "Zed configuration setup completed!"
         return 0
     else
-        log_warning "Yazi configuration verification incomplete"
+        log_warning "Zed configuration verification incomplete"
         return 0  # Don't fail the main installation
     fi
 }

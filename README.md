@@ -17,8 +17,10 @@ Install selected tools (required; no default set):
 bash install.sh eza bash
 
 # All currently listed tools
-bash install.sh eza bash starship wezterm yazi zed
+bash install.sh --all
 ```
+
+`install.sh` at repo root is a compatibility shim that forwards to `installation/install.sh`.
 
 Reload shell after bash config changes:
 
@@ -28,26 +30,26 @@ source ~/.bashrc
 
 ## Current Tool Status
 
-- Implemented and verified: `eza/install.sh`, `bash/install.sh`
+- Implemented and verified: `installation/eza-install.sh`, `installation/bash-install.sh`
 - Template/stub scripts (return success but do not fully link configs yet):
-  - `starship/install.sh`
-  - `wezterm/install.sh`
-  - `yazi/install.sh`
-  - `zed/install.sh`
+  - `installation/starship-install.sh`
+  - `installation/wezterm-install.sh`
+  - `installation/yazi-install.sh`
+  - `installation/zed-install.sh`
 
 ## How The Installer Works
 
-- Root orchestrator: `install.sh`
-- Shared functions: `lib/helpers.sh`
-- Per-tool scripts: `<tool>/install.sh`
+- Root orchestrator: `installation/install.sh`
+- Shared functions: `installation/lib/helpers.sh`
+- Per-tool scripts: `installation/<tool>-install.sh`
 - Orchestrator continues after per-tool failures and prints a summary at the end.
 
 Run one tool directly:
 
 ```bash
-bash eza/install.sh
+bash installation/eza-install.sh
 # or, from outside repo root
-DOTFILES_DIR=/path/to/dotfiles bash /path/to/dotfiles/eza/install.sh
+DOTFILES_DIR=/path/to/dotfiles bash /path/to/dotfiles/installation/eza-install.sh
 ```
 
 ## Symlink Behavior
@@ -65,4 +67,4 @@ ls -l ~/.config/eza/theme.yml
 ## Notes
 
 - `bash/.bashrc` contains machine-specific cloud env vars.
-- `INSTALLATION.md` has the fuller architecture/template guide for adding tools.
+- `installation/INSTALLATION.md` has the fuller architecture/template guide for adding tools.

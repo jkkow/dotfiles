@@ -4,7 +4,7 @@
 # =============================================================================
 # This file provides common logging and utility functions used by all tool
 # installation scripts. Source this file in your tool-specific install.sh:
-#   source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../lib" && pwd)/helpers.sh"
+#   source "$(cd "$(dirname "${BASH_SOURCE[0]}")/lib" && pwd)/helpers.sh"
 # =============================================================================
 
 # Colors for output
