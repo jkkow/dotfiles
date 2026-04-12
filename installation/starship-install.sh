@@ -31,7 +31,12 @@ STARSHIP_CONFIG_LINK="$CONFIG_DIR/starship.toml"
 check_starship_installed() {
     if detect_tool_installed starship; then
         log_success "starship is already installed"
-        starship --version
+        local starship_version_output
+        starship_version_output="$(starship --version)"
+        echo "$starship_version_output"
+        local starship_version
+        starship_version="$(extract_semver "$starship_version_output" || true)"
+        warn_if_below_min_version "starship" "$starship_version"
         return 0
     else
         return 1
@@ -43,6 +48,14 @@ install_starship() {
 
     if curl -sS https://starship.rs/install.sh | sh; then
         log_success "starship installation command completed"
+        if detect_tool_installed starship; then
+            local starship_version_output
+            starship_version_output="$(starship --version)"
+            echo "$starship_version_output"
+            local starship_version
+            starship_version="$(extract_semver "$starship_version_output" || true)"
+            warn_if_below_min_version "starship" "$starship_version"
+        fi
         return 0
     else
         log_error "Failed to install starship"

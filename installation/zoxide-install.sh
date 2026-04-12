@@ -26,7 +26,12 @@ source "$HELPERS_DIR/helpers.sh"
 check_zoxide_installed() {
     if detect_tool_installed zoxide; then
         log_success "zoxide is already installed"
-        zoxide --version
+        local zoxide_version_output
+        zoxide_version_output="$(zoxide --version)"
+        echo "$zoxide_version_output"
+        local zoxide_version
+        zoxide_version="$(extract_semver "$zoxide_version_output" || true)"
+        warn_if_below_min_version "zoxide" "$zoxide_version"
         return 0
     else
         return 1
@@ -39,7 +44,12 @@ install_zoxide() {
     log_info "Attempting to install zoxide via apt..."
     if sudo apt update && sudo apt install -y zoxide 2>/dev/null; then
         log_success "zoxide installed via apt"
-        zoxide --version
+        local zoxide_version_output
+        zoxide_version_output="$(zoxide --version)"
+        echo "$zoxide_version_output"
+        local zoxide_version
+        zoxide_version="$(extract_semver "$zoxide_version_output" || true)"
+        warn_if_below_min_version "zoxide" "$zoxide_version"
         return 0
     fi
 
@@ -49,6 +59,12 @@ install_zoxide() {
         if cargo install zoxide 2>/dev/null; then
             log_success "zoxide installed via cargo"
             log_warning "Ensure ~/.cargo/bin is in your PATH (add to ~/.bashrc if needed)"
+            local zoxide_version_output
+            zoxide_version_output="$(zoxide --version)"
+            echo "$zoxide_version_output"
+            local zoxide_version
+            zoxide_version="$(extract_semver "$zoxide_version_output" || true)"
+            warn_if_below_min_version "zoxide" "$zoxide_version"
             return 0
         fi
         log_error "Cargo installation failed"

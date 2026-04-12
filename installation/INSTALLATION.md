@@ -43,6 +43,13 @@ Important: orchestrator success does not guarantee those stub tool configs were 
 - Per-tool logic: `installation/<tool>-install.sh`
 - Orchestrator continues after per-tool failures and prints a success/failure summary.
 
+## Minimum Required Versions
+
+- Central file: `installation/min-required-versions.txt`
+- Format: `tool=major.minor.patch` (blank lines and `#` comments are allowed)
+- Current policy: warning-only. If an installed tool is below minimum, installer logs a warning and continues.
+- Scripts currently checking minimums: `eza`, `zoxide`, `starship`, and `fzf` (checked from `bash-install.sh`).
+
 ## Symlink Semantics (from `installation/lib/helpers.sh`)
 
 - `create_symlink_safely` only accepts file sources (`[[ -f ... ]]`).

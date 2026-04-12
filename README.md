@@ -30,7 +30,7 @@ source ~/.bashrc
 
 ## Current Tool Status
 
-- Implemented and verified: `installation/eza-install.sh`, `installation/bash-install.sh`
+- Implemented and verified: `installation/eza-install.sh`, `installation/bash-install.sh`, `installation/zoxide-install.sh`
 - Template/stub scripts (return success but do not fully link configs yet):
   - `installation/starship-install.sh`
   - `installation/wezterm-install.sh`
@@ -43,6 +43,7 @@ source ~/.bashrc
 - Shared functions: `installation/lib/helpers.sh`
 - Per-tool scripts: `installation/<tool>-install.sh`
 - Orchestrator continues after per-tool failures and prints a summary at the end.
+- Minimum required versions are defined in `installation/min-required-versions.txt` (warning-only checks).
 
 Run one tool directly:
 

@@ -32,7 +32,12 @@ EZA_THEME_LINK="$EZA_CONFIG_DIR/theme.yml"
 check_eza_installed() {
     if detect_tool_installed eza; then
         log_success "eza is already installed"
-        eza --version | head -1
+        local eza_version_output
+        eza_version_output="$(eza --version | head -1)"
+        echo "$eza_version_output"
+        local eza_version
+        eza_version="$(extract_semver "$eza_version_output" || true)"
+        warn_if_below_min_version "eza" "$eza_version"
         return 0
     else
         return 1
@@ -46,7 +51,12 @@ install_eza() {
     log_info "Attempting to install eza via apt..."
     if sudo apt update && sudo apt install -y eza 2>/dev/null; then
         log_success "eza installed via apt"
-        eza --version | head -1
+        local eza_version_output
+        eza_version_output="$(eza --version | head -1)"
+        echo "$eza_version_output"
+        local eza_version
+        eza_version="$(extract_semver "$eza_version_output" || true)"
+        warn_if_below_min_version "eza" "$eza_version"
         return 0
     else
         log_warning "apt installation failed. Attempting cargo installation..."
@@ -55,6 +65,12 @@ install_eza() {
             if cargo install eza 2>/dev/null; then
                 log_success "eza installed via cargo"
                 log_warning "Ensure ~/.cargo/bin is in your PATH (add to ~/.bashrc if needed)"
+                local eza_version_output
+                eza_version_output="$(eza --version | head -1)"
+                echo "$eza_version_output"
+                local eza_version
+                eza_version="$(extract_semver "$eza_version_output" || true)"
+                warn_if_below_min_version "eza" "$eza_version"
                 return 0
             else
                 log_error "Cargo installation failed"

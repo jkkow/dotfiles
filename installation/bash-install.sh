@@ -56,6 +56,26 @@ verify_bash_setup() {
     return $([ "$success" = true ] && echo 0 || echo 1)
 }
 
+check_fzf_requirement() {
+    local required_fzf
+    if ! required_fzf="$(get_min_required_version "fzf")"; then
+        return 0
+    fi
+
+    if ! detect_tool_installed fzf; then
+        log_warning "fzf is not installed; minimum recommended version is $required_fzf (warning-only)"
+        return 0
+    fi
+
+    local fzf_version_output
+    fzf_version_output="$(fzf --version 2>/dev/null || true)"
+    local fzf_version
+    fzf_version="$(extract_semver "$fzf_version_output" || true)"
+
+    warn_if_below_min_version "fzf" "$fzf_version"
+    return 0
+}
+
 # =============================================================================
 # Main
 # =============================================================================
@@ -69,6 +89,11 @@ main() {
         return 1
     fi
     
+    log_separator
+
+    # Check fzf version requirement (warning-only)
+    check_fzf_requirement
+
     log_separator
     
     # Verify setup
