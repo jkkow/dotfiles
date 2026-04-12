@@ -61,6 +61,12 @@ This means directory-to-directory linking is not supported by `create_symlink_sa
 
 ## Adding a New Tool (minimal pattern)
 
+Starter template:
+
+- Copy `installation/template-install.sh` to `installation/<tool>-install.sh`
+- Replace placeholder variables in the "Customize This Block" section
+- Keep/remove binary install functions depending on whether the tool is config-only
+
 1. Create `installation/mytool-install.sh` and source `installation/lib/helpers.sh` using `DOTFILES_DIR` fallback.
 2. Use helper functions for logs, symlink creation, and verification.
 3. Return non-zero on real failures; keep script idempotent.

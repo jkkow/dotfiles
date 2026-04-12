@@ -42,6 +42,7 @@ source ~/.bashrc
 - Root orchestrator: `installation/install.sh`
 - Shared functions: `installation/lib/helpers.sh`
 - Per-tool scripts: `installation/<tool>-install.sh`
+- New script template: `installation/template-install.sh`
 - Orchestrator continues after per-tool failures and prints a summary at the end.
 - Minimum required versions are defined in `installation/min-required-versions.txt` (warning-only checks).
 
