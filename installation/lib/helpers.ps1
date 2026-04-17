@@ -87,6 +87,35 @@ function Ensure-RunningAsAdministrator {
     }
 
     $process = Start-Process -FilePath "pwsh" -ArgumentList $argumentList -Verb RunAs -Wait -PassThru
+
+    $scriptDir = Split-Path -Parent $ScriptPath
+    $logDir = Join-Path $scriptDir "logs"
+    $reportScript = Join-Path $scriptDir "report-install-summary.ps1"
+    if (Test-Path -LiteralPath $logDir) {
+        $latestSummary = Get-ChildItem -LiteralPath $logDir -Filter "install-summary-*.json" -File |
+            Sort-Object LastWriteTime -Descending |
+            Select-Object -First 1
+        $latestTranscript = Get-ChildItem -LiteralPath $logDir -Filter "install-transcript-*.log" -File |
+            Sort-Object LastWriteTime -Descending |
+            Select-Object -First 1
+
+        if ($null -ne $latestSummary) {
+            Write-LogInfo "Replaying installation summary in original shell: $($latestSummary.FullName)"
+            if (Test-Path -LiteralPath $reportScript) {
+                try {
+                    & $reportScript -SummaryPath $latestSummary.FullName
+                }
+                catch {
+                    Write-LogWarning "Failed to replay summary report: $($_.Exception.Message)"
+                }
+            }
+        }
+
+        if ($null -ne $latestTranscript) {
+            Write-LogInfo "Latest transcript log: $($latestTranscript.FullName)"
+        }
+    }
+
     exit $process.ExitCode
 }
 
@@ -180,6 +209,11 @@ function Get-CommandSemanticVersion {
     }
 
     $text = ($output | Out-String)
+    $weztermMatch = [regex]::Match($text, "(\d{8}-\d{6}-[0-9a-fA-F]+)")
+    if ($weztermMatch.Success) {
+        return $weztermMatch.Value
+    }
+
     $match = [regex]::Match($text, "(\d+)\.(\d+)\.(\d+)")
     if ($match.Success) {
         return $match.Value
@@ -262,6 +296,53 @@ function Test-VersionAtLeast {
     return $true
 }
 
+function Test-WeztermVersionAtLeast {
+    param(
+        [Parameter(Mandatory = $true)][string]$InstalledVersion,
+        [Parameter(Mandatory = $true)][string]$RequiredVersion
+    )
+
+    if ($InstalledVersion -in @("not-installed", "unknown") -or [string]::IsNullOrWhiteSpace($InstalledVersion)) {
+        return $false
+    }
+
+    if ([string]::IsNullOrWhiteSpace($RequiredVersion)) {
+        return $true
+    }
+
+    $installedMatch = [regex]::Match($InstalledVersion, "^(\d{8})-(\d{6})-([0-9a-fA-F]+)$")
+    $requiredMatch = [regex]::Match($RequiredVersion, "^(\d{8})-(\d{6})-([0-9a-fA-F]+)$")
+    if ((-not $installedMatch.Success) -or (-not $requiredMatch.Success)) {
+        return $false
+    }
+
+    $installedKey = [long]("$($installedMatch.Groups[1].Value)$($installedMatch.Groups[2].Value)")
+    $requiredKey = [long]("$($requiredMatch.Groups[1].Value)$($requiredMatch.Groups[2].Value)")
+    if ($installedKey -gt $requiredKey) {
+        return $true
+    }
+
+    if ($installedKey -lt $requiredKey) {
+        return $false
+    }
+
+    return ([string]::Compare($installedMatch.Groups[3].Value, $requiredMatch.Groups[3].Value, $true) -ge 0)
+}
+
+function Test-VersionAtLeastForTool {
+    param(
+        [Parameter(Mandatory = $true)][string]$InstalledVersion,
+        [Parameter(Mandatory = $true)][string]$RequiredVersion,
+        [Parameter(Mandatory = $true)][string]$ToolName
+    )
+
+    if ($ToolName -eq "wezterm") {
+        return (Test-WeztermVersionAtLeast -InstalledVersion $InstalledVersion -RequiredVersion $RequiredVersion)
+    }
+
+    return (Test-VersionAtLeast -InstalledVersion $InstalledVersion -RequiredVersion $RequiredVersion)
+}
+
 function Invoke-WingetCommand {
     param([Parameter(Mandatory = $true)][string[]]$Arguments)
 
@@ -311,8 +392,11 @@ function Convert-ToSemanticVersion {
     return $null
 }
 
-function Get-WingetInstalledSemanticVersion {
-    param([Parameter(Mandatory = $true)][string]$PackageId)
+function Get-WingetInstalledVersion {
+    param(
+        [Parameter(Mandatory = $true)][string]$PackageId,
+        [Parameter(Mandatory = $true)][string]$ToolName
+    )
 
     $listResult = Invoke-WingetCommand -Arguments @("list", "--id", $PackageId, "--exact", "--accept-source-agreements", "--disable-interactivity")
     if ($listResult.ExitCode -ne 0) {
@@ -335,7 +419,16 @@ function Get-WingetInstalledSemanticVersion {
                 break
             }
 
-            $semantic = Convert-ToSemanticVersion -VersionText $tokens[$i + 1]
+            $versionToken = $tokens[$i + 1]
+            if ($ToolName -eq "wezterm") {
+                $weztermVersion = [regex]::Match($versionToken, "(\d{8}-\d{6}-[0-9a-fA-F]+)")
+                if ($weztermVersion.Success) {
+                    return $weztermVersion.Value
+                }
+                return $versionToken
+            }
+
+            $semantic = Convert-ToSemanticVersion -VersionText $versionToken
             if ($semantic) {
                 return $semantic
             }
@@ -372,7 +465,7 @@ function Install-WingetPackageWithPolicy {
     }
 
     $requiredVersion = Get-MinRequiredVersion -ToolName $ToolName
-    $beforeWingetVersion = Get-WingetInstalledSemanticVersion -PackageId $PackageId
+    $beforeWingetVersion = Get-WingetInstalledVersion -PackageId $PackageId -ToolName $ToolName
     $isInstalled = $null -ne $beforeWingetVersion
 
     if (-not $isInstalled) {
@@ -394,7 +487,7 @@ function Install-WingetPackageWithPolicy {
             }
         }
 
-        if (Test-VersionAtLeast -InstalledVersion $beforeVersion -RequiredVersion $requiredVersion) {
+        if (Test-VersionAtLeastForTool -InstalledVersion $beforeVersion -RequiredVersion $requiredVersion -ToolName $ToolName) {
             return [pscustomobject]@{
                 Success            = $true
                 Action             = "skipped"
@@ -416,7 +509,7 @@ function Install-WingetPackageWithPolicy {
     )
 
     if ($installResult.ExitCode -ne 0) {
-        $afterWingetVersion = Get-WingetInstalledSemanticVersion -PackageId $PackageId
+        $afterWingetVersion = Get-WingetInstalledVersion -PackageId $PackageId -ToolName $ToolName
         $afterInstalled = $null -ne $afterWingetVersion
         $afterVersion = $afterWingetVersion
         if ([string]::IsNullOrWhiteSpace($afterVersion)) {
@@ -433,7 +526,7 @@ function Install-WingetPackageWithPolicy {
                 }
             }
 
-            if (Test-VersionAtLeast -InstalledVersion $afterVersion -RequiredVersion $requiredVersion) {
+            if (Test-VersionAtLeastForTool -InstalledVersion $afterVersion -RequiredVersion $requiredVersion -ToolName $ToolName) {
                 return [pscustomobject]@{
                     Success            = $true
                     Action             = "skipped"
@@ -451,12 +544,12 @@ function Install-WingetPackageWithPolicy {
         }
     }
 
-    $afterWingetVersion = Get-WingetInstalledSemanticVersion -PackageId $PackageId
+    $afterWingetVersion = Get-WingetInstalledVersion -PackageId $PackageId -ToolName $ToolName
     $afterVersion = $afterWingetVersion
     if ([string]::IsNullOrWhiteSpace($afterVersion)) {
         $afterVersion = Get-CommandSemanticVersion -CommandName $CommandName
     }
-    if ($requiredVersion -and -not (Test-VersionAtLeast -InstalledVersion $afterVersion -RequiredVersion $requiredVersion)) {
+    if ($requiredVersion -and -not (Test-VersionAtLeastForTool -InstalledVersion $afterVersion -RequiredVersion $requiredVersion -ToolName $ToolName)) {
         return [pscustomobject]@{
             Success            = $false
             Action             = "failed"

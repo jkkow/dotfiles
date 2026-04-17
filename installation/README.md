@@ -50,6 +50,10 @@ When you install `yazi` via `pwsh .\installation\install.ps1 -Tools yazi`, the i
 
 For detailed dependency rationale and alternative Scoop commands, see `yazi/README.md`.
 
+### WezTerm note
+
+- Installer default channel is `wez.wezterm.nightly` to satisfy the minimum required version policy.
+
 ## Installation behavior
 
 - Every package is installed via `winget` with `--scope machine`.
@@ -59,3 +63,4 @@ For detailed dependency rationale and alternative Scoop commands, see `yazi/READ
 - Config files are linked from this repository to `$HOME\.config`.
 - A JSON summary is written to `installation/logs/`.
 - A console table summary is printed by `installation/report-install-summary.ps1`.
+- When elevation is required, the installer replays the latest summary in the original shell after the elevated run exits.

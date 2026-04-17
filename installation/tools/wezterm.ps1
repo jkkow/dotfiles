@@ -8,7 +8,7 @@ $ErrorActionPreference = "Stop"
 . $HelpersPath
 
 $tool = "wezterm"
-$packageId = "wez.wezterm"
+$packageId = "wez.wezterm.nightly"
 $binary = "wezterm"
 
 $result = [ordered]@{
@@ -38,6 +38,7 @@ try {
 
     $result.AfterVersion = Get-CommandSemanticVersion -CommandName $binary
     $result.Status = "ok"
+    $result.Notes += "Using WezTerm nightly channel by default for minimum version compatibility."
     $result.Notes += $installResult.Message
     $result.Notes += "Linked WezTerm config directory to $target"
 }
