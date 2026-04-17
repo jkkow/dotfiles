@@ -1,42 +1,20 @@
-# Manage Config GlazeWM
+# GlazeWM Config (Windows)
 
-Config management of GlazeWM via personal git repository
+This folder stores GlazeWM configuration managed by this repository.
 
-## Install GlazeWM
+## Install
 
-```
-scoop bucket add extras
-scoop install extras/glazewm
-```
-
-need to install `zebar` too.
-
-```
-scoop install zebar
+```powershell
+winget install --id glzr-io.glazewm --exact --scope machine
+winget install --id glzr-io.zebar --exact --scope machine
 ```
 
-## Check Config File Location
+## Config path
 
-When GlazeWM installed and _run for the first time_, `.glzr\glazewm` folder is created in the following location.
+Set a persistent environment variable so GlazeWM loads this repo config:
 
-`C:\Users\user_name\.glzr\`
-
-Change the config path to the my custom config folder.
-
-Use the following command
-
-```
-setx GLAZEWM_CONFIG_PATH C:\Users\jkkow\.config\glazewm\config.yaml
+```powershell
+setx GLAZEWM_CONFIG_PATH "$HOME\.config\glazewm\config.yaml"
 ```
 
-This `setx` command set a environment variable permanently so that you don't need to set the path whenever you remoot or re-start a new session.
-you should locate config file (`config.yaml`) for GlazeWM here.
-
-## Set symboliclink 
-
-Remote Github repo
-
-```
-git@github.com:jkkow/dotfiles.git
-```
-Use `config.yaml` file in the glzaewm folder for the symboliclink source.
+Then link this file to your config path if needed.

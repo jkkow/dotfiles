@@ -1,49 +1,19 @@
-# Eza configuration
+# Eza Configuration (Windows)
 
-## Installation
+## Install
 
-### On Windows
+`eza` is installed by `installation/install.ps1` using winget machine scope.
 
-```
-scoop install eza
-```
+## Config path
 
-### On Linux
+This dotfiles repo links:
 
-Use Rust
+- source: `eza/themes/tokyonight.yml`
+- target: `$HOME\.config\eza\theme.yml`
 
-```
-cargo install eza
+If you need to set it manually:
 
-```
-
-In this case, eza binary file will be located on `~/.cargo/bin/eza`
-
-## Configuraion
-
-### Set Configuration Directory
-
-First, set your eza config directory. Default configuraion file location can be overriden by `$env:EZA_CONFIG_DIR`
-
-on Windows
-
-```
-$env:EZA_CONFIG_DIR = "$env:USERPROFILE\.config\eza"
-```
-
-Linux default location is `~/.config/eza/`
-
-### Set Symbolic Link
-
-You may want to put `theme.yml` file in the configuration directory as a symbolic link.
-
-on Windows
-
-```shell
-new-item -itemtype symboliclink -path "theme.yml" -target "C:\Users\jkkow\dev\dotfiles\eza\themes\tokyonight.yml"
-```
-on Linux
-
-```bash
-ln -s ~/.config/eza/theme.yml ~/dev/dotfiles/eza/theme/tokyonight.yml
+```powershell
+New-Item -ItemType Directory -Path "$HOME\.config\eza" -Force
+New-Item -ItemType SymbolicLink -Path "$HOME\.config\eza\theme.yml" -Target "C:\path\to\dotfiles\eza\themes\tokyonight.yml" -Force
 ```

@@ -1,0 +1,74 @@
+[
+  {
+    "Tool": "eza",
+    "PackageId": "eza-community.eza",
+    "Scope": "machine",
+    "Action": "skipped",
+    "Status": "ok",
+    "BeforeVersion": "0.23.4",
+    "AfterVersion": "0.23.4",
+    "Notes": [
+      "Linked eza theme to C:\\Users\\jkkow\\.config\\eza\\theme.yml"
+    ]
+  },
+  {
+    "Tool": "starship",
+    "PackageId": "Starship.Starship",
+    "Scope": "machine",
+    "Action": "failed",
+    "Status": "failed",
+    "BeforeVersion": "1.24.2",
+    "AfterVersion": "1.24.2",
+    "Notes": [
+      "Cannot find path 'C:\\Users\\jkkow\\dotfiles\\starship\\starship.toml' because it does not exist."
+    ]
+  },
+  {
+    "Tool": "wezterm",
+    "PackageId": "wez.wezterm",
+    "Scope": "machine",
+    "Action": "skipped",
+    "Status": "ok",
+    "BeforeVersion": "unknown",
+    "AfterVersion": "unknown",
+    "Notes": [
+      "Linked WezTerm config to C:\\Users\\jkkow\\.wezterm.lua"
+    ]
+  },
+  {
+    "Tool": "yazi",
+    "PackageId": "sxyazi.yazi",
+    "Scope": "machine",
+    "Action": "skipped",
+    "Status": "ok",
+    "BeforeVersion": "26.1.22",
+    "AfterVersion": "26.1.22",
+    "Notes": [
+      "Linked yazi config directory to C:\\Users\\jkkow\\.config\\yazi"
+    ]
+  },
+  {
+    "Tool": "zed",
+    "PackageId": "ZedIndustries.Zed",
+    "Scope": "machine",
+    "Action": "skipped",
+    "Status": "ok",
+    "BeforeVersion": "0.229.0",
+    "AfterVersion": "0.229.0",
+    "Notes": [
+      "Linked zed config directory to C:\\Users\\jkkow\\.config\\zed"
+    ]
+  },
+  {
+    "Tool": "zoxide",
+    "PackageId": "ajeetdsouza.zoxide",
+    "Scope": "machine",
+    "Action": "skipped",
+    "Status": "ok",
+    "BeforeVersion": "0.9.9",
+    "AfterVersion": "0.9.9",
+    "Notes": [
+      "zoxide installation completed"
+    ]
+  }
+]

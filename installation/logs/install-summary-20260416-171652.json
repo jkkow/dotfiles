@@ -1,0 +1,74 @@
+[
+  {
+    "Tool": "eza",
+    "PackageId": "eza-community.eza",
+    "Scope": "machine",
+    "Action": "failed",
+    "Status": "failed",
+    "BeforeVersion": "0.23.4",
+    "AfterVersion": "not-installed",
+    "Notes": [
+      "- \r\n                                                                                                                        \r\n?ъ슜 媛?ν븳 ?낃렇?덉씠?쒕? 李얠쓣 ???놁뒿?덈떎.\r\n援ъ꽦???먮낯?먯꽌 ?ъ슜?????덈뒗 理쒖떊 ?⑦궎吏 踰꾩쟾???놁뒿?덈떎."
+    ]
+  },
+  {
+    "Tool": "starship",
+    "PackageId": "Starship.Starship",
+    "Scope": "machine",
+    "Action": "failed",
+    "Status": "failed",
+    "BeforeVersion": "1.24.2",
+    "AfterVersion": "not-installed",
+    "Notes": [
+      "- \r\n                                                                                                                        \r\n?ъ슜 媛?ν븳 ?낃렇?덉씠?쒕? 李얠쓣 ???놁뒿?덈떎.\r\n援ъ꽦???먮낯?먯꽌 ?ъ슜?????덈뒗 理쒖떊 ?⑦궎吏 踰꾩쟾???놁뒿?덈떎."
+    ]
+  },
+  {
+    "Tool": "wezterm",
+    "PackageId": "wez.wezterm",
+    "Scope": "machine",
+    "Action": "failed",
+    "Status": "failed",
+    "BeforeVersion": "unknown",
+    "AfterVersion": "not-installed",
+    "Notes": [
+      "- \r\n                                                                                                                        \r\n?ъ슜 媛?ν븳 ?낃렇?덉씠?쒕? 李얠쓣 ???놁뒿?덈떎.\r\n援ъ꽦???먮낯?먯꽌 ?ъ슜?????덈뒗 理쒖떊 ?⑦궎吏 踰꾩쟾???놁뒿?덈떎."
+    ]
+  },
+  {
+    "Tool": "yazi",
+    "PackageId": "sxyazi.yazi",
+    "Scope": "machine",
+    "Action": "failed",
+    "Status": "failed",
+    "BeforeVersion": "26.1.22",
+    "AfterVersion": "not-installed",
+    "Notes": [
+      "- \r\n                                                                                                                        \r\n?ъ슜 媛?ν븳 ?낃렇?덉씠?쒕? 李얠쓣 ???놁뒿?덈떎.\r\n援ъ꽦???먮낯?먯꽌 ?ъ슜?????덈뒗 理쒖떊 ?⑦궎吏 踰꾩쟾???놁뒿?덈떎."
+    ]
+  },
+  {
+    "Tool": "zed",
+    "PackageId": "Zed.Zed",
+    "Scope": "machine",
+    "Action": "failed",
+    "Status": "failed",
+    "BeforeVersion": "0.229.0",
+    "AfterVersion": "not-installed",
+    "Notes": [
+      "- \r\n                                                                                                                        \r\n?낅젰 議곌굔怨??쇱튂?섎뒗 ?⑦궎吏瑜?李얠쓣 ???놁뒿?덈떎."
+    ]
+  },
+  {
+    "Tool": "zoxide",
+    "PackageId": "ajeetdsouza.zoxide",
+    "Scope": "machine",
+    "Action": "failed",
+    "Status": "failed",
+    "BeforeVersion": "0.9.9",
+    "AfterVersion": "not-installed",
+    "Notes": [
+      "- \r\n                                                                                                                        \r\n?ъ슜 媛?ν븳 ?낃렇?덉씠?쒕? 李얠쓣 ???놁뒿?덈떎.\r\n援ъ꽦???먮낯?먯꽌 ?ъ슜?????덈뒗 理쒖떊 ?⑦궎吏 踰꾩쟾???놁뒿?덈떎."
+    ]
+  }
+]

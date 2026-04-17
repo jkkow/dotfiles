@@ -77,12 +77,12 @@ config.keys = {
 	{
 		key = "-",
 		mods = "LEADER",
-		action = act.SplitVertical({ domain = CurrentPaneDomain }),
+		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "|",
 		mods = "LEADER|SHIFT",
-		action = act.SplitHorizontal({ domain = CurrentPaneDomain }),
+		action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "h",
