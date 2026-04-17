@@ -7,7 +7,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- Settings
+-- Core terminal defaults: shell, font stack, and base window behavior.
 config.default_prog = { "pwsh" }
 config.font = wezterm.font_with_fallback({
 	{ family = "JetBrainsMono Nerd Font", scale = 1.03, weight = "Bold" },
@@ -26,25 +26,40 @@ config.initial_rows = 30
 config.default_cursor_style = "BlinkingUnderline"
 config.enable_tab_bar = true
 
+-- Windows-only polish: native title buttons, Mica backdrop, and smoother GPU rendering.
+if wezterm.target_triple:find("windows") then
+	config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+	config.win32_system_backdrop = "Mica"
+	config.front_end = "WebGpu"
+	config.max_fps = 120
+	config.animation_fps = 60
+end
+
+-- Two-layer background: image layer first, then a color tint for readability.
 config.background = {
 	{
-		-- background image
+		-- Absolute path avoids path resolution issues on Windows.
 		source = {
-			File = wezterm.config_dir .. "/images/dark-desert.jpg", -- The file located in the same directory
+			File = wezterm.home_dir .. "/dotfiles/wezterm/images/dark-desert.jpg",
 		},
-		opacity = 1.0, -- Adjust the transparency (0.0 to 1.0)
+		-- Force full-window coverage and prevent tiling.
+		width = "100%",
+		height = "100%",
+		repeat_x = "NoRepeat",
+		repeat_y = "NoRepeat",
+		opacity = 1.0,
 		vertical_align = "Middle", -- Options: "Top", "Middle", "Bottom"
 		horizontal_align = "Center", -- Options: "Left", "Center", "Right"
-		hsb = { brightness = 0.1 },
+		hsb = { brightness = 0.18 },
 	},
 	{
-		-- Add an overlay color to the background image
+		-- Slight tint keeps text contrast stable over the wallpaper.
 		source = {
 			Color = "#0c2043",
 		},
 		width = "100%",
 		height = "100%",
-		opacity = 0.55,
+		opacity = 0.42,
 	},
 }
 
@@ -64,7 +79,7 @@ config.launch_menu = {
 	{ label = "WSL: Ubuntu", args = { "wsl.exe", "--distribution", "Ubuntu" } },
 }
 
--- keys
+-- Leader key style: press Ctrl+; first, then the action key.
 config.leader = { key = ";", mods = "CTRL", timeout_millisecond = 1000 }
 config.keys = {
 	-- New Tabs
