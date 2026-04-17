@@ -38,8 +38,10 @@ $result = [ordered]@{
 try {
     $result.BeforeVersion = Get-CommandSemanticVersion -CommandName $binary
 
+    Write-LogInfo "Checking Yazi dependencies..."
     $dependencyFailures = New-Object System.Collections.Generic.List[string]
     foreach ($dependency in $dependencies) {
+        Write-LogInfo "Dependency: $($dependency.ToolName) ($($dependency.PackageId))"
         $dependencyResult = Install-WingetPackageWithPolicy -PackageId $dependency.PackageId -ToolName $dependency.ToolName -CommandName $dependency.CommandName
         $result.Notes += "Dependency [$($dependency.ToolName)] $($dependencyResult.Action): $($dependencyResult.Message)"
 

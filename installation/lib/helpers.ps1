@@ -155,7 +155,26 @@ function Get-CommandSemanticVersion {
         return "not-installed"
     }
 
-    $output = & $CommandName --version 2>$null
+    $normalizedCommand = $CommandName.ToLowerInvariant()
+    $versionArguments = switch ($normalizedCommand) {
+        "ffmpeg" { @("-version") }
+        "7z" { @() }
+        "pdftotext" { @("-v") }
+        default { @("--version") }
+    }
+
+    try {
+        if ($versionArguments.Count -eq 0) {
+            $output = & $CommandName 2>&1
+        }
+        else {
+            $output = & $CommandName @versionArguments 2>&1
+        }
+    }
+    catch {
+        return "unknown"
+    }
+
     if (-not $output) {
         return "unknown"
     }
@@ -258,12 +277,72 @@ function Invoke-WingetCommand {
 function Test-WingetPackageInstalled {
     param([Parameter(Mandatory = $true)][string]$PackageId)
 
-    $result = Invoke-WingetCommand -Arguments @("list", "--id", $PackageId, "--exact", "--accept-source-agreements")
+    $result = Invoke-WingetCommand -Arguments @("list", "--id", $PackageId, "--exact", "--accept-source-agreements", "--disable-interactivity")
     if ($result.ExitCode -ne 0) {
         return $false
     }
 
     return $result.Output -match [regex]::Escape($PackageId)
+}
+
+function Convert-ToSemanticVersion {
+    param([string]$VersionText)
+
+    if ([string]::IsNullOrWhiteSpace($VersionText)) {
+        return $null
+    }
+
+    $trimmed = $VersionText.Trim()
+    $match = [regex]::Match($trimmed, "(\d+)\.(\d+)\.(\d+)")
+    if ($match.Success) {
+        return $match.Value
+    }
+
+    $shortMatch = [regex]::Match($trimmed, "(\d+)\.(\d+)")
+    if ($shortMatch.Success) {
+        return "$($shortMatch.Groups[1].Value).$($shortMatch.Groups[2].Value).0"
+    }
+
+    $majorMatch = [regex]::Match($trimmed, "^(\d+)$")
+    if ($majorMatch.Success) {
+        return "$($majorMatch.Groups[1].Value).0.0"
+    }
+
+    return $null
+}
+
+function Get-WingetInstalledSemanticVersion {
+    param([Parameter(Mandatory = $true)][string]$PackageId)
+
+    $listResult = Invoke-WingetCommand -Arguments @("list", "--id", $PackageId, "--exact", "--accept-source-agreements", "--disable-interactivity")
+    if ($listResult.ExitCode -ne 0) {
+        return $null
+    }
+
+    $lines = $listResult.Output -split "`r?`n"
+    foreach ($line in $lines) {
+        if ([string]::IsNullOrWhiteSpace($line) -or $line -notmatch [regex]::Escape($PackageId)) {
+            continue
+        }
+
+        $tokens = ($line.Trim() -split "\s+")
+        for ($i = 0; $i -lt $tokens.Length; $i++) {
+            if ($tokens[$i] -ne $PackageId) {
+                continue
+            }
+
+            if (($i + 1) -ge $tokens.Length) {
+                break
+            }
+
+            $semantic = Convert-ToSemanticVersion -VersionText $tokens[$i + 1]
+            if ($semantic) {
+                return $semantic
+            }
+        }
+    }
+
+    return $null
 }
 
 function Install-WingetPackageWithPolicy {
@@ -293,8 +372,17 @@ function Install-WingetPackageWithPolicy {
     }
 
     $requiredVersion = Get-MinRequiredVersion -ToolName $ToolName
-    $beforeVersion = Get-CommandSemanticVersion -CommandName $CommandName
-    $isInstalled = Test-WingetPackageInstalled -PackageId $PackageId
+    $beforeWingetVersion = Get-WingetInstalledSemanticVersion -PackageId $PackageId
+    $isInstalled = $null -ne $beforeWingetVersion
+
+    if (-not $isInstalled) {
+        $isInstalled = Test-WingetPackageInstalled -PackageId $PackageId
+    }
+
+    $beforeVersion = $beforeWingetVersion
+    if ([string]::IsNullOrWhiteSpace($beforeVersion)) {
+        $beforeVersion = Get-CommandSemanticVersion -CommandName $CommandName
+    }
 
     if ($isInstalled) {
         if ([string]::IsNullOrWhiteSpace($requiredVersion)) {
@@ -328,6 +416,33 @@ function Install-WingetPackageWithPolicy {
     )
 
     if ($installResult.ExitCode -ne 0) {
+        $afterWingetVersion = Get-WingetInstalledSemanticVersion -PackageId $PackageId
+        $afterInstalled = $null -ne $afterWingetVersion
+        $afterVersion = $afterWingetVersion
+        if ([string]::IsNullOrWhiteSpace($afterVersion)) {
+            $afterVersion = Get-CommandSemanticVersion -CommandName $CommandName
+        }
+
+        if ($afterInstalled) {
+            if ([string]::IsNullOrWhiteSpace($requiredVersion)) {
+                return [pscustomobject]@{
+                    Success            = $true
+                    Action             = "skipped"
+                    Message            = "Package is already installed (no minimum version policy configured)."
+                    MinRequiredVersion = "n/a"
+                }
+            }
+
+            if (Test-VersionAtLeast -InstalledVersion $afterVersion -RequiredVersion $requiredVersion) {
+                return [pscustomobject]@{
+                    Success            = $true
+                    Action             = "skipped"
+                    Message            = "Installed version $afterVersion meets minimum $requiredVersion."
+                    MinRequiredVersion = $requiredVersion
+                }
+            }
+        }
+
         return [pscustomobject]@{
             Success            = $false
             Action             = "failed"
@@ -336,7 +451,11 @@ function Install-WingetPackageWithPolicy {
         }
     }
 
-    $afterVersion = Get-CommandSemanticVersion -CommandName $CommandName
+    $afterWingetVersion = Get-WingetInstalledSemanticVersion -PackageId $PackageId
+    $afterVersion = $afterWingetVersion
+    if ([string]::IsNullOrWhiteSpace($afterVersion)) {
+        $afterVersion = Get-CommandSemanticVersion -CommandName $CommandName
+    }
     if ($requiredVersion -and -not (Test-VersionAtLeast -InstalledVersion $afterVersion -RequiredVersion $requiredVersion)) {
         return [pscustomobject]@{
             Success            = $false

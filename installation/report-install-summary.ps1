@@ -22,10 +22,10 @@ $results |
 Select-Object Tool, PackageId, Action, Status, BeforeVersion, AfterVersion, MinRequiredVersion, Scope |
 Format-Table -AutoSize
 
-$installed = ($results | Where-Object { $_.Action -eq "installed" }).Count
-$updated = ($results | Where-Object { $_.Action -eq "updated" }).Count
-$skipped = ($results | Where-Object { $_.Action -eq "skipped" }).Count
-$failed = ($results | Where-Object { $_.Status -eq "failed" }).Count
+$installed = @($results | Where-Object { $_.Action -eq "installed" }).Count
+$updated = @($results | Where-Object { $_.Action -eq "updated" }).Count
+$skipped = @($results | Where-Object { $_.Action -eq "skipped" }).Count
+$failed = @($results | Where-Object { $_.Status -eq "failed" }).Count
 
 Write-Host ""
 Write-Host "Totals: installed=$installed updated=$updated skipped=$skipped failed=$failed" -ForegroundColor Cyan

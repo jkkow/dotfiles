@@ -33,7 +33,34 @@ try {
     }
 
     $source = Join-Path $DotfilesDir "eza\themes\tokyonight.yml"
-    $target = Join-Path $HOME ".config\eza\theme.yml"
+    $configDir = Join-Path $HOME ".config\eza"
+    $target = Join-Path $configDir "theme.yml"
+
+    if (Test-Path -LiteralPath $configDir) {
+        $configItem = Get-Item -LiteralPath $configDir -Force
+        if (-not $configItem.PSIsContainer) {
+            throw "Expected eza config directory but found a file: $configDir"
+        }
+
+        if ($configItem.Attributes.HasFlag([System.IO.FileAttributes]::ReparsePoint)) {
+            $timestamp = Get-Date -Format "yyyyMMddHHmmss"
+            $backupPath = "$configDir.bak.$timestamp"
+            Move-Item -LiteralPath $configDir -Destination $backupPath -Force
+            $result.Notes += "Backed up linked eza config directory to $backupPath to enforce file-level linking."
+        }
+    }
+
+    New-Item -ItemType Directory -Path $configDir -Force | Out-Null
+
+    $accidentalRepoLink = Join-Path $DotfilesDir "eza\theme.yml"
+    if (Test-Path -LiteralPath $accidentalRepoLink) {
+        $repoItem = Get-Item -LiteralPath $accidentalRepoLink -Force
+        if ($repoItem.LinkType -eq "SymbolicLink") {
+            Remove-Item -LiteralPath $accidentalRepoLink -Force
+            $result.Notes += "Removed accidental repository symlink: $accidentalRepoLink"
+        }
+    }
+
     Set-SymlinkSafely -Source $source -Target $target
 
     $result.AfterVersion = Get-CommandSemanticVersion -CommandName $binary

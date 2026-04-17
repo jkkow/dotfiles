@@ -2,6 +2,14 @@
 # Format: <tool>=<major.minor.patch>
 
 eza=0.18.0
+ffmpeg=8.1.0
+7zip=26.0.0
+jq=1.8.1
+poppler=25.7.0
+fd=10.4.2
+ripgrep=15.1.0
+fzf=0.71.0
+imagemagick=7.1.2
 starship=1.20.0
 yazi=26.1.22
 zed=0.231.0
