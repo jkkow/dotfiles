@@ -19,7 +19,7 @@ if (-not (Test-Path -LiteralPath $HelpersPath)) {
 . $HelpersPath
 Ensure-RunningAsAdministrator -ScriptPath $PSCommandPath -BoundParameters $PSBoundParameters
 
-$availableTools = @("eza", "starship", "wezterm", "yazi", "zed", "zoxide")
+$availableTools = @("eza", "powershell", "starship", "wezterm", "yazi", "zed", "zoxide")
 
 function Show-Usage {
     Write-Host "Dotfiles Windows Installer"
@@ -80,6 +80,7 @@ try {
                     Status             = "failed"
                     BeforeVersion      = "unknown"
                     AfterVersion       = "unknown"
+                    VersionSource      = "unknown"
                     MinRequiredVersion = "n/a"
                     Notes              = @("Installer script missing: $toolScript")
                 })
@@ -109,6 +110,7 @@ try {
                     Status             = "failed"
                     BeforeVersion      = "unknown"
                     AfterVersion       = "unknown"
+                    VersionSource      = "unknown"
                     MinRequiredVersion = "n/a"
                     Notes              = @($_.Exception.Message)
                 })

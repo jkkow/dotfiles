@@ -19,7 +19,29 @@ if ($results -isnot [System.Array]) {
 Write-Host ""
 Write-Host "Installation Summary" -ForegroundColor Cyan
 $results |
-Select-Object Tool, PackageId, Action, Status, BeforeVersion, AfterVersion, MinRequiredVersion, Scope |
+Select-Object Tool, PackageId, Action, Status, @{
+        Name       = "InstalledVersion"
+        Expression = {
+            if (-not [string]::IsNullOrWhiteSpace($_.AfterVersion)) {
+                return $_.AfterVersion
+            }
+
+            if (-not [string]::IsNullOrWhiteSpace($_.BeforeVersion)) {
+                return $_.BeforeVersion
+            }
+
+            return "unknown"
+        }
+    }, MinRequiredVersion, @{
+        Name       = "VersionSource"
+        Expression = {
+            if (-not [string]::IsNullOrWhiteSpace($_.VersionSource)) {
+                return $_.VersionSource
+            }
+
+            return "unknown"
+        }
+    }, Scope |
 Format-Table -AutoSize
 
 $installed = @($results | Where-Object { $_.Action -eq "installed" }).Count

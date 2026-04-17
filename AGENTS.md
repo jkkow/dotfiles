@@ -12,13 +12,13 @@ High-signal guidance for OpenCode/Codex sessions in `dotfiles`.
 ## Commands You Should Not Guess
 
 - Install all managed tools: `pwsh .\installation\install.ps1 -All`
-- Install specific tools: `pwsh .\installation\install.ps1 -Tools eza,starship,wezterm,yazi,zed,zoxide`
+- Install specific tools: `pwsh .\installation\install.ps1 -Tools powershell,eza,starship,wezterm,yazi,zed,zoxide`
 - Keep elevated installer console open: add `-PauseAtEnd`
 - Re-render an install report: `pwsh .\installation\report-install-summary.ps1 -SummaryPath <path-to-json>`
 
 ## Safety and Workflow Constraints
 
-- `install.ps1` auto-elevates (`RunAs`) and installs packages with `winget --scope machine`; do not run full installer unless the user explicitly asks.
+- `install.ps1` auto-elevates (`RunAs`) and installs packages with `winget --scope machine` (PowerShell installer can fall back to default scope); do not run full installer unless the user explicitly asks.
 - Installer writes runtime artifacts under `installation/logs/`; avoid editing/committing those logs unless the task is specifically about installer logs.
 - WezTerm installer intentionally uses nightly (`wez.wezterm.nightly`) to satisfy min-version policy.
 - Yazi installer also installs required dependencies (`ffmpeg`, `7zip`, `jq`, `poppler`, `fd`, `ripgrep`, `fzf`, `zoxide`, `imagemagick`).

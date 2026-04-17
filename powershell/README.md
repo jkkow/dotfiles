@@ -7,6 +7,9 @@ PowerShell is the main shell profile in this dotfiles repository.
 ```powershell
 winget install --id Microsoft.PowerShell --exact --scope machine
 scoop install main/pwsh
+
+# Or via this dotfiles installer
+pwsh .\installation\install.ps1 -Tools powershell
 ```
 
 ## Configure

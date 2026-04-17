@@ -13,7 +13,7 @@ pwsh .\installation\install.ps1 -All
 Install selected tools only:
 
 ```powershell
-pwsh .\installation\install.ps1 -Tools eza,starship,wezterm,yazi,zed,zoxide
+pwsh .\installation\install.ps1 -Tools powershell,eza,starship,wezterm,yazi,zed,zoxide
 ```
 
 For full installer behavior, requirements, and policy details, see `installation/README.md`.

@@ -19,7 +19,7 @@ pwsh .\installation\install.ps1 -All
 Install selected tools:
 
 ```powershell
-pwsh .\installation\install.ps1 -Tools eza,starship,zoxide
+pwsh .\installation\install.ps1 -Tools powershell,eza,starship,zoxide
 
 # Keep elevated console open after run
 pwsh .\installation\install.ps1 -All -PauseAtEnd
@@ -28,6 +28,7 @@ pwsh .\installation\install.ps1 -All -PauseAtEnd
 ## Managed tools
 
 - `eza`
+- `powershell`
 - `starship`
 - `wezterm`
 - `yazi`
@@ -56,7 +57,7 @@ For detailed dependency rationale and alternative Scoop commands, see `yazi/READ
 
 ## Installation behavior
 
-- Every package is installed via `winget` with `--scope machine`.
+- Packages are installed via `winget` with `--scope machine`; `powershell` falls back to default scope if machine scope is unsupported.
 - Version policy is read from `installation/min-required-versions.txt`.
 - If installed version is at or above minimum, the tool is skipped.
 - If installed version is below minimum, the installer updates to the latest version.

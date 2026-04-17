@@ -438,6 +438,35 @@ function Get-WingetInstalledVersion {
     return $null
 }
 
+function Get-EffectiveInstalledVersion {
+    param(
+        [Parameter(Mandatory = $true)][string]$PackageId,
+        [Parameter(Mandatory = $true)][string]$ToolName,
+        [Parameter(Mandatory = $true)][string]$CommandName
+    )
+
+    $wingetVersion = Get-WingetInstalledVersion -PackageId $PackageId -ToolName $ToolName
+    if (-not [string]::IsNullOrWhiteSpace($wingetVersion)) {
+        return [pscustomobject]@{
+            Version = $wingetVersion
+            Source  = "winget"
+        }
+    }
+
+    $commandVersion = Get-CommandSemanticVersion -CommandName $CommandName
+    if (-not [string]::IsNullOrWhiteSpace($commandVersion) -and $commandVersion -notin @("unknown", "not-installed")) {
+        return [pscustomobject]@{
+            Version = $commandVersion
+            Source  = "command"
+        }
+    }
+
+    return [pscustomobject]@{
+        Version = "unknown"
+        Source  = "unknown"
+    }
+}
+
 function Install-WingetPackageWithPolicy {
     param(
         [Parameter(Mandatory = $true)][string]$PackageId,
@@ -446,35 +475,39 @@ function Install-WingetPackageWithPolicy {
     )
 
     if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
+        $detected = Get-EffectiveInstalledVersion -PackageId $PackageId -ToolName $ToolName -CommandName $CommandName
         return [pscustomobject]@{
             Success            = $false
             Action             = "failed"
             Message            = "winget is not available on this system."
             MinRequiredVersion = (Get-MinRequiredVersion -ToolName $ToolName)
+            DetectedBeforeVersion = $detected.Version
+            DetectedAfterVersion  = $detected.Version
+            VersionSource         = $detected.Source
         }
     }
 
     $showResult = Invoke-WingetCommand -Arguments @("show", "--id", $PackageId, "--exact", "--accept-source-agreements")
     if ($showResult.ExitCode -ne 0) {
+        $detected = Get-EffectiveInstalledVersion -PackageId $PackageId -ToolName $ToolName -CommandName $CommandName
         return [pscustomobject]@{
             Success            = $false
             Action             = "failed"
             Message            = "Package ID not found in winget sources: $PackageId"
             MinRequiredVersion = (Get-MinRequiredVersion -ToolName $ToolName)
+            DetectedBeforeVersion = $detected.Version
+            DetectedAfterVersion  = $detected.Version
+            VersionSource         = $detected.Source
         }
     }
 
     $requiredVersion = Get-MinRequiredVersion -ToolName $ToolName
-    $beforeWingetVersion = Get-WingetInstalledVersion -PackageId $PackageId -ToolName $ToolName
-    $isInstalled = $null -ne $beforeWingetVersion
+    $beforeDetected = Get-EffectiveInstalledVersion -PackageId $PackageId -ToolName $ToolName -CommandName $CommandName
+    $beforeVersion = $beforeDetected.Version
+    $isInstalled = $beforeDetected.Source -eq "winget"
 
     if (-not $isInstalled) {
         $isInstalled = Test-WingetPackageInstalled -PackageId $PackageId
-    }
-
-    $beforeVersion = $beforeWingetVersion
-    if ([string]::IsNullOrWhiteSpace($beforeVersion)) {
-        $beforeVersion = Get-CommandSemanticVersion -CommandName $CommandName
     }
 
     if ($isInstalled) {
@@ -484,6 +517,9 @@ function Install-WingetPackageWithPolicy {
                 Action             = "skipped"
                 Message            = "Package is already installed (no minimum version policy configured)."
                 MinRequiredVersion = "n/a"
+                DetectedBeforeVersion = $beforeVersion
+                DetectedAfterVersion  = $beforeVersion
+                VersionSource         = $beforeDetected.Source
             }
         }
 
@@ -493,6 +529,9 @@ function Install-WingetPackageWithPolicy {
                 Action             = "skipped"
                 Message            = "Installed version $beforeVersion meets minimum $requiredVersion."
                 MinRequiredVersion = $requiredVersion
+                DetectedBeforeVersion = $beforeVersion
+                DetectedAfterVersion  = $beforeVersion
+                VersionSource         = $beforeDetected.Source
             }
         }
     }
@@ -509,12 +548,9 @@ function Install-WingetPackageWithPolicy {
     )
 
     if ($installResult.ExitCode -ne 0) {
-        $afterWingetVersion = Get-WingetInstalledVersion -PackageId $PackageId -ToolName $ToolName
-        $afterInstalled = $null -ne $afterWingetVersion
-        $afterVersion = $afterWingetVersion
-        if ([string]::IsNullOrWhiteSpace($afterVersion)) {
-            $afterVersion = Get-CommandSemanticVersion -CommandName $CommandName
-        }
+        $afterDetected = Get-EffectiveInstalledVersion -PackageId $PackageId -ToolName $ToolName -CommandName $CommandName
+        $afterInstalled = Test-WingetPackageInstalled -PackageId $PackageId
+        $afterVersion = $afterDetected.Version
 
         if ($afterInstalled) {
             if ([string]::IsNullOrWhiteSpace($requiredVersion)) {
@@ -523,6 +559,9 @@ function Install-WingetPackageWithPolicy {
                     Action             = "skipped"
                     Message            = "Package is already installed (no minimum version policy configured)."
                     MinRequiredVersion = "n/a"
+                    DetectedBeforeVersion = $beforeVersion
+                    DetectedAfterVersion  = $afterVersion
+                    VersionSource         = $afterDetected.Source
                 }
             }
 
@@ -532,6 +571,9 @@ function Install-WingetPackageWithPolicy {
                     Action             = "skipped"
                     Message            = "Installed version $afterVersion meets minimum $requiredVersion."
                     MinRequiredVersion = $requiredVersion
+                    DetectedBeforeVersion = $beforeVersion
+                    DetectedAfterVersion  = $afterVersion
+                    VersionSource         = $afterDetected.Source
                 }
             }
         }
@@ -541,20 +583,23 @@ function Install-WingetPackageWithPolicy {
             Action             = "failed"
             Message            = $installResult.Output
             MinRequiredVersion = $(if ([string]::IsNullOrWhiteSpace($requiredVersion)) { "n/a" } else { $requiredVersion })
+            DetectedBeforeVersion = $beforeVersion
+            DetectedAfterVersion  = $afterVersion
+            VersionSource         = $afterDetected.Source
         }
     }
 
-    $afterWingetVersion = Get-WingetInstalledVersion -PackageId $PackageId -ToolName $ToolName
-    $afterVersion = $afterWingetVersion
-    if ([string]::IsNullOrWhiteSpace($afterVersion)) {
-        $afterVersion = Get-CommandSemanticVersion -CommandName $CommandName
-    }
+    $afterDetected = Get-EffectiveInstalledVersion -PackageId $PackageId -ToolName $ToolName -CommandName $CommandName
+    $afterVersion = $afterDetected.Version
     if ($requiredVersion -and -not (Test-VersionAtLeastForTool -InstalledVersion $afterVersion -RequiredVersion $requiredVersion -ToolName $ToolName)) {
         return [pscustomobject]@{
             Success            = $false
             Action             = "failed"
             Message            = "Install completed but version check failed: installed $afterVersion, required $requiredVersion."
             MinRequiredVersion = $requiredVersion
+            DetectedBeforeVersion = $beforeVersion
+            DetectedAfterVersion  = $afterVersion
+            VersionSource         = $afterDetected.Source
         }
     }
 
@@ -564,5 +609,8 @@ function Install-WingetPackageWithPolicy {
         Action             = $action
         Message            = $installResult.Output
         MinRequiredVersion = $(if ([string]::IsNullOrWhiteSpace($requiredVersion)) { "n/a" } else { $requiredVersion })
+        DetectedBeforeVersion = $beforeVersion
+        DetectedAfterVersion  = $afterVersion
+        VersionSource         = $afterDetected.Source
     }
 }
