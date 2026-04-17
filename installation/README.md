@@ -34,6 +34,22 @@ pwsh .\installation\install.ps1 -All -PauseAtEnd
 - `zed`
 - `zoxide`
 
+### Yazi note
+
+When you install `yazi` via `pwsh .\installation\install.ps1 -Tools yazi`, the installer also installs required dependencies:
+
+- `ffmpeg`
+- `7zip`
+- `jq`
+- `poppler`
+- `fd`
+- `ripgrep`
+- `fzf`
+- `zoxide`
+- `imagemagick`
+
+For detailed dependency rationale and alternative Scoop commands, see `yazi/README.md`.
+
 ## Installation behavior
 
 - Every package is installed via `winget` with `--scope machine`.
