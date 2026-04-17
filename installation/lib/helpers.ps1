@@ -501,7 +501,6 @@ function Install-WingetPackageWithPolicy {
         }
     }
 
-    $requiredVersion = Get-MinRequiredVersion -ToolName $ToolName
     $beforeDetected = Get-EffectiveInstalledVersion -PackageId $PackageId -ToolName $ToolName -CommandName $CommandName
     $beforeVersion = $beforeDetected.Version
     $isInstalled = $beforeDetected.Source -eq "winget"
@@ -511,28 +510,14 @@ function Install-WingetPackageWithPolicy {
     }
 
     if ($isInstalled) {
-        if ([string]::IsNullOrWhiteSpace($requiredVersion)) {
-            return [pscustomobject]@{
-                Success            = $true
-                Action             = "skipped"
-                Message            = "Package is already installed (no minimum version policy configured)."
-                MinRequiredVersion = "n/a"
-                DetectedBeforeVersion = $beforeVersion
-                DetectedAfterVersion  = $beforeVersion
-                VersionSource         = $beforeDetected.Source
-            }
-        }
-
-        if (Test-VersionAtLeastForTool -InstalledVersion $beforeVersion -RequiredVersion $requiredVersion -ToolName $ToolName) {
-            return [pscustomobject]@{
-                Success            = $true
-                Action             = "skipped"
-                Message            = "Installed version $beforeVersion meets minimum $requiredVersion."
-                MinRequiredVersion = $requiredVersion
-                DetectedBeforeVersion = $beforeVersion
-                DetectedAfterVersion  = $beforeVersion
-                VersionSource         = $beforeDetected.Source
-            }
+        return [pscustomobject]@{
+            Success            = $true
+            Action             = "skipped"
+            Message            = "Package is already installed."
+            MinRequiredVersion = "n/a"
+            DetectedBeforeVersion = $beforeVersion
+            DetectedAfterVersion  = $beforeVersion
+            VersionSource         = $beforeDetected.Source
         }
     }
 
@@ -553,36 +538,22 @@ function Install-WingetPackageWithPolicy {
         $afterVersion = $afterDetected.Version
 
         if ($afterInstalled) {
-            if ([string]::IsNullOrWhiteSpace($requiredVersion)) {
-                return [pscustomobject]@{
-                    Success            = $true
-                    Action             = "skipped"
-                    Message            = "Package is already installed (no minimum version policy configured)."
-                    MinRequiredVersion = "n/a"
-                    DetectedBeforeVersion = $beforeVersion
-                    DetectedAfterVersion  = $afterVersion
-                    VersionSource         = $afterDetected.Source
-                }
-            }
-
-            if (Test-VersionAtLeastForTool -InstalledVersion $afterVersion -RequiredVersion $requiredVersion -ToolName $ToolName) {
-                return [pscustomobject]@{
-                    Success            = $true
-                    Action             = "skipped"
-                    Message            = "Installed version $afterVersion meets minimum $requiredVersion."
-                    MinRequiredVersion = $requiredVersion
-                    DetectedBeforeVersion = $beforeVersion
-                    DetectedAfterVersion  = $afterVersion
-                    VersionSource         = $afterDetected.Source
-                }
+            return [pscustomobject]@{
+                Success            = $true
+                Action             = "skipped"
+                Message            = "Package is already installed."
+                MinRequiredVersion = "n/a"
+                DetectedBeforeVersion = $beforeVersion
+                DetectedAfterVersion  = $afterVersion
+                VersionSource         = $afterDetected.Source
             }
         }
 
         return [pscustomobject]@{
             Success            = $false
             Action             = "failed"
-            Message            = $installResult.Output
-            MinRequiredVersion = $(if ([string]::IsNullOrWhiteSpace($requiredVersion)) { "n/a" } else { $requiredVersion })
+            Message            = "winget install failed: $($installResult.Output)"
+            MinRequiredVersion = "n/a"
             DetectedBeforeVersion = $beforeVersion
             DetectedAfterVersion  = $afterVersion
             VersionSource         = $afterDetected.Source
@@ -591,24 +562,11 @@ function Install-WingetPackageWithPolicy {
 
     $afterDetected = Get-EffectiveInstalledVersion -PackageId $PackageId -ToolName $ToolName -CommandName $CommandName
     $afterVersion = $afterDetected.Version
-    if ($requiredVersion -and -not (Test-VersionAtLeastForTool -InstalledVersion $afterVersion -RequiredVersion $requiredVersion -ToolName $ToolName)) {
-        return [pscustomobject]@{
-            Success            = $false
-            Action             = "failed"
-            Message            = "Install completed but version check failed: installed $afterVersion, required $requiredVersion."
-            MinRequiredVersion = $requiredVersion
-            DetectedBeforeVersion = $beforeVersion
-            DetectedAfterVersion  = $afterVersion
-            VersionSource         = $afterDetected.Source
-        }
-    }
-
-    $action = if ($isInstalled) { "updated" } else { "installed" }
     return [pscustomobject]@{
         Success            = $true
-        Action             = $action
+        Action             = "installed"
         Message            = $installResult.Output
-        MinRequiredVersion = $(if ([string]::IsNullOrWhiteSpace($requiredVersion)) { "n/a" } else { $requiredVersion })
+        MinRequiredVersion = "n/a"
         DetectedBeforeVersion = $beforeVersion
         DetectedAfterVersion  = $afterVersion
         VersionSource         = $afterDetected.Source

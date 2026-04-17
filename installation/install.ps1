@@ -19,7 +19,7 @@ if (-not (Test-Path -LiteralPath $HelpersPath)) {
 . $HelpersPath
 Ensure-RunningAsAdministrator -ScriptPath $PSCommandPath -BoundParameters $PSBoundParameters
 
-$availableTools = @("eza", "powershell", "starship", "wezterm", "yazi", "zed", "zoxide")
+$availableTools = @("eza", "glazewm", "powershell", "starship", "wezterm", "yazi", "zed", "zoxide")
 
 function Show-Usage {
     Write-Host "Dotfiles Windows Installer"

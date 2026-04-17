@@ -248,7 +248,7 @@ keybindings:
 
   # Close focused window.
   - commands: ["close"]
-    bindings: ["alt+shift+\\"]
+    bindings: ['alt+shift+\']
 
   # Kill GlazeWM process safely.
   - commands: ["wm-exit"]

@@ -41,6 +41,24 @@ Select-Object Tool, PackageId, Action, Status, @{
 
             return "unknown"
         }
+    }, @{
+        Name       = "ZebarStatus"
+        Expression = {
+            if (-not [string]::IsNullOrWhiteSpace($_.ZebarStatus)) {
+                return $_.ZebarStatus
+            }
+
+            return "-"
+        }
+    }, @{
+        Name       = "ZebarVersion"
+        Expression = {
+            if (-not [string]::IsNullOrWhiteSpace($_.ZebarVersion)) {
+                return $_.ZebarVersion
+            }
+
+            return "-"
+        }
     }, Scope |
 Format-Table -AutoSize
 

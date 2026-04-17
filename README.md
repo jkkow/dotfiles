@@ -1,6 +1,6 @@
 # dotfiles
 
-Windows-first dotfiles for PowerShell, WezTerm, Starship, Yazi, Zed, and related tools.
+Windows-first dotfiles for PowerShell, WezTerm, Starship, Yazi, Zed, GlazeWM, and related tools.
 
 ## Quick Start
 
@@ -13,7 +13,7 @@ pwsh .\installation\install.ps1 -All
 Install selected tools only:
 
 ```powershell
-pwsh .\installation\install.ps1 -Tools powershell,eza,starship,wezterm,yazi,zed,zoxide
+pwsh .\installation\install.ps1 -Tools powershell,eza,glazewm,starship,wezterm,yazi,zed,zoxide
 ```
 
 For full installer behavior, requirements, and policy details, see `installation/README.md`.
