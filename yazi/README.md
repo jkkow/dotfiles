@@ -56,6 +56,16 @@ To allow Yazi to use file(1), set the `YAZI_FILE_ONE` environment variable to `<
 - Installer-based Git for Windows: `C:\Program Files\Git\usr\bin\file.exe`
 - Scoop-based Git: `C:\Users\<Username>\scoop\apps\git\current\usr\bin\file.exe`
 
+PowerShell commands:
+
+```powershell
+# Set for current session
+$env:YAZI_FILE_ONE = "C:\Program Files\Git\usr\bin\file.exe"
+
+# Persist for current user
+[Environment]::SetEnvironmentVariable("YAZI_FILE_ONE", "C:\Program Files\Git\usr\bin\file.exe", "User")
+```
+
 Restart your terminal after setting `YAZI_FILE_ONE`.
 
 This is the only recommended way. Installing `file` via Scoop or Chocolatey is not recommended because those builds can fail on Unicode filenames and can miss required parameters.
