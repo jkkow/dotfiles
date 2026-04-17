@@ -32,14 +32,14 @@ try {
         throw $installResult.Message
     }
 
-    $source = Join-Path $DotfilesDir "starship\starship.toml"
-    $target = Join-Path $HOME ".config\starship\starship.toml"
+    $source = Join-Path $DotfilesDir "starship"
+    $target = Join-Path $HOME ".config\starship"
     Set-SymlinkSafely -Source $source -Target $target
 
     $result.AfterVersion = Get-CommandSemanticVersion -CommandName $binary
     $result.Status = "ok"
     $result.Notes += $installResult.Message
-    $result.Notes += "Linked starship config to $target"
+    $result.Notes += "Linked starship config directory to $target"
     $result.Notes += 'Apply in current shell: . "$HOME\.config\powershell\setup_modules.ps1"'
 }
 catch {

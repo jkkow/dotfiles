@@ -1,25 +1,26 @@
-# PowerShell 7 Configuration
+# PowerShell
 
-## Update Main PowerShell Profile
+PowerShell is the main shell profile in this dotfiles repository.
 
-You can check the location of PowerShell Main Profile by typing,
-
-```powershell
-$PROFILE
-```
-
-Default location is
-
-- `$env:USERPROFILE\OneDrive\Documents\PowerShell\Microsoft.PowerShell_profile.ps1` or
-- `$env:USERPROFILE\Documents\PowerShell\Microsoft.Powershell_profile.ps1`
-
-Overwrite the file with the file `Microsoft.PowerShell_profile.ps1
-` in this repo. Here, we calls configuration script `powershell_alias.ps1` and `setup_modules.ps1`.
-
-## Set Symbolic Link
-
-Move to `$HOME\.config\` and make the Symbolic Link for PowerSehll.
+## Install
 
 ```powershell
-New-Item -ItemType SymbolicLink -Path ".\powershell\" -Target "path\to\dotfiles\powershell"
+winget install --id Microsoft.PowerShell --exact --scope machine
+scoop install main/pwsh
 ```
+
+## Configure
+
+This repo links the whole `powershell` folder.
+
+- source: `powershell/`
+- target: `$HOME\.config\powershell`
+
+```powershell
+New-Item -ItemType Directory -Path "$HOME\.config" -Force
+New-Item -ItemType SymbolicLink -Path "$HOME\.config\powershell" -Target "C:\path\to\dotfiles\powershell" -Force
+```
+
+PowerShell profile entry point is managed by this file:
+
+- `$PROFILE` -> loads `Microsoft.PowerShell_profile.ps1`

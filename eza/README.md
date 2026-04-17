@@ -1,17 +1,20 @@
-# Eza Configuration (Windows)
+# Eza
+
+`eza` is a modern replacement for `ls` with icons and richer output.
 
 ## Install
 
-`eza` is installed by `installation/install.ps1` using winget machine scope.
+```powershell
+winget install --id eza-community.eza --exact --scope machine
+scoop install main/eza
+```
 
-## Config path
+## Configure
 
-This dotfiles repo links:
+This repo manages the theme file as a symbolic link.
 
 - source: `eza/themes/tokyonight.yml`
 - target: `$HOME\.config\eza\theme.yml`
-
-If you need to set it manually:
 
 ```powershell
 New-Item -ItemType Directory -Path "$HOME\.config\eza" -Force

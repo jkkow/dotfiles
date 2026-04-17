@@ -32,14 +32,14 @@ try {
         throw $installResult.Message
     }
 
-    $source = Join-Path $DotfilesDir "wezterm\wezterm.lua"
-    $target = Join-Path $HOME ".wezterm.lua"
+    $source = Join-Path $DotfilesDir "wezterm"
+    $target = Join-Path $HOME ".config\wezterm"
     Set-SymlinkSafely -Source $source -Target $target
 
     $result.AfterVersion = Get-CommandSemanticVersion -CommandName $binary
     $result.Status = "ok"
     $result.Notes += $installResult.Message
-    $result.Notes += "Linked WezTerm config to $target"
+    $result.Notes += "Linked WezTerm config directory to $target"
 }
 catch {
     $result.Action = "failed"

@@ -40,6 +40,6 @@ pwsh .\installation\install.ps1 -All -PauseAtEnd
 - Version policy is read from `installation/min-required-versions.txt`.
 - If installed version is at or above minimum, the tool is skipped.
 - If installed version is below minimum, the installer updates to the latest version.
-- Config files are linked from this repository to `$HOME\.config` (and `$HOME\.wezterm.lua` for WezTerm).
+- Config files are linked from this repository to `$HOME\.config`.
 - A JSON summary is written to `installation/logs/`.
 - A console table summary is printed by `installation/report-install-summary.ps1`.
