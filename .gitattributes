@@ -1,0 +1,22 @@
+* text=auto eol=lf
+
+# Keep Windows script launchers CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# PowerShell scripts should be LF across platforms
+*.ps1 text eol=lf
+*.psm1 text eol=lf
+*.psd1 text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.exe binary
+*.dll binary
+*.zip binary
+*.7z binary
+*.pdf binary
