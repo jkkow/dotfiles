@@ -9,6 +9,8 @@ winget install --id wez.wezterm --exact --scope machine
 scoop install extras/wezterm
 ```
 
+- minimum required version to be compatible with yazi on WSL: +20260331-040028-577474d8
+
 ## Configure
 
 This repo links the whole WezTerm config folder so assets (for example `images/`) stay available.
