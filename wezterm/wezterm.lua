@@ -8,7 +8,7 @@ if wezterm.config_builder then
 end
 
 -- Settings
-config.default_prog = { "pwsh" }
+config.default_prog = { "bash" }
 config.font = wezterm.font_with_fallback({
 	{ family = "JetBrainsMono Nerd Font", scale = 1.03, weight = "Bold" },
 	{ family = "D2CodingLigature Nerd Font", scale = 1.0, weight = "Bold" },
