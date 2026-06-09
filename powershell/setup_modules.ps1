@@ -47,8 +47,10 @@ $OnViModeChange = [scriptblock]{
 Set-PsReadLineOption -EditMode Vi
 Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler $OnViModeChange
 
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -PredictionViewStyle ListView
+if ([Environment]::UserInteractive -and -not [Console]::IsOutputRedirected) {
+    Set-PSReadLineOption -PredictionSource History
+    Set-PSReadLineOption -PredictionViewStyle ListView
+}
 
 $ENV:STARSHIP_CONFIG = "$Home\.config\starship\starship.toml"
 if (Test-Path -LiteralPath $ENV:STARSHIP_CONFIG) {
