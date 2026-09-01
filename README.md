@@ -40,40 +40,76 @@ Check the persisted values with:
 
 ## Existing Config Migration
 
-Back up an existing configuration directory before cloning:
+Back up an existing configuration directory before cloning. Do not copy the entire backup back after cloning: doing so can overwrite managed directories. Restore only the independently managed folders listed below.
 
 ```sh
 mv ~/.config ~/.config.backup
 git clone <dotfiles-repository-url> ~/.config
 ```
 
-On Windows PowerShell:
+On Windows PowerShell, copy and run the following block. It stops if a previous backup exists, clones this repository into a new configuration directory, then restores only independent configurations that exist in the backup:
 
 ```powershell
-Rename-Item -Path "$HOME\.config" -NewName ".config.backup"
-git clone <dotfiles-repository-url> "$HOME\.config"
+$configHome = Join-Path $HOME ".config"
+$backupHome = Join-Path $HOME ".config.backup"
+$independentConfigs = "herdr", "lazygit", "nvim", "opencode", "scoop"
+
+if (Test-Path -LiteralPath $backupHome) {
+    throw "Backup directory already exists: $backupHome"
+}
+if (-not (Test-Path -LiteralPath $configHome -PathType Container)) {
+    throw "Configuration directory was not found: $configHome"
+}
+
+Rename-Item -LiteralPath $configHome -NewName ".config.backup"
+git clone <dotfiles-repository-url> $configHome
+if ($LASTEXITCODE -ne 0) {
+    throw "Clone failed. Existing configuration remains in $backupHome"
+}
+
+foreach ($name in $independentConfigs) {
+    $source = Join-Path $backupHome $name
+    $destination = Join-Path $configHome $name
+    if (Test-Path -LiteralPath $source -PathType Container) {
+        Move-Item -LiteralPath $source -Destination $destination
+    }
+}
+
+git -C $configHome status --ignored
 ```
 
-Use the repository version for managed directories. Restore every unmanaged directory from the backup after adding it to `.gitignore` when it should remain independent. Keep `~/.config.backup` until the new setup has been verified.
+Keep `~/.config.backup` until the new setup has been verified. Restore any other unmanaged folders from that backup only after adding their top-level path to `.gitignore`.
 
 ## Independent Configurations
 
-Other applications can be managed in their own repositories. For example, Neovim is intentionally independent:
+The following top-level configuration folders are intentionally independent and ignored by this repository:
+
+- `herdr`
+- `lazygit`
+- `nvim`
+- `opencode`
+- `scoop`
+
+They can be restored during migration or managed by their own repositories. For example, clone a separate Neovim configuration after this repository has been cloned:
 
 ```sh
 git clone <nvim-repository-url> ~/.config/nvim
 ```
 
-`/nvim/` is listed in this repository's `.gitignore`, so normal Git operations in this repository do not track or modify it.
+Normal Git operations in this repository do not track or modify these ignored folders.
 
 To add another independent configuration, add its top-level directory to `.gitignore` before restoring or cloning it:
 
 ```gitignore
+/herdr/
+/lazygit/
 /nvim/
+/opencode/
+/scoop/
 /example-tool/
 ```
 
-Then commit the ignore rule with the dotfiles repository. Confirm the result with `git status --ignored`. Do not run `git clean -fdx` from this repository because that command removes ignored directories.
+Then commit the ignore rule with the dotfiles repository before restoring or cloning that configuration. Confirm the result with `git status --ignored`. Do not run `git clean -fdx` from this repository because that command removes ignored directories.
 
 ## Tool Docs
 

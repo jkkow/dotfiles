@@ -2,4 +2,8 @@
 *.log
 
 # Independently managed configurations
+/herdr/
+/lazygit/
 /nvim/
+/opencode/
+/scoop/
