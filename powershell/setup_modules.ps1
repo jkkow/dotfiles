@@ -47,8 +47,20 @@ $OnViModeChange = [scriptblock]{
 Set-PsReadLineOption -EditMode Vi
 Set-PSReadLineOption -ViModeIndicator Script -ViModeChangeHandler $OnViModeChange
 
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -PredictionViewStyle ListView
+if ([Environment]::UserInteractive -and -not [Console]::IsOutputRedirected) {
+    Set-PSReadLineOption -PredictionSource History
+    Set-PSReadLineOption -PredictionViewStyle ListView
+}
 
-Invoke-Expression (&starship init powershell)
-$ENV:STARSHIP_CONFIG = "$Home\.config\starship\starship.toml" # set Starship configuration file location
+$ENV:STARSHIP_CONFIG = "$Home\.config\starship\starship.toml"
+if (Test-Path -LiteralPath $ENV:STARSHIP_CONFIG) {
+    try {
+        Invoke-Expression (& starship init powershell)
+    }
+    catch {
+        Write-Warning "Starship initialization failed: $($_.Exception.Message)"
+    }
+}
+else {
+    Write-Warning "Starship config file not found: $ENV:STARSHIP_CONFIG"
+}

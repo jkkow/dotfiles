@@ -7,8 +7,9 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- Settings
-config.default_prog = { "pwsh" }
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+
+config.default_prog = is_windows and { "pwsh" } or { "bash" }
 config.font = wezterm.font_with_fallback({
 	{ family = "JetBrainsMono Nerd Font", scale = 1.03, weight = "Bold" },
 	{ family = "D2CodingLigature Nerd Font", scale = 1.0, weight = "Bold" },
@@ -26,25 +27,40 @@ config.initial_rows = 30
 config.default_cursor_style = "BlinkingUnderline"
 config.enable_tab_bar = true
 
+-- Windows-only polish: native title buttons, Mica backdrop, and smoother GPU rendering.
+if is_windows then
+	config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+	config.win32_system_backdrop = "Mica"
+	config.front_end = "WebGpu"
+	config.max_fps = 120
+	config.animation_fps = 60
+end
+
+-- Two-layer background: image layer first, then a color tint for readability.
 config.background = {
 	{
-		-- background image
+		-- The repository is cloned directly into the WezTerm config directory.
 		source = {
-			File = wezterm.config_dir .. "/images/dark-desert.jpg", -- The file located in the same directory
+			File = wezterm.config_dir .. "/images/dark-desert.jpg",
 		},
-		opacity = 1.0, -- Adjust the transparency (0.0 to 1.0)
+		-- Force full-window coverage and prevent tiling.
+		width = "100%",
+		height = "100%",
+		repeat_x = "NoRepeat",
+		repeat_y = "NoRepeat",
+		opacity = 1.0,
 		vertical_align = "Middle", -- Options: "Top", "Middle", "Bottom"
 		horizontal_align = "Center", -- Options: "Left", "Center", "Right"
-		hsb = { brightness = 0.1 },
+		hsb = { brightness = 0.18 },
 	},
 	{
-		-- Add an overlay color to the background image
+		-- Slight tint keeps text contrast stable over the wallpaper.
 		source = {
 			Color = "#0c2043",
 		},
 		width = "100%",
 		height = "100%",
-		opacity = 0.55,
+		opacity = 0.42,
 	},
 }
 
@@ -58,13 +74,14 @@ config.inactive_pane_hsb = {
 config.use_fancy_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = false
 
--- Launch menu
-config.launch_menu = {
-	{ label = "PowerShell", args = { "powershell.exe" } },
-	{ label = "WSL: Ubuntu", args = { "wsl.exe", "--distribution", "Ubuntu" } },
-}
+if is_windows then
+	config.launch_menu = {
+		{ label = "PowerShell", args = { "powershell.exe" } },
+		{ label = "WSL: Ubuntu", args = { "wsl.exe", "--distribution", "Ubuntu" } },
+	}
+end
 
--- keys
+-- Leader key style: press Ctrl+; first, then the action key.
 config.leader = { key = ";", mods = "CTRL", timeout_millisecond = 1000 }
 config.keys = {
 	-- New Tabs
@@ -77,12 +94,12 @@ config.keys = {
 	{
 		key = "-",
 		mods = "LEADER",
-		action = act.SplitVertical({ domain = CurrentPaneDomain }),
+		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "|",
 		mods = "LEADER|SHIFT",
-		action = act.SplitHorizontal({ domain = CurrentPaneDomain }),
+		action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 	},
 	{
 		key = "h",

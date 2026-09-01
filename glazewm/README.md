@@ -1,42 +1,25 @@
-# Manage Config GlazeWM
+# GlazeWM
 
-Config management of GlazeWM via personal git repository
+GlazeWM and Zebar are Windows-only.
 
-## Install GlazeWM
+## Install
 
-```
-scoop bucket add extras
-scoop install extras/glazewm
-```
-
-need to install `zebar` too.
-
-```
-scoop install zebar
+```powershell
+winget install --id glzr-io.glazewm -e --scope user
 ```
 
-## Check Config File Location
+Install Zebar separately if it is not included with the installed GlazeWM version.
 
-When GlazeWM installed and _run for the first time_, `.glzr\glazewm` folder is created in the following location.
+## Configure
 
-`C:\Users\user_name\.glzr\`
+GlazeWM does not use `XDG_CONFIG_HOME` automatically. Set this user environment variable so it reads the configuration in this repository:
 
-Change the config path to the my custom config folder.
-
-Use the following command
-
+```powershell
+[Environment]::SetEnvironmentVariable(
+  "GLAZEWM_CONFIG_PATH",
+  "$HOME\.config\glazewm\config.yaml",
+  "User"
+)
 ```
-setx GLAZEWM_CONFIG_PATH C:\Users\jkkow\.config\glazewm\config.yaml
-```
 
-This `setx` command set a environment variable permanently so that you don't need to set the path whenever you remoot or re-start a new session.
-you should locate config file (`config.yaml`) for GlazeWM here.
-
-## Set symboliclink 
-
-Remote Github repo
-
-```
-git@github.com:jkkow/dotfiles.git
-```
-Use `config.yaml` file in the glzaewm folder for the symboliclink source.
+Restart GlazeWM after changing the variable or `config.yaml`.

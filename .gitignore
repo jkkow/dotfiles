@@ -1,0 +1,5 @@
+# Runtime artifacts
+*.log
+
+# Independently managed configurations
+/nvim/
