@@ -2,43 +2,9 @@
 
 Cross-platform configuration for Windows, Ubuntu, and Omarchy. Clone this repository directly into `~/.config`; tracked top-level directories are the managed application configurations.
 
-## New Setup
-
-```sh
-git clone <dotfiles-repository-url> ~/.config
-```
-
-Install each application with the package manager for the current operating system. This repository does not install packages or modify files outside `~/.config`. Applications that use non-XDG startup files, including Bash, PowerShell, GlazeWM, and AutoHotkey, have a one-time manual setup step in their directory README.
-
-## Windows XDG Setup
-
-Run the following block once in PowerShell after cloning. It creates the XDG directories and persists the user-level environment variables. Administrator privileges are not required.
-
-```powershell
-$xdgConfig = Join-Path $HOME ".config"
-$xdgData = Join-Path $HOME ".local\share"
-$xdgCache = Join-Path $HOME ".cache"
-
-foreach ($directory in $xdgConfig, $xdgData, $xdgCache) {
-    New-Item -ItemType Directory -Path $directory -Force | Out-Null
-}
-
-[Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", $xdgConfig, "User")
-[Environment]::SetEnvironmentVariable("XDG_DATA_HOME", $xdgData, "User")
-[Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", $xdgCache, "User")
-```
-
-Close and reopen affected applications after setting environment variables. XDG support is application-specific: WezTerm reads `XDG_CONFIG_HOME`, while Yazi, Zed, GlazeWM, AutoHotkey, and PowerShell require the application-specific steps in their README files.
-
-Check the persisted values with:
-
-```powershell
-"XDG_CONFIG_HOME={0}" -f [Environment]::GetEnvironmentVariable("XDG_CONFIG_HOME", "User")
-"XDG_DATA_HOME={0}" -f [Environment]::GetEnvironmentVariable("XDG_DATA_HOME", "User")
-"XDG_CACHE_HOME={0}" -f [Environment]::GetEnvironmentVariable("XDG_CACHE_HOME", "User")
-```
-
 ## Existing Config Migration
+
+Before cloning, check whether `~/.config` already exists. Use this migration section when it does; otherwise continue to **New Setup**.
 
 Back up an existing configuration directory before cloning. Do not copy the entire backup back after cloning: doing so can overwrite managed directories. Restore only the independently managed folders listed below.
 
@@ -79,6 +45,44 @@ git -C $configHome status --ignored
 ```
 
 Keep `~/.config.backup` until the new setup has been verified. Restore any other unmanaged folders from that backup only after adding their top-level path to `.gitignore`.
+
+## New Setup
+
+Use this path only when `~/.config` does not exist or is empty.
+
+```sh
+git clone <dotfiles-repository-url> ~/.config
+```
+
+Install each application with the package manager for the current operating system. This repository does not install packages or modify files outside `~/.config`. Applications that use non-XDG startup files, including Bash, PowerShell, GlazeWM, and AutoHotkey, have a one-time manual setup step in their directory README.
+
+## Windows XDG Setup
+
+Run the following block once in PowerShell after cloning. It creates the XDG directories and persists the user-level environment variables. Administrator privileges are not required.
+
+```powershell
+$xdgConfig = Join-Path $HOME ".config"
+$xdgData = Join-Path $HOME ".local\share"
+$xdgCache = Join-Path $HOME ".cache"
+
+foreach ($directory in $xdgConfig, $xdgData, $xdgCache) {
+    New-Item -ItemType Directory -Path $directory -Force | Out-Null
+}
+
+[Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", $xdgConfig, "User")
+[Environment]::SetEnvironmentVariable("XDG_DATA_HOME", $xdgData, "User")
+[Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", $xdgCache, "User")
+```
+
+Close and reopen affected applications after setting environment variables. XDG support is application-specific: WezTerm reads `XDG_CONFIG_HOME`, while Yazi, Zed, GlazeWM, AutoHotkey, and PowerShell require the application-specific steps in their README files.
+
+Check the persisted values with:
+
+```powershell
+"XDG_CONFIG_HOME={0}" -f [Environment]::GetEnvironmentVariable("XDG_CONFIG_HOME", "User")
+"XDG_DATA_HOME={0}" -f [Environment]::GetEnvironmentVariable("XDG_DATA_HOME", "User")
+"XDG_CACHE_HOME={0}" -f [Environment]::GetEnvironmentVariable("XDG_CACHE_HOME", "User")
+```
 
 ## Independent Configurations
 
