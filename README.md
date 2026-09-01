@@ -126,3 +126,4 @@ Then commit the ignore rule with the dotfiles repository before restoring or clo
 - `zed/README.md`
 - `glazewm/README.md`
 - `autohotkey/README.md`
+- `windows-terminal/README.md`
