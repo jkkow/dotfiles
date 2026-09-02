@@ -1,7 +1,8 @@
 # Windows Terminal
 
 `settings.json` is the tracked source of truth. This guide supports the
-Microsoft Store stable package and uses JetBrainsMono Nerd Font Mono.
+Microsoft Store stable package and uses JetBrainsMono Nerd Font Mono with
+D2CodingLigature Nerd Font available through Windows font fallback.
 
 ## Windows
 
@@ -14,7 +15,9 @@ winget install --id Microsoft.WindowsTerminal --exact --scope machine
 winget install --id Microsoft.PowerShell --exact --scope machine
 ```
 
-Install JetBrainsMono Nerd Font Mono before opening Windows Terminal.
+Install JetBrainsMono Nerd Font Mono and D2CodingLigature Nerd Font before
+opening Windows Terminal. Windows Terminal supports one configured font face;
+Windows automatically selects fallback fonts for unsupported glyphs.
 
 ### Configure
 
