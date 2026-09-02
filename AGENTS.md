@@ -1,37 +1,42 @@
-# Agent Notes for This Repo
+# Dotfiles Agent Guide
 
-High-signal guidance for OpenCode/Codex sessions in `dotfiles`.
+## Scope
 
-## Scope and Entry Points
+- This is a cross-platform dotfiles repository, not an application build/test
+  repository. It is cloned directly to `$HOME/.config`; there is no installer.
+- `powershell/initialize.ps1` is the PowerShell profile entrypoint and
+  dot-sources the alias and module scripts. `wezterm/wezterm.lua` is the
+  WezTerm entrypoint.
+- Application-specific setup belongs in its directory README. Do not add
+  package-installation, linking, or startup automation unless explicitly asked.
 
-- This is a cross-platform dotfiles repo for Windows, Ubuntu, and Omarchy, not an app build/test repo.
-- The repository is cloned directly into `$HOME/.config`; it has no installer.
-- PowerShell runtime entrypoint: `powershell/initialize.ps1` (dot-sources the sibling alias and module scripts).
-- WezTerm entrypoint: `wezterm/wezterm.lua`.
+## Safety
 
-## Safety and Workflow Constraints
+- `herdr`, `lazygit`, `nvim`, and `scoop` are independently managed ignored
+  directories. Do not modify them or run `git clean -fdx`.
+- Keep WezTerm's `wezterm.config_builder()` construction and font fallback
+  stack unless the user asks to change them.
+- `autohotkey/vim_alt_for_win.ahk` targets AutoHotkey v2.
+- On Windows, Yazi needs `YAZI_FILE_ONE` set to Git for Windows `file.exe`; see
+  `yazi/README.md` before changing its integration.
 
-- Do not add package-installation or configuration-linking automation without an explicit request.
-- Do not modify independently managed directories ignored by `.gitignore`.
-- Do not use `git clean -fdx`; it removes independently managed ignored directories.
+## PowerToys
 
-## Validation Commands (Targeted)
+- `powertoys/manifest.json` defines the complete import set. After PowerToys or
+  Command Palette UI changes, run `./powertoys/Sync-PowerToysSettings.ps1 -Mode Export`
+  and review the resulting diff.
+- Before importing, quit PowerToys and Command Palette, run the import with
+  `-WhatIf`, then rerun without it. Do not copy live AppData files directly or
+  bypass the manifest; the script removes machine-bound data and creates backups.
 
-- PowerShell: `Invoke-ScriptAnalyzer -Path <file.ps1>`
-- PowerShell syntax load check: `pwsh -NoProfile -NoLogo -Command "Get-Command -Syntax .\path\to\script.ps1"`
-- WezTerm Lua syntax: `luac -p .\wezterm\wezterm.lua`
-- JSON: `jq . <file.json>`
-- TOML: `taplo check <file.toml>`
-- YAML: `yq e '.' <file.yaml>`
+## Validation
 
-## File/Style Rules That Matter Here
-
-- Follow `.editorconfig`: LF by default, CRLF only for `*.bat`/`*.cmd`; 4-space indent for `*.ps1`/`*.ahk`; tabs in `*.lua`; 2-space for `*.md`/`*.yml`/`*.yaml`/`*.json`/`*.toml`.
-- Follow `.gitattributes`: text normalized to LF; `*.bat`/`*.cmd` are CRLF; common binaries are marked binary.
-- If `^M` appears, use `LINE_ENDINGS.md` workflow (`git ls-files --eol` first, then targeted fix).
-
-## Tool-Specific Gotchas
-
-- WezTerm: keep `config` built via `wezterm.config_builder()` pattern and preserve configured font fallback stack unless user asks to change it.
-- AutoHotkey: primary script is `autohotkey/vim_alt_for_win.ahk` and targets AutoHotkey v2 (`#Requires AutoHotkey v2.0`).
-- Yazi on Windows may require `YAZI_FILE_ONE` pointing to Git for Windows `file.exe` (see `yazi/README.md`).
+- Use targeted checks for edited formats: `Invoke-ScriptAnalyzer -Path <file.ps1>`,
+  `luac -p wezterm/wezterm.lua`, `jq . <file.json>`, `taplo check <file.toml>`,
+  or `yq e '.' <file.yaml>`.
+- For PowerShell syntax, use
+  `pwsh -NoProfile -NoLogo -Command "Get-Command -Syntax .\path\to\script.ps1"`.
+- Follow `.editorconfig`: LF by default, CRLF only for `*.bat` and `*.cmd`;
+  4-space PowerShell/AutoHotkey, tabs for Lua, and 2-space JSON/TOML/YAML/Markdown.
+- `.gitattributes` enforces LF text in Git. If `^M` appears, inspect with
+  `git ls-files --eol` and follow `LINE_ENDINGS.md` for a targeted fix.
