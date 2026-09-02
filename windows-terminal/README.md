@@ -1,12 +1,25 @@
 # Windows Terminal
 
-`settings.json` is the tracked source of truth. This supports the Microsoft
-Store stable package and requires JetBrainsMono Nerd Font Mono.
+`settings.json` is the tracked source of truth. This guide supports the
+Microsoft Store stable package and uses JetBrainsMono Nerd Font Mono.
 
-## Configure
+## Windows
 
-Close Windows Terminal, then paste this into PowerShell. It backs up an
-existing settings file once and replaces it with a link to this repository:
+### Install
+
+Run in an elevated PowerShell session:
+
+```powershell
+winget install --id Microsoft.WindowsTerminal --exact --scope machine
+winget install --id Microsoft.PowerShell --exact --scope machine
+```
+
+Install JetBrainsMono Nerd Font Mono before opening Windows Terminal.
+
+### Configure
+
+Close Windows Terminal, then paste this block. It backs up an existing regular
+settings file once and links the tracked file:
 
 ```powershell
 $terminalState = Join-Path $env:LOCALAPPDATA "Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
@@ -28,4 +41,4 @@ New-Item -ItemType SymbolicLink -Path $settings -Target $source
 ```
 
 Enable Windows Developer Mode or use an elevated PowerShell session if link
-creation is denied. Do not link the full `LocalState` directory.
+creation is denied.

@@ -1,17 +1,51 @@
 # Catppuccin Mocha Flavor
 
-This flavor is pinned in `yazi/package.toml`. From `yazi/`, restore it with:
+This flavor is pinned in `yazi/package.toml`. Nord remains the repository
+default.
 
-```sh
+## Windows
+
+### Install
+
+Install Yazi using `yazi/README.md`.
+
+### Configure
+
+```powershell
+Set-Location "$HOME\.config\yazi"
 ya pkg install
 ```
 
-To use it, replace the `[flavor]` section in `theme.toml` with:
+## Ubuntu
+
+### Install
+
+Install Yazi using `yazi/README.md`.
+
+### Configure
+
+```sh
+cd "$HOME/.config/yazi"
+ya pkg install
+```
+
+## Omarchy
+
+### Install
+
+Install Yazi using `yazi/README.md`.
+
+### Configure
+
+```sh
+cd "$HOME/.config/yazi"
+ya pkg install
+```
+
+Set the flavor in `theme.toml`:
 
 ```toml
 [flavor]
 dark = "catppuccin-mocha"
 light = "catppuccin-mocha"
 ```
-
-Nord remains the repository default. See the [Yazi flavor documentation](https://yazi-rs.github.io/docs/flavors/overview) for customization.

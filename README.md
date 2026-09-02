@@ -3,18 +3,18 @@
 Cross-platform configuration for Windows, Ubuntu, and Omarchy. Clone it to
 `~/.config`.
 
-## Install
+## Windows
 
-Use one block only. The first is for a new machine; the second preserves an
-existing configuration directory.
+### Install
 
-New setup:
+New machine:
 
-```sh
-git clone https://github.com/jkkow/dotfiles.git ~/.config
+```powershell
+winget install --id Git.Git --exact --scope machine
+git clone https://github.com/jkkow/dotfiles.git "$HOME\.config"
 ```
 
-Existing setup on Windows PowerShell:
+Existing configuration: this preserves only independently managed directories.
 
 ```powershell
 $configHome = Join-Path $HOME ".config"
@@ -36,22 +36,15 @@ if ($LASTEXITCODE -ne 0) {
 
 foreach ($name in $independentConfigs) {
     $source = Join-Path $backupHome $name
-    $destination = Join-Path $configHome $name
     if (Test-Path -LiteralPath $source -PathType Container) {
-        Move-Item -LiteralPath $source -Destination $destination
+        Move-Item -LiteralPath $source -Destination $configHome
     }
 }
-
-git -C "$configHome" status --ignored
 ```
 
-Keep `~/.config.backup` until the setup works. Restore only the ignored
-directories listed below; copying the full backup would overwrite managed
-configuration.
+### Configure
 
-## Windows XDG Setup
-
-Run the following block once in PowerShell after cloning. It creates the XDG directories and persists the user-level environment variables. Administrator privileges are not required.
+Set the XDG environment variables once after cloning:
 
 ```powershell
 $xdgConfig = Join-Path $HOME ".config"
@@ -67,21 +60,59 @@ foreach ($directory in $xdgConfig, $xdgData, $xdgCache) {
 [Environment]::SetEnvironmentVariable("XDG_CACHE_HOME", $xdgCache, "User")
 ```
 
-Restart applications after running it. WezTerm uses `XDG_CONFIG_HOME`; other
-Windows tools have their own setup steps below.
+Restart applications after setting environment variables.
+
+## Ubuntu
+
+### Install
+
+New machine:
+
+```sh
+sudo apt update
+sudo apt install -y git
+git clone https://github.com/jkkow/dotfiles.git "$HOME/.config"
+```
+
+Existing configuration:
+
+```sh
+config_home="$HOME/.config"
+backup_home="$HOME/.config.backup"
+
+test ! -e "$backup_home" || { echo "Backup already exists: $backup_home" >&2; exit 1; }
+mv "$config_home" "$backup_home"
+git clone https://github.com/jkkow/dotfiles.git "$config_home"
+for name in herdr lazygit nvim scoop; do
+  test -d "$backup_home/$name" && mv "$backup_home/$name" "$config_home/"
+done
+```
+
+### Configure
+
+No global setup is required. Applications use the standard `~/.config` path.
+
+## Omarchy
+
+### Install
+
+New machine:
+
+```sh
+sudo pacman -S --needed git
+git clone https://github.com/jkkow/dotfiles.git "$HOME/.config"
+```
+
+Existing configuration: use the Ubuntu existing-configuration block above.
+
+### Configure
+
+No global setup is required. Applications use the standard `~/.config` path.
 
 ## Independent Configurations
 
-The following top-level configuration folders are intentionally independent and ignored by this repository:
-
-- `herdr`
-- `lazygit`
-- `nvim`
-- `scoop`
-
-They are not managed by this repository. Add a top-level directory to
-`.gitignore` before restoring another independently managed configuration.
-Do not run `git clean -fdx`: it removes ignored directories.
+`herdr`, `lazygit`, `nvim`, and `scoop` are intentionally ignored. Do not run
+`git clean -fdx`: it removes ignored directories.
 
 ## Tool Docs
 

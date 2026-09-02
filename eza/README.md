@@ -3,13 +3,41 @@
 Shell aliases are provided by the Bash and PowerShell configurations. The YAML
 files in `themes/` are reference palettes; eza does not load them automatically.
 
-## Install
+## Windows
 
-Windows, in an elevated PowerShell session:
+### Install
+
+Run in an elevated PowerShell session:
 
 ```powershell
 winget install --id eza-community.eza --exact --scope machine
 ```
 
-On Ubuntu or Omarchy, install `eza` with the distribution package manager. No
-additional configuration is required.
+### Configure
+
+No eza-specific configuration is required.
+
+## Ubuntu
+
+### Install
+
+```sh
+sudo apt update
+sudo apt install -y eza
+```
+
+### Configure
+
+No eza-specific configuration is required.
+
+## Omarchy
+
+### Install
+
+```sh
+sudo pacman -S --needed eza
+```
+
+### Configure
+
+No eza-specific configuration is required.

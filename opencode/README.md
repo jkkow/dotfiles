@@ -2,25 +2,49 @@
 
 Global OpenCode configuration at `~/.config/opencode`.
 
-## Install
+## Windows
 
-Install OpenCode using the current instructions at <https://opencode.ai/docs>.
-On Windows, WSL is the supported route. Native Scoop users can run:
+### Install
 
 ```powershell
-scoop install opencode
+winget install --id SST.opencode --exact --scope user
 ```
 
-## Verify
+### Configure
 
-After installation, run:
+No additional configuration is required after cloning this repository.
+
+## Ubuntu
+
+### Install
+
+```sh
+curl -fsSL https://opencode.ai/install | bash
+```
+
+### Configure
+
+No additional configuration is required after cloning this repository.
+
+## Omarchy
+
+### Install
+
+```sh
+curl -fsSL https://opencode.ai/install | bash
+```
+
+### Configure
+
+No additional configuration is required after cloning this repository.
+
+## Verify
 
 ```sh
 opencode debug config
 opencode debug skill
 ```
 
-`tui.jsonc` requires the Herd integration. Its generated files,
-`herdr-tui-session.js` and `plugins/herdr-agent-state.js`, are intentionally
-ignored; install or update Herd through its own documentation. Quit and restart
-OpenCode after changing configuration, skills, or plugins.
+`tui.jsonc` requires the Herd integration. Its generated files are intentionally
+ignored. Quit and restart OpenCode after changing configuration, skills, or
+plugins.

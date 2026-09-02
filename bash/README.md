@@ -1,18 +1,39 @@
 # Bash
 
-Shared Ubuntu and Omarchy interactive-shell configuration. Optional private
-settings load from `~/.bashrc.local`.
+Interactive-shell configuration with optional private settings in
+`~/.bashrc.local`.
 
-## Configure
+## Ubuntu
 
-Install `eza`, `fzf`, `zoxide`, `starship`, `fd`, and `neovim` with your
-distribution's package manager, then paste this once:
+### Install
 
-```bash
-$config = "$HOME/.config/bash/.bashrc"
+```sh
+sudo apt update
+sudo apt install -y eza fd-find fzf neovim starship zoxide
+```
+
+### Configure
+
+```sh
+mkdir -p "$HOME/.local/bin"
+command -v fd >/dev/null 2>&1 || ln -s "$(command -v fdfind)" "$HOME/.local/bin/fd"
 grep -qxF 'source "$HOME/.config/bash/.bashrc"' "$HOME/.bashrc" || \
   printf '\nsource "$HOME/.config/bash/.bashrc"\n' >> "$HOME/.bashrc"
 source "$HOME/.bashrc"
 ```
 
-The configuration applies to interactive Bash sessions only.
+## Omarchy
+
+### Install
+
+```sh
+sudo pacman -S --needed eza fd fzf neovim starship zoxide
+```
+
+### Configure
+
+```sh
+grep -qxF 'source "$HOME/.config/bash/.bashrc"' "$HOME/.bashrc" || \
+  printf '\nsource "$HOME/.config/bash/.bashrc"\n' >> "$HOME/.bashrc"
+source "$HOME/.bashrc"
+```

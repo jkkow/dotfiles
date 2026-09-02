@@ -1,17 +1,50 @@
 # Nord Flavor
 
-Nord is the active flavor and is pinned in `yazi/package.toml`. From `yazi/`,
-restore it with:
+Nord is the active flavor and is pinned in `yazi/package.toml`.
 
-```sh
+## Windows
+
+### Install
+
+Install Yazi using `yazi/README.md`.
+
+### Configure
+
+```powershell
+Set-Location "$HOME\.config\yazi"
 ya pkg install
 ```
 
-Use this `[flavor]` section to restore the repository default:
+## Ubuntu
+
+### Install
+
+Install Yazi using `yazi/README.md`.
+
+### Configure
+
+```sh
+cd "$HOME/.config/yazi"
+ya pkg install
+```
+
+## Omarchy
+
+### Install
+
+Install Yazi using `yazi/README.md`.
+
+### Configure
+
+```sh
+cd "$HOME/.config/yazi"
+ya pkg install
+```
+
+Restore the repository default in `theme.toml`:
 
 ```toml
 [flavor]
 dark = "nord"
+light = "nord"
 ```
-
-See the [Yazi flavor documentation](https://yazi-rs.github.io/docs/flavors/overview) for customization.

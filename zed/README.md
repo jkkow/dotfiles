@@ -1,17 +1,21 @@
 # Zed
 
-Windows, in an elevated PowerShell session:
+The configuration uses JetBrainsMonoNL Nerd Font and the `basepyright` and
+`ruff` Python language servers.
+
+## Windows
+
+### Install
+
+Run in an elevated PowerShell session:
 
 ```powershell
 winget install --id ZedIndustries.Zed --exact --scope machine
 ```
 
-On Ubuntu or Omarchy, install Zed with the distribution package manager or its
-official release method. On Windows, Zed needs links because it does not use
-`XDG_CONFIG_HOME` for these files. The configuration requires JetBrainsMonoNL
-Nerd Font and uses the `basepyright` and `ruff` Python language servers.
+Install JetBrainsMonoNL Nerd Font, `basepyright`, and `ruff` before using Zed.
 
-## Configure Windows
+### Configure
 
 Close Zed, then paste this block. It backs up existing regular files once and
 links the tracked settings and keymap:
@@ -38,5 +42,26 @@ foreach ($name in "settings.json", "keymap.json") {
 }
 ```
 
-Enable Windows Developer Mode or use an elevated PowerShell session if link
-creation is denied, then restart Zed.
+## Ubuntu
+
+### Install
+
+```sh
+curl -fsSL https://zed.dev/install.sh | sh
+```
+
+### Configure
+
+No additional configuration is required after cloning to `~/.config`.
+
+## Omarchy
+
+### Install
+
+```sh
+sudo pacman -S --needed zed
+```
+
+### Configure
+
+No additional configuration is required after cloning to `~/.config`.

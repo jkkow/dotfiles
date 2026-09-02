@@ -1,16 +1,47 @@
 # WezTerm
 
-Windows, Ubuntu, and Omarchy terminal configuration. Windows uses PowerShell 7;
-the configured fonts are JetBrainsMono Nerd Font and D2CodingLigature Nerd Font.
+Terminal configuration for Windows, Ubuntu, and Omarchy. It uses JetBrainsMono
+Nerd Font and D2CodingLigature Nerd Font when installed.
 
-## Install
+## Windows
 
-Windows, in an elevated PowerShell session:
+### Install
+
+Run in an elevated PowerShell session:
 
 ```powershell
+winget install --id Microsoft.PowerShell --exact --scope machine
 winget install --id wez.wezterm.nightly --exact --scope machine
 ```
 
-On Ubuntu or Omarchy, install `wezterm` with the distribution package manager.
-On Windows, run the root README's **Windows XDG Setup** once, then restart
+Install the configured Nerd Fonts before using the terminal.
+
+### Configure
+
+Complete the Windows `Configure` section in the root `README.md`, then restart
 WezTerm. The tracked `images/dark-desert.jpg` is used as the background.
+
+## Ubuntu
+
+### Install
+
+```sh
+sudo apt update
+sudo apt install -y wezterm
+```
+
+### Configure
+
+No additional configuration is required after cloning to `~/.config`.
+
+## Omarchy
+
+### Install
+
+```sh
+sudo pacman -S --needed wezterm
+```
+
+### Configure
+
+No additional configuration is required after cloning to `~/.config`.

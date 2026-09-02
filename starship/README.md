@@ -3,13 +3,41 @@
 Starship uses `starship/starship.toml` through the Bash and PowerShell
 configurations. A Nerd Font is recommended for its icons.
 
-## Install
+## Windows
 
-Windows, in an elevated PowerShell session:
+### Install
+
+Run in an elevated PowerShell session:
 
 ```powershell
 winget install --id Starship.Starship --exact --scope machine
 ```
 
-On Ubuntu or Omarchy, install `starship` with the distribution package manager.
-No additional setup is required after completing the Bash or PowerShell guide.
+### Configure
+
+Complete `powershell/README.md`; it sets `STARSHIP_CONFIG` automatically.
+
+## Ubuntu
+
+### Install
+
+```sh
+sudo apt update
+sudo apt install -y starship
+```
+
+### Configure
+
+Complete `bash/README.md`; it initializes Starship automatically.
+
+## Omarchy
+
+### Install
+
+```sh
+sudo pacman -S --needed starship
+```
+
+### Configure
+
+Complete `bash/README.md`; it initializes Starship automatically.
