@@ -8,6 +8,8 @@ mirrors approved `settings.json` files from
 
 - The global `settings.json`, including enabled modules and global shortcuts.
 - Module `settings.json` files, including each module's configured shortcuts.
+- `CommandPalette/settings.json`, with its activation shortcut, core appearance,
+  behavior, and built-in provider preferences.
 
 ## Excluded
 
@@ -16,6 +18,8 @@ mirrors approved `settings.json` files from
 - `NewPlus/settings.json` and `PowerToys Run/settings.json`, which contain
   machine-local paths.
 - Logs, telemetry, update state, window placement, and version markers.
+- Command Palette aliases, command-specific hotkeys, pins, third-party provider
+  settings, display state, dock command bands, and background image paths.
 
 Review Advanced Paste settings before exporting if AI providers are configured;
 provider credentials must not be committed.
@@ -42,8 +46,8 @@ tracked module file, so remove obsolete files deliberately after review.
 
 ## Import on Another Computer
 
-Install and open PowerToys once, then quit it completely from the notification
-area before running:
+Install and open PowerToys and Command Palette once, then quit both completely
+from the notification area before running:
 
 ```powershell
 .\powertoys\Sync-PowerToysSettings.ps1 -Mode Import
@@ -51,4 +55,6 @@ area before running:
 
 The import validates tracked JSON and backs up every live file it replaces to a
 timestamped directory beside the live PowerToys configuration. Start PowerToys
-after the command completes.
+and Command Palette after the command completes. Command Palette is skipped if
+its `%LOCALAPPDATA%\Packages\Microsoft.CommandPalette_8wekyb3d8bbwe\LocalState`
+directory does not exist yet.
