@@ -28,7 +28,7 @@
       "value": [
         {
           "Id": 0,
-          "name": "\uC18C\uD615",
+          "name": "소형",
           "fit": 1,
           "width": 854,
           "height": 480,
@@ -36,7 +36,7 @@
         },
         {
           "Id": 1,
-          "name": "\uC911\uD615",
+          "name": "중형",
           "fit": 1,
           "width": 1366,
           "height": 768,
@@ -44,7 +44,7 @@
         },
         {
           "Id": 2,
-          "name": "\uB300\uD615",
+          "name": "대형",
           "fit": 1,
           "width": 1920,
           "height": 1080,
@@ -52,7 +52,7 @@
         },
         {
           "Id": 3,
-          "name": "\uC804\uD654",
+          "name": "전화",
           "fit": 1,
           "width": 320,
           "height": 568,

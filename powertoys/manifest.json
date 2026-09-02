@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "powerToysVersion": "v0.101.2362",
+    "commandPaletteVersion": "0.12.12365.0"
+  },
+  "files": [
+    {
+      "path": "settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "TextExtractor/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Shortcut Guide/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "RegistryPreview/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "QuickAccent/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "PowerDisplay/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Peek/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "MousePointerCrosshairs/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "MouseJump/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "MouseHighlighter/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Measure Tool/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "LightSwitch/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Workspaces/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Keyboard Manager/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Hosts/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "FindMyMouse/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "File Explorer/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "FancyZones/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "EnvironmentVariables/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "CursorWrap/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "CropAndLock/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "ColorPicker/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Awake/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "AlwaysOnTop/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "AdvancedPaste/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "Image Resizer/settings.json",
+      "kind": "PowerToys"
+    },
+    {
+      "path": "CommandPalette/settings.json",
+      "kind": "CommandPaletteHost"
+    }
+  ]
+}

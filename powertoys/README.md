@@ -1,15 +1,18 @@
 # PowerToys
 
 This directory is the portable, tracked PowerToys configuration snapshot. It
-mirrors approved `settings.json` files from
-`%LOCALAPPDATA%\Microsoft\PowerToys`; it is not linked to that live directory.
+is an explicit export, not a link to live application state.
 
 ## Included
 
-- The global `settings.json`, including enabled modules and global shortcuts.
-- Module `settings.json` files, including each module's configured shortcuts.
+- `manifest.json`, which records source versions and the exact files managed by
+  an import.
+- Portable global and module `settings.json` files, including configured
+  shortcuts.
 - `CommandPalette/settings.json`, with its activation shortcut, core appearance,
-  behavior, and built-in provider preferences.
+  behavior, built-in provider preferences, and supported static aliases.
+- Existing built-in Command Palette `*.settings.json` companion files. These
+  files are created only after a provider setting has changed from its default.
 
 ## Excluded
 
@@ -18,11 +21,16 @@ mirrors approved `settings.json` files from
 - `NewPlus/settings.json` and `PowerToys Run/settings.json`, which contain
   machine-local paths.
 - Logs, telemetry, update state, window placement, and version markers.
-- Command Palette aliases, command-specific hotkeys, pins, third-party provider
-  settings, display state, dock command bands, and background image paths.
+- PowerDisplay monitor identities, mappings, and synchronization exclusions.
+- Command Palette command-specific hotkeys, pins, third-party provider settings,
+  display state, dock command bands, image paths, history, and caches.
+- Dynamic, app-specific, third-party, profile, and layout Command Palette
+  aliases. Static `com.microsoft.powertoys.*` aliases and known static
+  Command Palette aliases are retained. The retired
+  `com.microsoft.cmdpal.shell` alias is migrated to `com.microsoft.cmdpal.run`.
 
-Review Advanced Paste settings before exporting if AI providers are configured;
-provider credentials must not be committed.
+Advanced Paste AI providers are removed from exports to prevent credentials from
+being committed.
 
 ## Install
 
@@ -32,29 +40,33 @@ On Windows, install PowerToys with Winget:
 winget install --id Microsoft.PowerToys --exact --scope machine
 ```
 
+Command Palette is a separate Windows package. Install it from Microsoft Store,
+then open it once before importing settings.
+
 ## Export Current Settings
 
-After changing settings in the PowerToys UI, run:
+After changing settings in the PowerToys or Command Palette UI, run:
 
 ```powershell
 .\powertoys\Sync-PowerToysSettings.ps1 -Mode Export
 git diff -- powertoys
 ```
 
-Review and commit intentional changes. Exporting does not remove an older
-tracked module file, so remove obsolete files deliberately after review.
+Review and commit intentional changes. The manifest controls future imports, so
+older tracked files are never imported unless the current export lists them.
 
 ## Import on Another Computer
 
-Install and open PowerToys and Command Palette once, then quit both completely
-from the notification area before running:
+Install PowerToys. Install and open Command Palette once so its AppX `LocalState`
+directory is initialized, then quit both applications completely before running:
 
 ```powershell
+.\powertoys\Sync-PowerToysSettings.ps1 -Mode Import -WhatIf
 .\powertoys\Sync-PowerToysSettings.ps1 -Mode Import
 ```
 
-The import validates tracked JSON and backs up every live file it replaces to a
-timestamped directory beside the live PowerToys configuration. Start PowerToys
-and Command Palette after the command completes. Command Palette is skipped if
-its `%LOCALAPPDATA%\Packages\Microsoft.CommandPalette_8wekyb3d8bbwe\LocalState`
-directory does not exist yet.
+`-WhatIf` reports replacements and skipped settings without changing anything.
+The import validates the manifest and tracked JSON, warns when source and target
+versions differ, imports only manifest-listed files, and backs up every replaced
+file beside the live PowerToys configuration. It skips unavailable modules and
+an uninitialized Command Palette. Start both applications after import.
