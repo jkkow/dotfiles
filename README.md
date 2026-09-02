@@ -83,7 +83,7 @@ backup_home="$HOME/.config.backup"
 test ! -e "$backup_home" || { echo "Backup already exists: $backup_home" >&2; exit 1; }
 mv "$config_home" "$backup_home"
 git clone https://github.com/jkkow/dotfiles.git "$config_home"
-for name in herdr lazygit nvim scoop; do
+for name in herdr lazygit nvim; do
   test -d "$backup_home/$name" && mv "$backup_home/$name" "$config_home/"
 done
 ```
@@ -111,8 +111,9 @@ No global setup is required. Applications use the standard `~/.config` path.
 
 ## Independent Configurations
 
-`herdr`, `lazygit`, `nvim`, and `scoop` are intentionally ignored. Do not run
-`git clean -fdx`: it removes ignored directories.
+`herdr`, `lazygit`, and `nvim` are intentionally ignored on every platform.
+`scoop` is also ignored on Windows. Do not run `git clean -fdx`: it removes
+ignored directories.
 
 ## Tool Docs
 
