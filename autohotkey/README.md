@@ -1,19 +1,20 @@
 # AutoHotkey
 
-`vim_alt_for_win.ahk` provides Vim-style keyboard motions on Windows.
+Windows-only AutoHotkey v2 shortcuts: `Ctrl+Shift+H/J/K/L` moves the cursor,
+`Ctrl+Shift+Y/O` moves to line start/end, and `Ctrl+Alt+\` inserts the date.
 
-## Install
+## Install and Run
 
 ```powershell
+$ErrorActionPreference = "Stop"
 winget install --id AutoHotkey.AutoHotkey -e --scope user
+
+$script = Join-Path $HOME ".config\autohotkey\vim_alt_for_win.ahk"
+if (-not (Test-Path -LiteralPath $script -PathType Leaf)) {
+  throw "AutoHotkey script was not found: $script"
+}
+Start-Process AutoHotkey.exe -ArgumentList ('"{0}"' -f $script)
 ```
 
-## Configure
-
-AutoHotkey does not discover XDG configuration directories. Run the script directly:
-
-```powershell
-AutoHotkey.exe "$HOME\.config\autohotkey\vim_alt_for_win.ahk"
-```
-
-To start it automatically, create a shortcut to that command in the Windows Startup folder.
+Right-click the green AutoHotkey tray icon to reload or exit the script. It does
+not start automatically.

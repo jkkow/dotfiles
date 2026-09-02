@@ -1,18 +1,16 @@
 # PowerShell
 
-This configuration applies on Windows with PowerShell 7. PowerShell does not load XDG configuration directories automatically, so `$PROFILE` must dot-source `initialize.ps1`.
+Windows PowerShell 7 profile. Install `eza`, `fzf`, `nvim`, `ripgrep`, `starship`,
+`yazi`, and `zoxide` before loading it.
 
-## Install
+## Install and Configure
+
+Paste this into PowerShell after cloning the repository:
 
 ```powershell
+$ErrorActionPreference = "Stop"
 winget install --id Microsoft.PowerShell --exact --scope machine
-```
 
-## Configure
-
-PowerShell reads `$PROFILE`, which is outside `~/.config`. Copy and run the entire block below in PowerShell. It displays the profile path, creates the profile when needed, and adds this repository initializer only once without replacing existing profile settings.
-
-```powershell
 $dotfilesInitializer = Join-Path $HOME ".config\powershell\initialize.ps1"
 if (-not (Test-Path -LiteralPath $dotfilesInitializer)) {
     throw "Dotfiles initializer was not found: $dotfilesInitializer"
@@ -33,4 +31,5 @@ if (-not (Select-String -LiteralPath $PROFILE -SimpleMatch $dotfilesInitializer 
 Write-Host "PowerShell profile: $PROFILE"
 ```
 
-Open a new PowerShell session or run `. $PROFILE` to reload it.
+Open a new PowerShell 7 session or run `. $PROFILE`. If script execution is
+blocked, run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once.

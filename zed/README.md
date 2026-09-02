@@ -1,28 +1,42 @@
 # Zed
 
-## Install
-
-Windows:
+Windows, in an elevated PowerShell session:
 
 ```powershell
 winget install --id ZedIndustries.Zed --exact --scope machine
 ```
 
-Ubuntu or Omarchy: install Zed with the distribution package manager or the official release method.
+On Ubuntu or Omarchy, install Zed with the distribution package manager or its
+official release method. On Windows, Zed needs links because it does not use
+`XDG_CONFIG_HOME` for these files. The configuration requires JetBrainsMonoNL
+Nerd Font and uses the `basepyright` and `ruff` Python language servers.
 
-## Configure
+## Configure Windows
 
-On Linux, Zed reads this directory through its XDG configuration path. On Windows, Zed reads `%APPDATA%\Zed` and does not use `XDG_CONFIG_HOME` for `settings.json` or `keymap.json`.
-
-Close Zed, back up any existing files under `%APPDATA%\Zed`, then create file-level symbolic links to this repository:
+Close Zed, then paste this block. It backs up existing regular files once and
+links the tracked settings and keymap:
 
 ```powershell
 $zedConfig = Join-Path $HOME ".config\zed"
 $zedAppData = Join-Path $env:APPDATA "Zed"
 New-Item -ItemType Directory -Path $zedAppData -Force | Out-Null
 
-New-Item -ItemType SymbolicLink -Path (Join-Path $zedAppData "settings.json") -Target (Join-Path $zedConfig "settings.json")
-New-Item -ItemType SymbolicLink -Path (Join-Path $zedAppData "keymap.json") -Target (Join-Path $zedConfig "keymap.json")
+foreach ($name in "settings.json", "keymap.json") {
+    $source = Join-Path $zedConfig $name
+    $destination = Join-Path $zedAppData $name
+    if (-not (Test-Path -LiteralPath $source -PathType Leaf)) {
+        throw "Tracked Zed file was not found: $source"
+    }
+    if (Test-Path -LiteralPath $destination) {
+        $item = Get-Item -LiteralPath $destination -Force
+        if (-not $item.LinkType -and -not (Test-Path -LiteralPath "$destination.backup")) {
+            Copy-Item -LiteralPath $destination -Destination "$destination.backup"
+        }
+        Remove-Item -LiteralPath $destination -Force
+    }
+    New-Item -ItemType SymbolicLink -Path $destination -Target $source | Out-Null
+}
 ```
 
-The commands intentionally fail if an existing file has not been backed up first. Enable Windows Developer Mode or run an elevated PowerShell session if symbolic-link creation is denied. Restart Zed after creating the links.
+Enable Windows Developer Mode or use an elevated PowerShell session if link
+creation is denied, then restart Zed.

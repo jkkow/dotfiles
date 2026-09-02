@@ -1,17 +1,18 @@
 # Bash
 
-This configuration is shared by Ubuntu and Omarchy. It loads Omarchy defaults only when they are present and loads optional private settings from `~/.bashrc.local`.
-
-## Install
-
-Install Bash, eza, fzf, zoxide, and Starship with the package manager for the current distribution. The configuration checks whether optional tools are installed before initializing them.
+Shared Ubuntu and Omarchy interactive-shell configuration. Optional private
+settings load from `~/.bashrc.local`.
 
 ## Configure
 
-Bash reads `~/.bashrc`, not an XDG configuration directory. Add this line to that file:
+Install `eza`, `fzf`, `zoxide`, `starship`, `fd`, and `neovim` with your
+distribution's package manager, then paste this once:
 
 ```bash
-source "$HOME/.config/bash/.bashrc"
+$config = "$HOME/.config/bash/.bashrc"
+grep -qxF 'source "$HOME/.config/bash/.bashrc"' "$HOME/.bashrc" || \
+  printf '\nsource "$HOME/.config/bash/.bashrc"\n' >> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 ```
 
-Reload the shell with `source ~/.bashrc`.
+The configuration applies to interactive Bash sessions only.
