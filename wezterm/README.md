@@ -1,7 +1,7 @@
 # WezTerm
 
 Terminal configuration for Windows, Ubuntu, and Omarchy. It uses JetBrainsMono
-Nerd Font and D2CodingLigature Nerd Font when installed.
+Nerd Font and D2KodingLigature Nerd Font when installed.
 
 ## Windows
 

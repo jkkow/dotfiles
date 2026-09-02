@@ -12,7 +12,7 @@ local is_windows = wezterm.target_triple:find("windows") ~= nil
 config.default_prog = is_windows and { "pwsh" } or { "bash" }
 config.font = wezterm.font_with_fallback({
 	{ family = "JetBrainsMono Nerd Font", scale = 1.03, weight = "Bold" },
-	{ family = "D2CodingLigature Nerd Font", scale = 1.0, weight = "Bold" },
+	{ family = "D2KodingLigature Nerd Font", scale = 1.0, weight = "Bold" },
 })
 config.window_background_opacity = 0.95
 config.window_decorations = "RESIZE"
