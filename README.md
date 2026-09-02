@@ -18,7 +18,7 @@ On Windows PowerShell, copy and run the following block. It stops if a previous 
 ```powershell
 $configHome = Join-Path $HOME ".config"
 $backupHome = Join-Path $HOME ".config.backup"
-$independentConfigs = "herdr", "lazygit", "nvim", "opencode", "scoop"
+$independentConfigs = "herdr", "lazygit", "nvim", "scoop"
 
 if (Test-Path -LiteralPath $backupHome) {
     throw "Backup directory already exists: $backupHome"
@@ -91,7 +91,6 @@ The following top-level configuration folders are intentionally independent and 
 - `herdr`
 - `lazygit`
 - `nvim`
-- `opencode`
 - `scoop`
 
 They can be restored during migration or managed by their own repositories. For example, clone a separate Neovim configuration after this repository has been cloned:
@@ -108,7 +107,6 @@ To add another independent configuration, add its top-level directory to `.gitig
 /herdr/
 /lazygit/
 /nvim/
-/opencode/
 /scoop/
 /example-tool/
 ```
@@ -127,3 +125,4 @@ Then commit the ignore rule with the dotfiles repository before restoring or clo
 - `glazewm/README.md`
 - `autohotkey/README.md`
 - `windows-terminal/README.md`
+- `opencode/README.md`
