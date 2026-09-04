@@ -12,6 +12,10 @@
 
 ## Safety
 
+- Before modifying or adding repository files, check `git status --short` and,
+  when the worktree is clean, run `git pull --ff-only origin "$(git branch --show-current)"`.
+  If local changes exist or the pull cannot fast-forward, stop and ask the user
+  rather than stashing, merging, or overwriting changes.
 - `herdr`, `lazygit`, `nvim`, and `scoop` are independently managed ignored
   directories. Do not modify them or run `git clean -fdx`.
 - Keep WezTerm's `wezterm.config_builder()` construction and font fallback
