@@ -27,8 +27,13 @@
   "profiles": {
     "defaults": {
       "font": {
-        "face": "D2KodingLigature Nerd Font"
-      }
+        "face": "JetBrainsMono Nerd Font"
+      },
+      "opacity": 85,
+      "unfocusedAppearance": {
+        "opacity": 70
+      },
+      "useAcrylic": true
     },
     "list": [
       {
