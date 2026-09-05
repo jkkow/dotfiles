@@ -8,6 +8,18 @@
     "keybindings": 
     [
         {
+            "id": "Terminal.NewTab",
+            "keys": "ctrl+t"
+        },
+        {
+            "id": "Terminal.NextTab",
+            "keys": "ctrl+shift+]"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        },
+        {
             "id": "Terminal.CopyToClipboard",
             "keys": "ctrl+c"
         },
@@ -16,12 +28,16 @@
             "keys": "ctrl+shift+x"
         },
         {
-            "id": "Terminal.PasteFromClipboard",
-            "keys": "ctrl+v"
+            "id": "Terminal.DuplicateTab",
+            "keys": "ctrl+shift+d"
         },
         {
-            "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+shift+d"
+            "id": "Terminal.PrevTab",
+            "keys": "ctrl+shift+["
+        },
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+v"
         }
     ],
     "newTabMenu": 
@@ -39,6 +55,7 @@
                 "face": "JetBrainsMono Nerd Font"
             },
             "opacity": 85,
+            "startingDirectory": "C:\\Users\\jkkow\\.config",
             "unfocusedAppearance": 
             {
                 "opacity": 70
@@ -74,5 +91,8 @@
         ]
     },
     "schemes": [],
-    "themes": []
+    "snapToGridOnResize": true,
+    "themes": [],
+    "trimBlockSelection": true,
+    "warning.confirmCloseAllTabs": true
 }
