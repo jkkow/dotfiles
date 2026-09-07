@@ -1,15 +1,22 @@
 {
   "$help": "https://aka.ms/terminal-documentation",
   "$schema": "https://aka.ms/terminal-profiles-schema",
-  "actions": [],
+  "actions": [
+    {
+      "command": {
+        "action": "multipleActions",
+        "actions": [
+          "markMode",
+          "toggleBlockSelection"
+        ]
+      },
+      "id": "User.MarkModeBlockSelection"
+    }
+  ],
   "copyFormatting": "none",
   "copyOnSelect": false,
   "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
   "keybindings": [
-    {
-      "id": "Terminal.NewTab",
-      "keys": "ctrl+t"
-    },
     {
       "id": "Terminal.NextTab",
       "keys": "ctrl+shift+]"
@@ -23,7 +30,7 @@
       "keys": "ctrl+c"
     },
     {
-      "id": "Terminal.ToggleBlockSelection",
+      "id": "User.MarkModeBlockSelection",
       "keys": "ctrl+shift+x"
     },
     {
