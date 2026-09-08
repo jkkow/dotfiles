@@ -2,7 +2,8 @@
 
 Shell aliases are provided by the Bash and PowerShell configurations. eza loads
 a YAML theme named `theme.yml` from its configuration directory. The files in
-`themes/` are available themes; link the selected theme to `theme.yml`.
+`themes/` are available themes; copy the selected theme to `theme.yml`.
+`theme.yml` is a local selection and is not tracked by this repository.
 
 ## Windows
 
@@ -30,8 +31,7 @@ Apply the setting to the current PowerShell session immediately:
 $env:EZA_CONFIG_DIR = "$env:USERPROFILE\.config\eza"
 ```
 
-Select a theme by creating `theme.yml` as a symbolic link to a file in
-`themes/`:
+Select a theme by copying a file from `themes/` to `theme.yml`:
 
 1. Choose a theme. Replace `tokyonight` with a filename from `themes/` without
    the `.yml` extension.
@@ -40,20 +40,17 @@ Select a theme by creating `theme.yml` as a symbolic link to a file in
 $theme = 'tokyonight'
 ```
 
-2. Remove the existing link or theme file.
+2. Remove the existing local theme file.
 
 ```powershell
 Remove-Item -LiteralPath "$env:USERPROFILE\.config\eza\theme.yml" -Force -ErrorAction Ignore
 ```
 
-3. Create the link for the selected theme.
+3. Copy and rename the selected theme.
 
 ```powershell
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.config\eza\theme.yml" -Target "$env:USERPROFILE\.config\eza\themes\$theme.yml"
+Copy-Item -LiteralPath "$env:USERPROFILE\.config\eza\themes\$theme.yml" -Destination "$env:USERPROFILE\.config\eza\theme.yml"
 ```
-
-Creating symbolic links on Windows may require Developer Mode or an elevated
-PowerShell session.
 
 `EZA_COLORS` and `LS_COLORS` override `theme.yml`. Unset them when using a YAML
 theme:
@@ -74,7 +71,7 @@ sudo apt install -y eza
 
 ### Configure
 
-Link a selected theme to `~/.config/eza/theme.yml`. Run these commands from
+Copy a selected theme to `~/.config/eza/theme.yml`. Run these commands from
 this `eza/` directory:
 
 1. Choose a theme. Replace `tokyonight` with a filename from `themes/` without
@@ -84,16 +81,16 @@ this `eza/` directory:
 theme=tokyonight
 ```
 
-2. Remove the existing link or theme file.
+2. Remove the existing local theme file.
 
 ```sh
 rm -f ~/.config/eza/theme.yml
 ```
 
-3. Create the link for the selected theme.
+3. Copy and rename the selected theme.
 
 ```sh
-ln -s "$(pwd)/themes/$theme.yml" ~/.config/eza/theme.yml
+cp "themes/$theme.yml" ~/.config/eza/theme.yml
 ```
 
 `EZA_COLORS` and `LS_COLORS` override `theme.yml`; unset them when using a YAML
