@@ -48,8 +48,9 @@ gaps:
   inner_gap: "8px"
 
   # Gap between windows and the screen edge.
+  # YASB reserves its app-bar height, so no additional top gap is needed.
   outer_gap:
-    top: "48px"
+    top: "0px"
     right: "8px"
     bottom: "8px"
     left: "8px"

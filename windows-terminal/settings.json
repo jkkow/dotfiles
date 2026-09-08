@@ -55,7 +55,7 @@
   "profiles": {
     "defaults": {
       "font": {
-        "face": "JetBrainsMono Nerd Font"
+        "face": "JetBrainsMono NF"
       },
       "opacity": 75,
       "startingDirectory": "C:\\Users\\jkkow\\.config",

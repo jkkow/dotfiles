@@ -20,6 +20,8 @@ The tracked bar uses GlazeWM workspace, tiling-direction, and binding-mode
 widgets. It expects GlazeWM's default IPC server at `ws://localhost:6123`.
 GlazeWM reserves the bar's 48px footprint with `gaps.outer_gap.top`.
 
+The bar uses a stable full-width layout.
+
 ### Run
 
 ```powershell
