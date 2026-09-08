@@ -85,6 +85,7 @@
 /* ==================== */
 .power-menu-widget .label {
     color: var(--red);
+    font-family: "Segoe Fluent Icons";
     font-size: 13px;
 }
 
@@ -115,6 +116,7 @@
 }
 
 .power-menu-popup .button .icon {
+    font-family: "Segoe Fluent Icons";
     font-size: 64px;
     padding-top: 32px;
     color: var(--lavender);
@@ -142,6 +144,10 @@
 .volume-widget .icon {
     color: var(--blue);
     margin: 1px 2px 0 0;
+}
+
+.volume-widget .volume-icon {
+    font-family: "Segoe Fluent Icons";
 }
 
 /* Audio dropdown menu */
@@ -308,6 +314,15 @@
     color: var(--yellow);
 }
 
+.wifi-widget .wifi-icon,
+.wifi-widget .ethernet-icon {
+    font-family: "Segoe Fluent Icons";
+}
+
+.wifi-widget .ethernet-icon {
+    font-size: 14px;
+}
+
 /* ===================== */
 /* === BATTERY WIDGET === */
 /* ===================== */
@@ -315,11 +330,23 @@
     color: var(--flamingo);
 }
 
+.battery-widget .battery-icon {
+    font-family: "Segoe Fluent Icons";
+}
+
 /* ==================== */
 /* === MEMORY WIDGET === */
 /* ==================== */
 .memory-widget .icon {
     color: var(--mauve);
+}
+
+.memory-widget .memory-icon {
+    font-family: "Segoe Fluent Icons";
+}
+
+.cpu-widget .cpu-icon {
+    font-family: "Segoe Fluent Icons";
 }
 
 /* ================= */
