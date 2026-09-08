@@ -32,6 +32,7 @@ bars:
       left: [
           "home",
           "glazewm_workspaces",
+          "workspace_separator",
           "active_window",
       ]
       center: [
@@ -70,6 +71,15 @@ widgets:
     options:
       offline_label: "GlazeWM Offline"
       hide_if_offline: true
+      app_icons:
+        enabled_populated: true
+        enabled_active: true
+        enabled_focused: true
+        size: 14
+        max_icons: 0
+        hide_label: false
+        hide_duplicates: false
+        hide_floating: false
   komorebi_workspaces:
     type: "komorebi.workspaces.WorkspaceWidget"
     options:
@@ -105,6 +115,11 @@ widgets:
       max_length: 50
       max_length_ellipsis: "..."
       monitor_exclusive: true
+  workspace_separator:
+    type: "yasb.custom.CustomWidget"
+    options:
+      label: "\u2502"
+      class_name: "workspace-separator"
   clock:
     type: "yasb.clock.ClockWidget"
     options:

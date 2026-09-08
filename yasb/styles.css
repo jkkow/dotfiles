@@ -271,10 +271,34 @@
     cursor: pointer;
 }
 
+.glazewm-workspaces .ws-btn .icon {
+    margin: 0 2px;
+}
+
 .glazewm-workspaces .ws-btn.active_populated,
 .glazewm-workspaces .ws-btn.active_empty {
+    background-color: rgba(166, 227, 161, 0.14);
+    border-radius: 4px;
     color: var(--green);
     font-weight: 900;
+}
+
+.glazewm-workspaces .ws-btn.active_populated .label,
+.glazewm-workspaces .ws-btn.active_empty .label {
+    color: var(--yellow);
+    font-weight: 900;
+}
+
+.workspace-separator {
+    margin: 0 4px;
+    padding: 0;
+}
+
+.workspace-separator .label {
+    color: rgba(127, 132, 156, 0.65);
+    font-size: 12px;
+    font-weight: 400;
+    padding: 0;
 }
 
 /* ====================== */
