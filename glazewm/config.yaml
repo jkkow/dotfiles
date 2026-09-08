@@ -1,12 +1,12 @@
 general:
   # Commands to run when the WM has started. This is useful for running a
   # script or launching another application.
-  # Example: The below command launches Zebar.
-  startup_commands: ["shell-exec zebar"]
+  # Launch YASB after GlazeWM is ready.
+  startup_commands: ["shell-exec yasb"]
 
   # Commands to run just before the WM is shutdown.
-  # Example: The below command kills Zebar.
-  shutdown_commands: ["shell-exec taskkill /IM zebar.exe /F"]
+  # Stop YASB when GlazeWM exits.
+  shutdown_commands: ["shell-exec taskkill /IM yasb.exe /F"]
 
   # Commands to run after the WM config is reloaded.
   config_reload_commands: []
@@ -135,8 +135,8 @@ window_rules:
   # 1. IGNORE RULES
   - commands: ["ignore"]
     match:
-      # Ignore Zebar windows
-      - window_process: { equals: "zebar" }
+      # Ignore YASB windows.
+      - window_process: { equals: "yasb" }
 
       # Ignore Picture-in-Picture windows (Chrome / Firefox)
       - window_title: { regex: "[Pp]icture.in.[Pp]icture" }

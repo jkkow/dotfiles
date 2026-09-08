@@ -1,0 +1,56 @@
+watch_config: true
+watch_stylesheet: true
+
+bars:
+  primary-bar:
+    screens: ["*"]
+    class_name: "yasb-bar"
+    alignment:
+      position: "top"
+      align: "center"
+    dimensions:
+      width: "100%"
+      height: 40
+    padding:
+      top: 4
+      left: 8
+      bottom: 4
+      right: 8
+    window_flags:
+      always_on_top: true
+      windows_app_bar: false
+      hide_on_fullscreen: true
+    widgets:
+      left: ["glazewm_workspaces", "glazewm_tiling_direction"]
+      center: ["clock"]
+      right: ["glazewm_binding_mode"]
+
+widgets:
+  glazewm_workspaces:
+    type: "glazewm.workspaces.GlazewmWorkspacesWidget"
+    options:
+      offline_label: "GlazeWM offline"
+      monitor_exclusive: true
+      enable_scroll_switching: true
+
+  glazewm_tiling_direction:
+    type: "glazewm.tiling_direction.GlazewmTilingDirectionWidget"
+    options:
+      horizontal_label: "[|]"
+      vertical_label: "[=]"
+
+  glazewm_binding_mode:
+    type: "glazewm.binding_mode.GlazewmBindingModeWidget"
+    options:
+      hide_if_no_active: true
+      label: "Mode: {binding_mode}"
+      callbacks:
+        on_left: "do_nothing"
+        on_middle: "do_nothing"
+        on_right: "disable_binding_mode"
+
+  clock:
+    type: "yasb.clock.ClockWidget"
+    options:
+      label: "{:%a, %b %d  %H:%M}"
+      label_alt: "{:%Y-%m-%d}"

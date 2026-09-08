@@ -1,6 +1,7 @@
 # GlazeWM
 
-GlazeWM and Zebar are Windows-only. The tracked configuration starts Zebar.
+GlazeWM is Windows-only. Its configuration starts YASB when it is installed;
+see [`yasb/README.md`](../yasb/README.md) for YASB setup.
 
 ## Windows
 
@@ -8,7 +9,6 @@ GlazeWM and Zebar are Windows-only. The tracked configuration starts Zebar.
 
 ```powershell
 winget install --id glzr-io.glazewm -e --scope user
-winget install --id glzr-io.zebar -e --scope user
 ```
 
 ### Configure
@@ -24,24 +24,12 @@ if (-not (Test-Path -LiteralPath $configPath -PathType Leaf)) {
 $env:GLAZEWM_CONFIG_PATH = $configPath
 ```
 
-Install the tracked Zebar startup settings in Zebar's default configuration
-directory:
-
-```powershell
-$sourcePath = Join-Path $HOME ".config\glazewm\zebar\settings.json"
-$destinationPath = Join-Path $HOME ".glzr\zebar\settings.json"
-if (-not (Test-Path -LiteralPath $sourcePath -PathType Leaf)) {
-    throw "Zebar settings were not found: $sourcePath"
-}
-New-Item -ItemType Directory -Path (Split-Path -Parent $destinationPath) -Force | Out-Null
-Copy-Item -LiteralPath $sourcePath -Destination $destinationPath -Force
-```
-
 Start GlazeWM manually when needed:
 
 ```powershell
 glazewm start
 ```
 
-Press `Alt+Shift+R` to reload `config.yaml`. This guide does not configure
-automatic startup.
+Press `Alt+Shift+R` to reload GlazeWM's `config.yaml`. It does not rerun
+`startup_commands`; start YASB separately or restart GlazeWM to apply its
+lifecycle integration. This guide does not configure automatic startup.

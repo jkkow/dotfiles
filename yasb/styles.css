@@ -1,0 +1,54 @@
+* {
+    font-family: "Cascadia Mono";
+    font-size: 13px;
+    color: #d6e4e1;
+}
+
+.yasb-bar {
+    background-color: #102321;
+}
+
+.glazewm-workspaces .ws-btn,
+.glazewm-tiling-direction .btn,
+.glazewm-binding-mode,
+.clock-widget {
+    border: none;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 0 2px;
+}
+
+.glazewm-workspaces .ws-btn {
+    background-color: transparent;
+    color: #88a9a3;
+}
+
+.glazewm-workspaces .ws-btn.populated {
+    color: #d6e4e1;
+}
+
+.glazewm-workspaces .ws-btn.active_populated,
+.glazewm-workspaces .ws-btn.active_empty,
+.glazewm-workspaces .ws-btn.focused_populated,
+.glazewm-workspaces .ws-btn.focused_empty {
+    background-color: #166962;
+    color: #ffffff;
+}
+
+.glazewm-workspaces .ws-btn:hover,
+.glazewm-tiling-direction .btn:hover {
+    background-color: #21433f;
+}
+
+.glazewm-tiling-direction .btn {
+    background-color: transparent;
+}
+
+.glazewm-binding-mode {
+    background-color: #5a3d13;
+    color: #ffe0a3;
+}
+
+.clock-widget {
+    background-color: #17322f;
+}

@@ -123,6 +123,7 @@ ignored directories.
 - `starship/README.md`
 - `eza/README.md`
 - `yazi/README.md`
+- `yasb/README.md`
 - `zed/README.md`
 - `glazewm/README.md`
 - `autohotkey/README.md`
