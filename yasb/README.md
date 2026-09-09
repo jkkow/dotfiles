@@ -8,7 +8,7 @@ location because this repository is cloned to `~/.config`.
 ### Install
 
 ```powershell
-winget install --id AmN.yasb -e --scope user
+winget install --id AmN.yasb -e
 ```
 
 ### Configure
