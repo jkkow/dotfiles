@@ -373,6 +373,13 @@
     font-family: "Segoe Fluent Icons";
 }
 
+/* ====================== */
+/* === IME LANGUAGE WIDGET === */
+/* ====================== */
+.ime-language-widget .label {
+    color: var(--teal);
+}
+
 /* ================= */
 /* === UPTIME WIDGET === */
 /* ================= */

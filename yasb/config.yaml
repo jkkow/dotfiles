@@ -39,6 +39,7 @@ bars:
           "clock",
         ]
       right: [
+          "language",
           "memory",
           "cpu",
           "wifi",
@@ -104,6 +105,23 @@ widgets:
       hide_decimal: true
       callbacks:
         on_left: "toggle_label"
+  language:
+    type: "yasb.custom.CustomWidget"
+    options:
+      label: "{data}"
+      label_alt: "{data}"
+      label_placeholder: "--"
+      class_name: "ime-language-widget"
+      exec_options:
+        run_cmd: "autohotkey.exe %USERPROFILE%\\.config\\yasb\\ime-language.ahk"
+        run_interval: 1000
+        return_format: "string"
+        hide_empty: false
+        use_shell: true
+      callbacks:
+        on_left: "do_nothing"
+        on_middle: "do_nothing"
+        on_right: "do_nothing"
   active_window:
     type: "yasb.active_window.ActiveWindowWidget"
     options:

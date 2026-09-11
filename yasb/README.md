@@ -22,6 +22,10 @@ GlazeWM reserves the bar's 48px footprint with `gaps.outer_gap.top`.
 
 The bar uses a stable full-width layout.
 
+The first right-side widget is a `KO`/`EN` indicator for the focused
+application's Korean IME mode. It uses the installed AutoHotkey v2 interpreter
+to run `ime-language.ahk`.
+
 ### Run
 
 ```powershell
