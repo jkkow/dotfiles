@@ -113,8 +113,8 @@ widgets:
       label_placeholder: "--"
       class_name: "ime-language-widget"
       exec_options:
-        run_cmd: "autohotkey.exe %USERPROFILE%\\.config\\yasb\\ime-language.ahk"
-        run_interval: 1000
+        run_cmd: "%USERPROFILE%\\.config\\yasb\\ime-language.exe"
+        run_interval: 200
         return_format: "string"
         hide_empty: false
         use_shell: true

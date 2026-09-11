@@ -23,8 +23,16 @@ GlazeWM reserves the bar's 48px footprint with `gaps.outer_gap.top`.
 The bar uses a stable full-width layout.
 
 The first right-side widget is a `KO`/`EN` indicator for the focused
-application's Korean IME mode. It uses the installed AutoHotkey v2 interpreter
-to run `ime-language.ahk`.
+application's Korean IME mode. It runs the committed `ime-language.exe` helper.
+
+After changing `ime-language.cs`, rebuild the tracked executable:
+
+```powershell
+$compiler = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+$source = Join-Path $HOME ".config\yasb\ime-language.cs"
+$executable = Join-Path $HOME ".config\yasb\ime-language.exe"
+& $compiler /nologo /target:exe /out:$executable $source
+```
 
 ### Run
 
