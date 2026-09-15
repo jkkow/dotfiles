@@ -19,7 +19,7 @@ Existing configuration: this preserves only independently managed directories.
 ```powershell
 $configHome = Join-Path $HOME ".config"
 $backupHome = Join-Path $HOME ".config.backup"
-$independentConfigs = "herdr", "lazygit", "nvim", "scoop"
+$independentConfigs = "lazygit", "nvim", "scoop"
 
 if (Test-Path -LiteralPath $backupHome) {
     throw "Backup directory already exists: $backupHome"
@@ -83,7 +83,7 @@ backup_home="$HOME/.config.backup"
 test ! -e "$backup_home" || { echo "Backup already exists: $backup_home" >&2; exit 1; }
 mv "$config_home" "$backup_home"
 git clone https://github.com/jkkow/dotfiles.git "$config_home"
-for name in herdr lazygit nvim; do
+for name in lazygit nvim; do
   test -d "$backup_home/$name" && mv "$backup_home/$name" "$config_home/"
 done
 ```
@@ -111,9 +111,10 @@ No global setup is required. Applications use the standard `~/.config` path.
 
 ## Independent Configurations
 
-`herdr`, `lazygit`, and `nvim` are intentionally ignored on every platform.
-`scoop` is also ignored on Windows. Do not run `git clean -fdx`: it removes
-ignored directories.
+`herdr/config.toml` is versioned; Herdr runtime artifacts remain ignored.
+`lazygit` and `nvim` are intentionally ignored on every platform. `scoop` is
+also ignored on Windows. Do not run `git clean -fdx`: it removes ignored
+directories.
 
 ## Tool Docs
 
@@ -127,5 +128,6 @@ ignored directories.
 - `zed/README.md`
 - `glazewm/README.md`
 - `autohotkey/README.md`
+- `herdr/README.md`
 - `windows-terminal/README.md`
 - `opencode/README.md`

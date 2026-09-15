@@ -1,0 +1,5 @@
+# Herdr runtime artifacts
+*
+!.gitignore
+!README.md
+!config.toml

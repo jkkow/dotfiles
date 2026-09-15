@@ -15,8 +15,10 @@
   when the worktree is clean, run `git pull --ff-only origin "$(git branch --show-current)"`.
   If local changes exist or the pull cannot fast-forward, stop and ask the user
   rather than stashing, merging, or overwriting changes.
-- `herdr`, `lazygit`, `nvim`, and `scoop` are independently managed ignored
-  directories. Do not modify them or run `git clean -fdx`.
+- `herdr/config.toml` is managed by this repository. Herdr runtime artifacts
+  remain ignored.
+- `lazygit`, `nvim`, and `scoop` are independently managed ignored directories.
+  Do not modify them or run `git clean -fdx`.
 
 ## Application Constraints
 
