@@ -39,6 +39,18 @@ $env:YAZI_FILE_ONE = $gitFile
 ya pkg install
 ```
 
+### Image Preview
+
+Yazi previews images in Windows Terminal through Sixel and in WezTerm through
+its inline-image protocol. Start Yazi from the configured PowerShell profile;
+the profile prevents inherited `WEZTERM_*` variables from making Windows
+Terminal appear to be WezTerm.
+
+To check the selected adapter, run `ya env` in the terminal that launches
+Yazi. Windows Terminal should report `Brand.from_env: Some(Microsoft)` and
+`Drivers.matches: Sixel`. WezTerm should report `Brand.from_env: Some(WezTerm)`.
+Fully restart Windows Terminal after changing persistent environment variables.
+
 ## Ubuntu
 
 ### Install

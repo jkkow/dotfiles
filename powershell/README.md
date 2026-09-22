@@ -39,3 +39,11 @@ if (-not (Select-String -LiteralPath $PROFILE -SimpleMatch $dotfilesInitializer 
 
 If script execution is blocked, run
 `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once.
+
+### Terminal Detection
+
+When running in Windows Terminal, `initialize.ps1` removes inherited
+`WEZTERM_*` variables before starting applications. This prevents Yazi from
+mistaking Windows Terminal for WezTerm and selects Windows Terminal's Sixel
+image-preview adapter instead. A genuine WezTerm session keeps its
+`WEZTERM_*` variables unchanged.
