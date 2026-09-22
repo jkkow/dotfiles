@@ -82,6 +82,18 @@
         "hidden": false,
         "name": "PowerShell",
         "source": "Windows.Terminal.PowershellCore"
+      },
+      {
+        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+        "hidden": false,
+        "name": "Azure Cloud Shell",
+        "source": "Windows.Terminal.Azure"
+      },
+      {
+        "guid": "{d6fa56ce-fb21-5466-94fd-64f0cc0423f6}",
+        "hidden": false,
+        "name": "Ubuntu",
+        "source": "Microsoft.WSL"
       }
     ]
   },
