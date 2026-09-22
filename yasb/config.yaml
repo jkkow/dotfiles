@@ -32,6 +32,7 @@ bars:
       left: [
           "home",
           "glazewm_workspaces",
+          "glazewm_tiling_direction",
           "workspace_separator",
           "active_window",
       ]
@@ -81,6 +82,12 @@ widgets:
         hide_label: false
         hide_duplicates: false
         hide_floating: false
+  glazewm_tiling_direction:
+    type: "glazewm.tiling_direction.GlazewmTilingDirectionWidget"
+    options:
+      # The current insertion direction; click to toggle it.
+      horizontal_label: "\udb81\udce1"
+      vertical_label: "\udb81\udce2"
   komorebi_workspaces:
     type: "komorebi.workspaces.WorkspaceWidget"
     options:

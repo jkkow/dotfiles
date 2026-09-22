@@ -16,8 +16,10 @@ winget install --id AmN.yasb -e
 No copy or environment-variable setup is required. YASB loads `config.yaml`
 and `styles.css` from this directory by default.
 
-The tracked bar uses GlazeWM workspace, tiling-direction, and binding-mode
-widgets. It expects GlazeWM's default IPC server at `ws://localhost:6123`.
+The tracked bar uses GlazeWM workspace and tiling-direction widgets. The
+tiling-direction widget shows the current insertion direction with Nerd Font
+split icons; click it to toggle the direction. It expects GlazeWM's default
+IPC server at `ws://localhost:6123`.
 GlazeWM reserves the bar's 48px footprint with `gaps.outer_gap.top`.
 
 The bar uses a stable full-width layout.

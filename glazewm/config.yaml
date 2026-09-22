@@ -100,7 +100,7 @@ window_effects:
 window_behavior:
   # New windows are created in this state whenever possible.
   # Allowed values: 'tiling', 'floating'.
-  initial_state: 'floating'
+  initial_state: 'tiling'
 
   # Sets the default options for when a new window is created. This also
   # changes the defaults for when the state change commands, like
@@ -155,13 +155,25 @@ window_rules:
       - window_process: { regex: "python(|3|w)" }
         window_class: { regex: "TkTopLevel|Qt5QWindowIcon" }
 
+  # 2. FLOATING EXCEPTIONS
+  # Use `set-floating` for dialogs and utility windows that are impractical
+  # in a tiled layout. Use `ignore` above only for windows GlazeWM must not
+  # manage at all.
   - commands: ["set-floating"]
     match:
+      # Native Windows modal dialogs and common file pickers.
+      - window_class: { equals: "#32770" }
+
+      # PicPick screen-capture and image-editing windows.
+      - window_process: { equals: "picpick" }
+
+      # XnView MP image-viewer windows.
+      - window_process: { equals: "xnviewmp" }
+
       - window_process: { equals: "Fusion360" }
         window_title: { equals: "PARAMETERS" }
-        #
-# Bitwarden 확장 프로그램 (브라우저 팝업) Floating 설정
-      # 프로세스는 브라우저지만, 창 제목에 'Bitwarden'이 포함된 경우를 찾습니다.
+
+      # Bitwarden browser-extension popups.
       - window_title: { regex: ".*Bitwarden.*" }
 
 binding_modes:

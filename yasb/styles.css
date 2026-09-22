@@ -289,6 +289,24 @@
     font-weight: 900;
 }
 
+.glazewm-tiling-direction {
+    margin: 4px 0;
+    padding: 0;
+}
+
+.glazewm-tiling-direction .btn {
+    color: var(--sky);
+    font-family: "JetBrainsMono NF";
+    font-size: 14px;
+    padding: 0 6px;
+    border: none;
+}
+
+.glazewm-tiling-direction .btn:hover {
+    background-color: rgba(137, 180, 250, 0.14);
+    border-radius: 4px;
+}
+
 .workspace-separator {
     margin: 0 4px;
     padding: 0;
