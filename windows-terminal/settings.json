@@ -43,7 +43,7 @@
       "keys": "ctrl+shift+["
     },
     {
-      "id": "Terminal.PasteFromClipboard",
+      "id": null,
       "keys": "ctrl+v"
     }
   ],
