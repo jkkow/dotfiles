@@ -130,4 +130,5 @@ directories.
 - `autohotkey/README.md`
 - `herdr/README.md`
 - `windows-terminal/README.md`
+- `solidcraft/README.md`
 - `opencode/README.md`
