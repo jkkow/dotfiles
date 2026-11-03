@@ -6,6 +6,15 @@
     "AGENTS.md"
   ],
   "mcp": {
+    "solidcraft": {
+      "type": "local",
+      "command": [
+        "C:\\Users\\jkkow\\.local\\opt\\solidcraft-0.30.0-windows-x64-portable\\solidcraft-cli.exe",
+        "mcp"
+      ],
+      "enabled": true,
+      "timeout": 330000
+    },
     "freecad": {
       "type": "local",
       "command": [
