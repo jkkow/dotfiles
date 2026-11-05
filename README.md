@@ -129,6 +129,7 @@ directories.
 - `glazewm/README.md`
 - `autohotkey/README.md`
 - `herdr/README.md`
+- `helix/README.md`
 - `windows-terminal/README.md`
 - `solidcraft/README.md`
 - `opencode/README.md`

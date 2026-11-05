@@ -1,0 +1,9 @@
+theme = "catppuccin_mocha_transparent"
+
+[editor]
+line-number = "relative"
+scrolloff = 15
+
+[editor.soft-wrap]
+enable = true
+max-indent-retain = 40
