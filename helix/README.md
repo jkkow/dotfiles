@@ -29,3 +29,37 @@ background and opacity settings.
 
 Line numbers are relative, scrolloff is 15 lines, and soft wrapping retains up
 to 40 columns of indentation. Restart Helix after changing the theme file.
+
+## Python
+
+Install the language servers as standalone `uv` tools:
+
+```sh
+uv tool install basedpyright
+uv tool install ruff
+```
+
+Helix starts `basedpyright-langserver` for Python analysis and `ruff server` for
+formatting. Python uses four-space indentation. Formatting is not automatic on
+save; run `:format` in a Python buffer when needed. Ruff diagnostics are not
+enabled in this configuration.
+
+Both commands must be on the PATH inherited by Helix. Check the tool executable
+directory with `uv tool dir --bin`. For the current PowerShell session only, add
+it before starting Helix:
+
+```powershell
+$env:PATH = "$(uv tool dir --bin);$env:PATH"
+hx --health python
+hx path/to/file.py
+```
+
+On POSIX shells, use `export PATH="$(uv tool dir --bin):$PATH"` for the current
+session. If Helix is launched from another application, that application must
+also supply the PATH. Persistent PATH configuration is a separate choice.
+
+For verification, `hx --health python` should find both language servers. Open a
+Python project from its root, introduce a type error to check BasedPyright's
+diagnostics, and run `:format` on unformatted code to check Ruff. BasedPyright
+uses its Python environment discovery and project settings; a project's virtual
+environment must be discoverable for its packages to resolve.

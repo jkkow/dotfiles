@@ -1,0 +1,16 @@
+[language-server.basedpyright]
+command = "basedpyright-langserver"
+args = ["--stdio"]
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[[language]]
+name = "python"
+indent = { tab-width = 4, unit = "    " }
+auto-format = false
+language-servers = [
+  { name = "basedpyright", except-features = ["format"] },
+  { name = "ruff", only-features = ["format"] },
+]
