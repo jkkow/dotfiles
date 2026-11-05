@@ -10,7 +10,9 @@
       "type": "local",
       "command": [
         "C:\\Users\\jkkow\\.local\\opt\\solidcraft-0.30.0-windows-x64-portable\\solidcraft-cli.exe",
-        "mcp"
+        "mcp",
+        "--allow-path",
+        "C:\\Users\\jkkow\\Downloads"
       ],
       "enabled": true,
       "timeout": 330000
