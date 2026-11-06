@@ -38,6 +38,30 @@ curl -fsSL https://opencode.ai/install | bash
 
 No additional configuration is required after cloning this repository.
 
+## Herdr orchestration commands
+
+Run `/set-ochestration` in the left-hand OpenCode pane of an unambiguous Herdr
+layout to establish the per-conversation orchestration policy. The main pane
+remains for planning, status, and questions; execution uses verified available
+right-side work panes, splitting down and then right for concurrent work. The
+command preserves unrelated work, keeps focus in place, and asks when the layout
+or pane availability is unclear. It does not launch work on invocation.
+
+This command is a prompt guiding the current conversation, not an enforcement
+mechanism or global Herdr setting. It uses Herdr's built-in status and done
+indicators and configured system notifications; Herdr suppresses popups for the
+active tab, so same-tab completions may not generate a toast. Ask the orchestrator
+for status when needed. No automatic message is injected into its session.
+
+Use `/status-ochestration` to report only jobs recorded for the current
+orchestration conversation. After `/set-ochestration`, contextual requests such
+as "status", "progress", "작업 현황", or "진행 상황" also request that report.
+The report checks live Herdr state without waiting or changing focus; idle or
+done alone does not establish success. Assignment records live in conversation
+context and may be lost after compaction or restart. If records are unavailable,
+provide the missing details rather than assuming every right-side pane is a job.
+Both commands are instructions to the assistant, not hard enforcement.
+
 ## FreeCAD MCP
 
 The configured `freecad` MCP server connects OpenCode to a local FreeCAD

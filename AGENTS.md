@@ -11,10 +11,16 @@
 
 ## Working Tree
 
-- Before modifying or adding repository files, check `git status --short` and,
-  when the worktree is clean, run `git pull --ff-only origin "$(git branch --show-current)"`.
-  If local changes exist or the pull cannot fast-forward, stop and ask the user
-  rather than stashing, merging, or overwriting changes.
+- Before modifying or adding repository files, check `git status --short`. If
+  the worktree is clean, run `git pull --ff-only origin "$(git branch --show-current)"`;
+  if the pull cannot fast-forward, stop and ask the user.
+- If the worktree is dirty, inspect the status and relevant diffs and preserve
+  existing changes. Do not pull, stash, merge, or revert them. Proceed when the
+  requested work can be combined safely and intent is clear, including changes
+  to the same files. Ask the user if overwriting or reverting existing work is
+  necessary, changes conflict, or intent is ambiguous.
+- Permission to edit does not itself authorize a commit or a pull on a dirty
+  worktree.
 - `herdr/config.toml` is managed by this repository. Herdr runtime artifacts
   remain ignored.
 - `lazygit`, `nvim`, and `scoop` are independently managed ignored directories.
