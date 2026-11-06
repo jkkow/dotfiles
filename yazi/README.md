@@ -51,6 +51,22 @@ Yazi. Windows Terminal should report `Brand.from_env: Some(Microsoft)` and
 `Drivers.matches: Sixel`. WezTerm should report `Brand.from_env: Some(WezTerm)`.
 Fully restart Windows Terminal after changing persistent environment variables.
 
+When native Windows Herdr runs inside Windows Terminal, its inner terminal can
+advertise Kitty graphics even though Windows Terminal cannot render Herdr's
+Kitty output. The `herdr-image` previewer uses Chafa's colored character
+symbols for images only in Windows Herdr panes. Other terminals retain Yazi's
+normal image previewers. Install Chafa for the current user:
+
+```powershell
+winget install --id hpjansson.Chafa --exact --scope user
+```
+
+Ensure `chafa --version` works in the existing Herdr pane; restart its shell
+or update its PATH if necessary. Restart Yazi and select a PNG or JPEG to check
+the symbol preview. Chafa's supported image formats depend on its build; other
+image types may show an error. Video, PDF, and font previews still use Yazi's
+normal graphics adapter and are not covered by this workaround.
+
 ## Ubuntu
 
 ### Install
