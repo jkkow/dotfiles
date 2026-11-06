@@ -11,11 +11,11 @@ description: "Use when creating a zotdown note from the current conversation or 
 
 ## 2. Instructions
 Strictly follow these steps to complete the task:
-1. **Analyze:** Determine the user's requested scope from the current conversation. If the user asks for "all", summarize the full relevant session. If the user asks for "some" or names a topic, use only that requested portion. Extract the title, aliases, keywords, key decisions, commands, errors, fixes, and verification results.
+1. **Analyze:** Determine the user's requested scope from the current conversation. If the user asks for "all", consider the full relevant session; if the user asks for "some" or names a topic, use only that requested portion. Use the scoped conversation to select the central topic and relevant facts, including applicable decisions, commands, errors, fixes, and verification results. Derive the title, aliases, and keywords from the selected subject.
 2. **Locate:** Verify that the vault root exists at `C:\Users\jkkow\Dropbox\Obsidian\jkko-notes`. The note output directory MUST be `C:\Users\jkkow\Dropbox\Obsidian\jkko-notes\zMisc\zotdown`, equivalent to the vault-relative path `zMisc/zotdown/`.
 3. **Name:** Create a new Markdown file in `zMisc/zotdown/` using the existing timestamp filename convention `yyMMdd_HHmmss.md`. If a file already exists for the timestamp, choose the next available timestamp-like filename without overwriting an existing note.
 4. **Frontmatter:** Use the same field structure as `zMisc/Templates/zotdown.md`. Set `target` to exactly `JKKO` and `KSP`, generate `title`, create about three search-friendly `aliases` with Korean and English search variants when suitable, and generate English-centered `keywords` from the note content. Preserve the same field order, but write every YAML list property in one-line inline list format.
-5. **Write:** Draft the body in Korean as the primary language. Use concise declarative prose, H2-first sectioning, readable tables, bullets, task-oriented lists, code blocks for commands/config snippets, Obsidian-renderable `$$ ... $$` display math blocks for equations, and Obsidian WikiLinks for important tools, concepts, files, products, and names.
+5. **Write:** Explain the selected subject as a general, self-contained topic grounded in the relevant source facts, rather than recounting incidental session, pane, agent, or orchestration context. Include context the user explicitly requests. Draft the body in Korean as the primary language. Use concise declarative prose, H2-first sectioning, readable tables, bullets, task-oriented lists, code blocks for commands/config snippets, Obsidian-renderable `$$ ... $$` display math blocks for equations, and Obsidian WikiLinks for important tools, concepts, files, products, and names.
 6. **Review:** Before reporting success, read the created note and verify the file location, frontmatter shape, keyword quality, and Markdown compatibility.
 
 ## 3. Constraints & Rules
@@ -45,6 +45,8 @@ keywords: [<english-keyword-1>, <english-keyword-2>, <english-keyword-3>, <engli
 - **MUST DO:** Keep the body in Korean unless the user explicitly requests another language.
 - **MUST DO:** Write prose in a concise declarative Korean tone ending with `~한다.` or `~이다.` where natural.
 - **MUST DO:** Improve readability, clarity, and vocabulary level while preserving the user's intent and source facts.
+- **MUST DO:** Retain named products when they are the actual subject, and faithfully preserve source quotations, commands, errors, facts, and explicitly requested context. The `/english-zotdown` command's requirement to quote matched source message and Refined question pairs verbatim takes precedence over generalizing or omitting incidental context within those quotations.
+- **DO NOT:** Fabricate details or generalize away source meaning. Omit incidental session, pane, agent, and orchestration context only when it is not needed for faithful understanding, required source quotations, or explicitly requested context.
 - **MUST DO:** Use H2 (`##`) as the highest-level heading in the note body. Do not add an H1 heading.
 - **MUST DO:** Prefer H2 sections for top-level structure. Use H3 only when it materially improves readability.
 - **MUST DO:** Under each H2, organize content with tables, bullets, and task-oriented lists when they improve scanability.
@@ -63,7 +65,7 @@ keywords: [<english-keyword-1>, <english-keyword-2>, <english-keyword-3>, <engli
 - **DO NOT:** Use fenced `math`, `latex`, or plain code blocks for equations, because Obsidian may not render them as math.
 - **DO NOT:** End table cells, bullet items, or task/list items with periods unless the item must be a complete sentence for clarity.
 - **DO NOT:** Overwrite an existing file.
-- **Output Language:** Write summaries, reports, and note body text in Korean. Keep command snippets, code, paths, and configuration values in their original language.
+- **Output Language:** Follow the OpenCode user-language preference in `opencode/AGENTS.md` for conversational summaries and reports. Keep the note body in Korean unless the user explicitly requests another language. Keep command snippets, code, paths, and configuration values in their original language.
 
 ## 4. Body Style Guide
 - Top-level body headings must start at H2, for example `## Overview`, `## Summary`, `## 결정 사항`, or `## 작업 흐름`.

@@ -32,7 +32,7 @@ Strictly follow these steps for every FreeCAD request that creates, edits, delet
 - **DO NOT:** Apply later pockets, patterns, or topology-changing operations after edge-dependent fillets or chamfers without explaining the risk and obtaining approval.
 - **DO NOT:** Continue a high-risk operation when the auditor cannot run. Explain the limitation and obtain explicit user approval first.
 - **DO NOT:** Treat absence of a body or feature tree as a defect for a newly created empty document before the planned structure is built.
-- **Output Language:** Provide all user-facing explanations, warnings, audit summaries, and final results in Korean. Keep FreeCAD object names, parameters, expressions, and code in English.
+- **Output Language:** Follow the OpenCode user-language preference in `opencode/AGENTS.md` for user-facing explanations, warnings, audit summaries, and final results. Keep FreeCAD object names, parameters, expressions, and code in English.
 
 ## 4. References
 - Auditor agent: `~/.config/opencode/agents/freecad-design-auditor.md`

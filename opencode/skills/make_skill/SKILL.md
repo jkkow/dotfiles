@@ -19,7 +19,7 @@ When a user requests to create a new skill, strictly follow these steps in order
 4. **Draft Content (Cross-Lingual Strategy):** - Write the YAML Frontmatter (`name`, `description`). Include Korean keywords in the `description` for better auto-triggering by the user's natural language prompts. Write the core instructions (Role, Workflow, Constraints) entirely in **English** to maximize LLM compliance and minimize context loss.
 5. **File Creation:** - First, explicitly create the new directory named `<skill-name>` at the chosen Local or Global location.
    - Second, generate the content and save it strictly as a file named `SKILL.md` inside that newly created directory.
-6. **Reporting:** After successful creation, summarize the result and provide a quick usage example to the user in **Korean**.
+6. **Reporting:** After successful creation, summarize the result and provide a quick usage example, following the OpenCode user-language preference in `opencode/AGENTS.md`.
 
 ## 3. Constraints
 - **Do not proceed to Step 3 until the user has explicitly chosen the storage path (Local or Global).**

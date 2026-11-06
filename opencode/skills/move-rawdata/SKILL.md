@@ -24,7 +24,7 @@ Strictly follow these steps to complete the task:
 - **Don't:** Delete files after a failed move or use destructive commands that may lose data.
 - **Don't:** Move files that appear to be tracked source assets, documentation, or manually curated reference files unless the user explicitly asks for that.
 - **Don't:** Assume every image in the repository is disposable output; check surrounding context first.
-- **Output Language:** Write the core logic and code in shell-friendly commands when needed, but provide all explanations, summaries, and code comments in **Korean**.
+- **Output Language:** Write the core logic and code in shell-friendly commands when needed, and keep code comments in Korean. Follow the OpenCode user-language preference in `opencode/AGENTS.md` for conversational explanations and summaries.
 
 ## 4. References (Optional)
 - Destination root: `C:\Users\jkkow\Dropbox\Obsidian\jkko_notes\zMisc\rawdata_scripts`

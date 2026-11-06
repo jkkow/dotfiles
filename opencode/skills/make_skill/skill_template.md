@@ -19,7 +19,7 @@ Strictly follow these steps to complete the task:
 - **MUST DO:** {{Mandatory action 1}}
 - **MUST DO:** {{Mandatory action 2}}
 - **DO NOT:** {{Prohibited action}}
-- **Output Language:** Write the core logic and code in {{Target Language Framework}}, but provide all explanations, summaries, and code comments in **Korean**.
+- **Output Language:** Write the core logic and code in {{Target Language Framework}} and code comments in **Korean**. Follow the OpenCode user-language preference in `opencode/AGENTS.md` for conversational explanations and summaries.
 
 ## 4. References (Optional)
 - {{List any relevant internal file paths, documentation links, or code examples here}}

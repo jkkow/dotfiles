@@ -22,4 +22,4 @@ Audit the following:
 
 For every finding, include the affected document object or workflow stage, the risk, and a concrete safer alternative. Distinguish expected omissions in a new empty document from defects in an existing design. Do not recommend destructive replacement without preserving or explicitly approving a backup.
 
-Provide all findings and recommendations in Korean. Keep FreeCAD object names, paths, expressions, and property names exact.
+Follow the OpenCode user-language preference in `opencode/AGENTS.md` for findings and recommendations, using the original user's language context when delegated. Keep FreeCAD object names, paths, expressions, and property names exact.

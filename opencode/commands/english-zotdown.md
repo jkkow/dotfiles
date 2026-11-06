@@ -25,12 +25,28 @@ an error. Distinguish Korean-to-English expression from correction of original
 English, and distinguish grammatical errors from optional stylistic improvements.
 Flag any changes in meaning, omissions, or added assumptions in a refinement.
 
-Use concise comparisons and Korean explanations to teach the selected patterns.
-Include reusable English phrases and active recall exercises grounded in the
-available material, with clearly labeled example answers in collapsible
-`<details>` blocks. Label newly composed exercises and answers as examples, not
-as source quotations. If there is insufficient material for a category, explain
-the limitation instead of fabricating examples or pairs.
+Structure the note body in exactly this H2 order:
+
+1. `## Example Sentences`: For each selected example, quote the original Korean or
+   English user question and its actual adjacent `Refined question` faithfully,
+   keeping the pair together. Identify its intent, then immediately provide concise
+   Korean learning points on expressions and possible improvements. Distinguish
+   English errors from optional style choices; Korean-to-English translation is
+   expression practice, not an error in the Korean. Flag actual meaning shifts,
+   omissions, and added assumptions; never call a meaning-changing refinement
+   correct without qualification.
+2. `## Key Expressions`: Summarize reusable phrases from the selected examples
+   with concise Korean explanations.
+3. `## Practice`: Provide newly composed, clearly labeled active recall exercises
+   grounded in the selected material, with clearly labeled example answers in
+   collapsible `<details>` blocks. Do not present exercises or answers as source
+   quotations.
+
+Do not add a scope-and-sources section. Briefly report inaccessible pairs or partial
+context near the relevant entry or in the final user report. If material is
+insufficient, explain the limitation rather than fabricating examples or pairs.
+Generalize explanatory prose to normal situations; preserve source quotations
+exactly, including any environment names they contain.
 
 Verify the saved note using the skill's checks, including that its `pid` is exactly
 the single scalar `jkko.resource.english`. Only after verification, open it in

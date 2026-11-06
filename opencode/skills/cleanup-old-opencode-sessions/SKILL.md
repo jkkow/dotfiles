@@ -50,7 +50,7 @@ Check these paths when they exist:
 - **DO NOT:** Run broad deletion commands against a home directory, workspace root, or parent directory.
 - **DO NOT:** Delete files based only on filename patterns without confirming they are under an OpenCode data/session directory.
 - **DO NOT:** Archive session files unless the user explicitly asks for archive mode.
-- **Output Language:** Provide explanations, summaries, warnings, and confirmation questions in Korean when the user uses Korean; otherwise use the user's language.
+- **Output Language:** Follow the OpenCode user-language preference in `opencode/AGENTS.md` for explanations, summaries, warnings, and confirmation questions.
 
 ## 5. Suggested PowerShell Workflow
 Use this style on Windows or PowerShell Core systems:

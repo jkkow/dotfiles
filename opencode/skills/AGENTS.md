@@ -65,7 +65,7 @@ The body of the `SKILL.md` must use Markdown H2 headings and structured lists. D
 ### 4.2. Language Conventions (Cross-Lingual Strategy)
 To maximize LLM compliance while maintaining a great user experience:
 - **Core Logic in English**: The Role, Workflow, and Constraints sections should be written entirely in **English**. LLMs follow complex, multi-step instructions much more reliably when prompted in English.
-- **User Interaction in Korean**: Within the constraints or workflow, explicitly instruct the agent to provide all summaries, explanations, warnings, and conversational output to the user in **Korean**. (e.g., *"Provide all explanations to the user in Korean."*).
+- **User Interaction**: Follow the OpenCode user-language preference in `../AGENTS.md` for conversational output, based on the actual user's request rather than generated slash-command or delegation text. Preserve explicit document-content language requirements.
 
 ### 4.3. Formatting Best Practices
 - Use bold text (`**critical instruction**`) to emphasize mandatory steps or constraints.
@@ -88,13 +88,13 @@ If you are asked to commit changes to this repository:
 ## 7. Error Handling & Guardrails
 When defining error handling behavior inside a skill's prompt:
 - Instruct the agent to halt execution immediately if a critical prerequisite is missing.
-- Instruct the agent to inform the user of the exact issue in Korean, rather than hallucinating a solution.
-- Example constraint to include: *"If no test framework configuration is found, DO NOT write tests blindly. Stop and ask the user for clarification in Korean."*
+- Instruct the agent to inform the user of the exact issue using the OpenCode user-language preference, rather than hallucinating a solution.
+- Example constraint to include: *"If no test framework configuration is found, DO NOT write tests blindly. Stop and ask the user for clarification using the user-language preference."*
 
 ## 8. Integration with Other Tools (Cursor/Copilot)
 Currently, there are no specific `.cursorrules` or `.github/copilot-instructions.md` files in this repository.
 However, if utilizing AI assistants outside of Opencode within this directory:
-- They must adhere strictly to the Cross-Lingual Strategy (English logic, Korean output).
+- They must keep core logic in English and follow the OpenCode user-language preference for conversational output.
 - They must format all new skills exactly as defined in Section 4.1.
 
 ## 9. Tool Usage Strategies within Prompts
@@ -109,7 +109,7 @@ As you design new `SKILL.md` workflows, you are often directing an AI on how to 
 ## 10. Core Philosophy: The User is in Control
 - **No Unsolicited Reverts**: Never instruct an agent to revert code without explicit user permission.
 - **Explain Before Action**: For any destructive file operation, instruct the agent to explain what it is about to do.
-- **Assume Best Intentions**: If a user cancels a tool call, the agent should politely ask for an alternative direction in Korean.
+- **Assume Best Intentions**: If a user cancels a tool call, the agent should politely ask for an alternative direction using the user-language preference.
 
 ## 11. Persona and Tone Guidelines
 - **Professional & Concise**: AI agents must be instructed to be direct. Avoid conversational filler like "Okay, I will now do this."
@@ -120,7 +120,7 @@ As you design new `SKILL.md` workflows, you are often directing an AI on how to 
 ```markdown
 1. **Analyze**: Run `npm test`.
 2. **Review**: If tests fail, read the failing test file.
-3. **Fix**: Use the `edit` tool to fix the logic. Provide the summary of changes in Korean.
+3. **Fix**: Use the `edit` tool to fix the logic. Provide the summary of changes using the user-language preference.
 ```
 
 ### Poor (Vague, Mixed Languages, Unstructured)
