@@ -7,3 +7,6 @@ scrolloff = 15
 [editor.soft-wrap]
 enable = true
 max-indent-retain = 40
+
+[keys.insert]
+l = { k = "normal_mode" }

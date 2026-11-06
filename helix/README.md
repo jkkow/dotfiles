@@ -30,6 +30,30 @@ background and opacity settings.
 Line numbers are relative, scrolloff is 15 lines, and soft wrapping retains up
 to 40 columns of indentation. Restart Helix after changing the theme file.
 
+## Editing keys
+
+In insert mode, `lk` returns to normal mode. Because `l` is a key-sequence
+prefix, Helix waits for the next key before inserting it. In Helix 25.07.1,
+typing `la` inserts both characters, even after a pause; typing `lk` instead
+exits insert mode without inserting those letters. This shortcut therefore
+conflicts with typing a literal `lk`. If `l` is pending, the first `Esc`
+resolves the pending input and another `Esc` exits insert mode.
+
+Other custom Neovim workflows use Helix defaults where possible:
+
+- `%` selects the whole file; `Ctrl-a` retains its default increment action.
+- `Alt-d` deletes the current selection without yanking. Helix's `x` selects a
+  line rather than deleting a character; select the desired text first.
+- `[d` and `]d` move between diagnostics; `Space d` and `Space D` open document
+  and workspace diagnostic pickers. They do not reproduce Neovim's diagnostic
+  floating window or location list exactly.
+- `Space y` and `Space p` use the system clipboard. The SSH-specific Neovim
+  OSC 52 mapping is a separate workflow and has not been verified here.
+
+Harpoon's saved quick menu, the Snacks terminal, and the OpenCode editor
+integration do not have equivalent bindings in this configuration. `Space b`
+opens a buffer picker, but it is not a persistent Harpoon list.
+
 ## Python
 
 Install the language servers as standalone `uv` tools:
@@ -57,9 +81,14 @@ hx path/to/file.py
 On POSIX shells, use `export PATH="$(uv tool dir --bin):$PATH"` for the current
 session. If Helix is launched from another application, that application must
 also supply the PATH. Persistent PATH configuration is a separate choice.
+Helix resolves the server commands through its inherited PATH; it does not use
+Neovim's project `.venv`-first tool resolver. Activate a project environment or
+otherwise adjust PATH before launching Helix if its server tools should win.
 
 For verification, `hx --health python` should find both language servers. Open a
 Python project from its root, introduce a type error to check BasedPyright's
 diagnostics, and run `:format` on unformatted code to check Ruff. BasedPyright
 uses its Python environment discovery and project settings; a project's virtual
 environment must be discoverable for its packages to resolve.
+This interpreter and package discovery is separate from choosing the server
+executables on PATH.
