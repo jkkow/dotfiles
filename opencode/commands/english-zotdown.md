@@ -10,6 +10,14 @@ command only, override the skill's empty `pid` with the single YAML scalar
 `pid: jkko.resource.english`; retain the other frontmatter fields and their order.
 Never overwrite an existing note.
 
+For each new note from this command, set the frontmatter `title` to exactly
+`English practice`, preserving capitalization. Include that title in `aliases`
+and add relevant, search-friendly Korean and English variants as appropriate,
+following the skill's inline YAML list and escaping rules. Select `keywords`
+from the main English words and phrases actually taught or present in the note,
+rather than incidental topics. Follow the skill's minimum keyword and escaping
+guidance, including its exception for extremely short notes.
+
 The user's optional topic or range is: $ARGUMENTS
 
 If no transferred source is supplied, use the optional topic or range to select
@@ -83,7 +91,10 @@ Generalize explanatory prose to normal situations; preserve source quotations
 exactly, including any environment names they contain.
 
 Verify the saved note using the skill's checks, including that its `pid` is exactly
-the single scalar `jkko.resource.english`. Only after verification, open it in
+the single scalar `jkko.resource.english`, its title is exactly `English practice`,
+its aliases include the title and relevant search variants, and its keywords are
+grounded in the English words and phrases taught or present in the note. Only after
+verification, open it in
 Obsidian using an `obsidian://open` URI with vault `jkko-notes` and the actual
 vault-relative note path, URL-encoding the parameter values. On Windows, launch
 the URI with PowerShell `Start-Process`; on other platforms, use the appropriate
