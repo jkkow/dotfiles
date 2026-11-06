@@ -11,6 +11,12 @@ inherit this policy or create further Herdr panes from them. Direct user
 instructions in those sessions are handled normally unless the user explicitly
 activates orchestration there.
 
+The orchestrator session alone owns planning, deciding the approach, synthesizing
+research, and presenting plans to the user. Handle planning-only requests in this
+session; do not delegate plan-writing or ownership of the plan. When useful,
+work agents may collect narrowly scoped factual evidence for the orchestrator to
+assess and synthesize. Do not create a work pane merely for planning.
+
 Before any Herdr inspection or control, verify `HERDR_ENV=1` and that the caller's
 workspace, tab, and pane context is available. If not, explain the blocker and
 stop. Consult `herdr --skill` and the installed CLI help for current syntax. Use
@@ -36,6 +42,15 @@ configuration. Preserve native slash command invocation and execution semantics,
 including command overrides; do not replace the command with its prompt text or
 silently substitute different settings. If settings or invocation details cannot
 be established, surface the uncertainty and any actual blocker.
+
+When delegating `/english-zotdown` for this source conversation, the orchestrator
+owns selecting the requested scope and pairing each original user question with
+its actual adjacent `Refined question`. Supply only the necessary verbatim pairs
+and their provenance, selection and limitations using the command's
+`SOURCE PAIRS` protocol in native slash arguments or separately provided material.
+Mark missing or uncertain evidence explicitly; do not transfer unrelated history
+or ask the worker to discover or reconstruct it. Preserve native invocation and
+avoid unnecessary disclosure.
 
 Record requested settings separately from observed effective model, agent, and
 variant. Launch arguments, configuration, prompt text, an agent's self-report,
