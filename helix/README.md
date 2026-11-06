@@ -54,6 +54,34 @@ Harpoon's saved quick menu, the Snacks terminal, and the OpenCode editor
 integration do not have equivalent bindings in this configuration. `Space b`
 opens a buffer picker, but it is not a persistent Harpoon list.
 
+## Markdown, Quarto, and R Markdown
+
+Install Panache as a standalone tool with `uv tool install panache-cli`. The
+`panache` command must be on the PATH inherited by Helix; `uv tool dir --bin`
+shows the tool executable directory. Confirm with `panache --version` and
+`hx --health markdown`, `hx --health quarto`, and `hx --health rmarkdown`.
+Restart Helix after changing `languages.toml` or its inherited PATH.
+
+Open Helix from the project root, for example `hx path/to/document.qmd` from
+that directory. The language settings include `.panache.toml`, `panache.toml`,
+`_quarto.yml`, `.quarto`, and `.git` as root markers. Root selection is not
+identical to Neovim's: in a Helix 25.07.1 test launched from a nested directory,
+an ancestor `.panache.toml` alone did not become the LSP root. Helix uses the
+PATH command and does not implement Neovim's project-local executable lookup.
+
+Panache handles `.md`, `.qmd`, `.rmd`, and `.Rmd` diagnostics and navigation;
+Markdown's default Marksman and Markdown Oxide servers are replaced to avoid
+duplicate Markdown diagnostics. R Markdown retains Helix's default R server
+alongside Panache; it also needs `R` and its language server to be installed.
+When available, its interactions with Panache should be checked per project.
+Try a missing footnote and `Space d`, or place the cursor on a defined footnote
+reference and press `gd`.
+
+Panache formatting is excluded from Helix LSP formatting, matching the Neovim
+Panache override. `:format` will not use Panache for these documents; another
+configured formatter or the retained R server may have its own formatting
+behavior. This is separate from Python's manually invoked Ruff formatting below.
+
 ## Python
 
 Install the language servers as standalone `uv` tools:

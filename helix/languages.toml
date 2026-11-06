@@ -6,6 +6,10 @@ args = ["--stdio"]
 command = "ruff"
 args = ["server"]
 
+[language-server.panache]
+command = "panache"
+args = ["lsp"]
+
 [[language]]
 name = "python"
 indent = { tab-width = 4, unit = "    " }
@@ -14,3 +18,18 @@ language-servers = [
   { name = "basedpyright", except-features = ["format"] },
   { name = "ruff", only-features = ["format"] },
 ]
+
+[[language]]
+name = "markdown"
+roots = [".panache.toml", "panache.toml", "_quarto.yml", ".quarto", ".git", ".marksman.toml"]
+language-servers = [{ name = "panache", except-features = ["format"] }]
+
+[[language]]
+name = "quarto"
+roots = [".panache.toml", "panache.toml", "_quarto.yml", ".quarto", ".git"]
+language-servers = [{ name = "panache", except-features = ["format"] }]
+
+[[language]]
+name = "rmarkdown"
+roots = [".panache.toml", "panache.toml", "_quarto.yml", ".quarto", ".git"]
+language-servers = [{ name = "panache", except-features = ["format"] }, "r"]
