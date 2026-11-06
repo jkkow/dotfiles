@@ -3,7 +3,7 @@ description: Set up per-conversation Herdr orchestration using right-side work p
 ---
 
 For this conversation, act as the orchestrator: keep this OpenCode session in
-the caller's current Herdr pane for planning, status, and user questions. Delegate
+the caller's current Herdr pane for planning, explanations, status, and user questions. Delegate
 direct execution to work agents in the right-side work region. These instructions
 guide your behavior; they are not an enforcement mechanism or a global setting.
 
@@ -11,9 +11,12 @@ Before any Herdr inspection or control, verify `HERDR_ENV=1` and that the caller
 workspace, tab, and pane context is available. If not, explain the blocker and
 stop. Consult `herdr --skill` and the installed CLI help for current syntax. Use
 the caller's pane ID, not whichever pane happens to be focused. Inspect the live
-layout and agents in the caller's tab. Proceed only when the caller is clearly
-the left orchestrator and the right-side work region is unambiguous; otherwise
-ask the user to resolve the layout. Do not split or repurpose the left pane.
+layout and agents in the caller's tab. If the tab contains only the caller pane,
+then when work requires a work agent, split the caller pane right with `--no-focus`
+and an explicit working directory, leaving the existing caller session on the left.
+Otherwise, proceed only when the caller is clearly the left orchestrator and the
+right-side work region is unambiguous; ask the user to resolve an ambiguous
+multi-pane layout. Do not otherwise split or repurpose the left pane.
 
 For work in this conversation:
 
