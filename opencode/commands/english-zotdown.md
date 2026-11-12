@@ -7,13 +7,17 @@ Create one English-learning zotdown note from the selected source conversation. 
 `zotdown-note-creator` skill and follow its instructions for storage, naming,
 frontmatter, Korean explanatory text, formatting, and verification. For this
 command only, override the skill's empty `pid` with the single YAML scalar
-`pid: jkko.resource.english`; retain the other frontmatter fields and their order.
+`pid: jkko.resource.english` and its target requirement with `target: [JKKO]`;
+retain the other frontmatter fields and their order.
 Never overwrite an existing note.
 
-For each new note from this command, set the frontmatter `title` to exactly
-`English practice`, preserving capitalization. Include that title in `aliases`
-and add relevant, search-friendly Korean and English variants as appropriate,
-following the skill's inline YAML list and escaping rules. Select `keywords`
+For each new note from this command, set the frontmatter `title` to
+`English questions: <primary subject>`, replacing `<primary subject>` with a
+concise description derived from the selected source conversation and preserving
+the capitalization of `English questions`. Include the exact generated title in
+`aliases` and add relevant, search-friendly Korean and English variants as appropriate,
+following the skill's inline YAML list and escaping rules; quote the title and its
+alias as needed for the colon. Select `keywords`
 from the main English words and phrases actually taught or present in the note,
 rather than incidental topics. Follow the skill's minimum keyword and escaping
 guidance, including its exception for extremely short notes.
@@ -91,8 +95,10 @@ Generalize explanatory prose to normal situations; preserve source quotations
 exactly, including any environment names they contain.
 
 Verify the saved note using the skill's checks, including that its `pid` is exactly
-the single scalar `jkko.resource.english`, its title is exactly `English practice`,
-its aliases include the title and relevant search variants, and its keywords are
+the single scalar `jkko.resource.english`, its target is exactly `[JKKO]`, its title
+follows `English questions: <primary subject>` with the subject derived from the
+selected source, its aliases include the exact generated title and relevant search
+variants, and its keywords are
 grounded in the English words and phrases taught or present in the note. Only after
 verification, open it in
 Obsidian using an `obsidian://open` URI with vault `jkko-notes` and the actual

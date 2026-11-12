@@ -5,27 +5,38 @@
   "instructions": [
     "AGENTS.md"
   ],
+  "permissions": [
+    { "action": "external_directory", "resource": "*", "effect": "ask" }
+  ],
+  "experimental": {
+    "todo": true
+  },
   "mcp": {
-    "solidcraft": {
-      "type": "local",
-      "command": [
-        "C:\\Users\\jkkow\\.local\\opt\\solidcraft-0.30.0-windows-x64-portable\\solidcraft-cli.exe",
-        "mcp",
-        "--allow-path",
-        "C:\\Users\\jkkow\\Downloads"
-      ],
-      "enabled": true,
-      "timeout": 330000
-    },
-    "freecad": {
-      "type": "local",
-      "command": [
-        "uv",
-        "--directory",
-        "C:\\Users\\jkkow\\.local\\opt\\mcp\\freecad-mcp",
-        "run",
-        "freecad-mcp"
-      ]
+    "servers": {
+      "solidcraft": {
+        "type": "local",
+        "command": [
+          "C:\\Users\\jkkow\\.local\\opt\\solidcraft-0.30.0-windows-x64-portable\\solidcraft-cli.exe",
+          "mcp",
+          "--allow-path",
+          "C:\\Users\\jkkow\\Downloads"
+        ],
+        "disabled": false,
+        "timeout": {
+          "catalog": 330000,
+          "execution": 330000
+        }
+      },
+      "freecad": {
+        "type": "local",
+        "command": [
+          "uv",
+          "--directory",
+          "C:\\Users\\jkkow\\.local\\opt\\mcp\\freecad-mcp",
+          "run",
+          "freecad-mcp"
+        ]
+      }
     }
   }
 }

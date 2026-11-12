@@ -5,4 +5,5 @@
 
 # Generated and maintained by Herd's OpenCode integration
 /herdr-tui-session.js
+/herdr-opencode/
 /plugins/herdr-agent-state.js

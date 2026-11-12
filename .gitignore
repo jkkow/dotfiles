@@ -1,6 +1,9 @@
 # Runtime artifacts
 *.log
 
+# Local OpenCode service registration can contain credentials.
+/opencode/service.json
+
 # Independently managed configurations
 /lazygit/
 /nvim/
