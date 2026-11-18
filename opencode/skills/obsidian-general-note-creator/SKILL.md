@@ -1,6 +1,6 @@
 ﻿---
-name: obsidian-note-creator
-description: "Use when creating Obsidian notes, session notes, concept notes, or PKM notes in the jkko-notes vault; handles vault path detection, YAML rules, WikiLinks, Korean body text, and Obsidian LaTeX math rendering. 트리거: 노트 생성, Obsidian note 생성, obsidian-note-generator, 수식 렌더링, PKM note."
+name: obsidian-general-note-creator
+description: "Use for general Obsidian concept or PKM note creation in the jkko-notes vault when a more specific note-creation skill does not apply; handles YAML, WikiLinks, Korean body text, and Obsidian LaTeX math. 트리거: 노트 생성, Obsidian note 생성, 개념 노트, PKM note."
 ---
 
 # Role

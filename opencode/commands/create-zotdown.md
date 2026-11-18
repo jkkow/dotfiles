@@ -3,7 +3,7 @@ description: Create a zotdown note about a selected subject from the current ses
 model: openai/gpt-6.1-terra
 ---
 
-Create a zotdown note from the current conversation using the `zotdown-note-creator` skill. Load the skill and follow its instructions for creating and verifying the note.
+Create a zotdown note from the current conversation using the `obsidian-zotdown-note-creator` skill. Load the skill and follow its instructions for creating and verifying the note.
 
 The user's optional subject is: $ARGUMENTS
 

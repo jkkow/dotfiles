@@ -1,6 +1,6 @@
 ---
-name: "zotdown-note-creator"
-description: "Use when creating a zotdown note from the current conversation or selected session content in the jkko-notes vault. Trigger keywords: zotdown note 생성, zotdown 노트 생성, 대화 요약 노트, 세션 정리, conversation note, session summary."
+name: "obsidian-zotdown-note-creator"
+description: "Use when creating a zotdown note or an English-learning note from the current conversation or selected session content in the jkko-notes vault. Trigger keywords: zotdown note 생성, 대화 요약 노트, 세션 정리, conversation note, session summary, 영어 학습 노트, English-learning note."
 ---
 
 # Zotdown Note Creator
@@ -10,6 +10,8 @@ description: "Use when creating a zotdown note from the current conversation or 
 - Your main objective is to create a concise, well-structured zotdown note from part or all of the current conversation, using the exact zotdown frontmatter pattern and saving it in the required vault folder.
 
 ## 2. Instructions
+For an English-learning note based on user questions and refined questions, read and follow `C:/Users/jkkow/.config/opencode/commands/english-zotdown.md` as the specialized workflow, including its explicit overrides and verification; do not treat the command's `$ARGUMENTS` placeholder as source material. Apply it whether the request is in natural language or uses `/english-zotdown`.
+
 Strictly follow these steps to complete the task:
 1. **Analyze:** Determine the user's requested scope from the current conversation. If the user asks for "all", consider the full relevant session; if the user asks for "some" or names a topic, use only that requested portion. Use the scoped conversation to select the central topic and relevant facts, including applicable decisions, commands, errors, fixes, and verification results. Derive the title, aliases, and keywords from the selected subject.
 2. **Locate:** Verify that the vault root exists at `C:\Users\jkkow\Dropbox\Obsidian\jkko-notes`. The note output directory MUST be `C:\Users\jkkow\Dropbox\Obsidian\jkko-notes\zMisc\zotdown`, equivalent to the vault-relative path `zMisc/zotdown/`.
@@ -17,6 +19,7 @@ Strictly follow these steps to complete the task:
 4. **Frontmatter:** Use the same field structure as `zMisc/Templates/zotdown.md`. Set `target` to exactly `JKKO` and `KSP`, generate `title`, create about three search-friendly `aliases` with Korean and English search variants when suitable, and generate English-centered `keywords` from the note content. Preserve the same field order, but write every YAML list property in one-line inline list format.
 5. **Write:** Explain the selected subject as a general, self-contained topic grounded in the relevant source facts, rather than recounting incidental session, pane, agent, or orchestration context. Include context the user explicitly requests. Draft the body in Korean as the primary language. Use concise declarative prose, H2-first sectioning, readable tables, bullets, task-oriented lists, code blocks for commands/config snippets, Obsidian-renderable `$$ ... $$` display math blocks for equations, and Obsidian WikiLinks for important tools, concepts, files, products, and names.
 6. **Review:** Before reporting success, read the created note and verify the file location, frontmatter shape, keyword quality, and Markdown compatibility.
+7. **Open the Note:** After saving and verifying the created note, unless the user explicitly declines, open the exact note in Obsidian using an `obsidian://open` URI with the actual vault name and vault-relative file path. Percent-encode both parameter values. Use the platform URI handler (Windows: `Start-Process`, macOS: `open`, Linux: `xdg-open`). Report the note path and whether the open request succeeded; if launching fails, keep the note and report the failure without claiming it opened. Do not open an unverified note. When the specialized English-learning workflow performs this step, open the note only once.
 
 ## 3. Constraints & Rules
 - **MUST DO:** Save every generated zotdown note under `C:\Users\jkkow\Dropbox\Obsidian\jkko-notes\zMisc\zotdown` only.

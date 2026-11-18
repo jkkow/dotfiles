@@ -4,7 +4,7 @@ model: openai/gpt-6.1-terra
 ---
 
 Create one English-learning zotdown note from the selected source conversation. Load the
-`zotdown-note-creator` skill and follow its instructions for storage, naming,
+`obsidian-zotdown-note-creator` skill and follow its instructions for storage, naming,
 frontmatter, Korean explanatory text, formatting, and verification. For this
 command only, override the skill's empty `pid` with the single YAML scalar
 `pid: jkko.resource.english` and its target requirement with `target: [JKKO]`;
