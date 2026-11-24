@@ -83,10 +83,27 @@ Structure the note body in exactly this H2 order:
    correct without qualification.
 2. `## Key Expressions`: Summarize reusable phrases from the selected examples
    with concise Korean explanations.
-3. `## Practice`: Provide newly composed, clearly labeled active recall exercises
-   grounded in the selected material, with clearly labeled example answers in
-   collapsible `<details>` blocks. Do not present exercises or answers as source
-   quotations.
+3. `## Practice`: Provide newly composed active recall exercises grounded in the
+   selected material. Start directly with a numbered list; do not add an
+   introductory disclaimer, including "다음 문장은 새로 만든 연습 문제이며 원문 인용이 아니다."
+   Each numbered item must be a complete, natural Korean sentence for the learner
+   to translate into English, not an instruction such as "질문하기" or an
+   `영작` label. Immediately after each item, provide its own collapsible
+   `<details>` block with `<summary>예시 보기</summary>` and one corresponding
+   English example answer. The Korean sentence and English answer must match
+   precisely in meaning, participants, and sentence type. Do not present
+   exercises or answers as source quotations. For example:
+
+   ```markdown
+   1. 실리카의 특징에 관한 노트를 만들어 주세요.
+
+   <details>
+   <summary>예시 보기</summary>
+
+   Please create a note about the characteristics of silica.
+
+   </details>
+   ```
 
 Do not add a scope-and-sources section. Briefly report inaccessible pairs or partial
 context near the relevant entry or in the final user report. If material is
@@ -99,7 +116,9 @@ the single scalar `jkko.resource.english`, its target is exactly `[JKKO]`, its t
 follows `English questions: <primary subject>` with the subject derived from the
 selected source, its aliases include the exact generated title and relevant search
 variants, and its keywords are
-grounded in the English words and phrases taught or present in the note. Only after
+grounded in the English words and phrases taught or present in the note. Also
+verify that every practice item has its own collapsible answer and that the
+Korean and English sentences match in meaning. Only after
 verification, open it in
 Obsidian using an `obsidian://open` URI with vault `jkko-notes` and the actual
 vault-relative note path, URL-encoding the parameter values. On Windows, launch
